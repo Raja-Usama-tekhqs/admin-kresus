@@ -1,0 +1,774 @@
+/* Custom styles for Select component */
+.custom-select .ant-select-selector {
+    border: 1px solid #b6b8bd !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    color: #d8dde6 !important;
+    padding: 0px 2px 2px  6px !important;
+}
+
+.custom-select:hover .ant-select-selector {
+    border-color: #0a0c0e !important;
+}
+
+.custom-select.ant-select-focused .ant-select-selector {
+    border-color: #2b3138 !important;
+    box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2) !important;
+}
+
+/* Style for the selected value */
+.custom-select .ant-select-selection-item {
+    font-weight: 600 !important;
+    color: #2d3748 !important;
+    padding: 0px 2px 2px  6px !important;
+}
+
+/* Style for the dropdown arrow */
+.custom-select .ant-select-arrow {
+    color: #4a5568 !important;
+    font-size: 14px !important;
+}
+
+/* Style for the dropdown menu */
+.custom-select-dropdown {
+    border: 2px solid #4a5568 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Style for dropdown options */
+.custom-select-option {
+    font-weight: 500 !important;
+    padding: 8px 12px !important;
+}
+
+.custom-select-option:hover {
+    background-color: #ebf8ff !important;
+}
+
+/* Style for the selected option in dropdown */
+.ant-select-item-option-selected {
+    background-color: #bee3f8 !important;
+    font-weight: 600 !important;
+}
+
+/* Style for placeholder */
+.custom-select .ant-select-selection-placeholder {
+    color: #718096 !important;
+    font-weight: 500 !important;
+}
+
+/* Custom styles for Input and DatePicker components */
+.custom-select-input .ant-input,
+.custom-select-input .ant-input-search-button,
+.custom-select-input .ant-picker {
+    border: 1px solid #b6b8bd !important;
+    border-radius: 6px !important;
+    font-weight: 200 !important;
+    color: #d8dde6 !important;
+}
+
+.custom-select-input .ant-input:hover,
+.custom-select-input .ant-picker:hover {
+    border-color: #0a0c0e !important;
+}
+
+.custom-select-input .ant-input:focus,
+.custom-select-input .ant-input-focused,
+.custom-select-input .ant-picker-focused {
+    border-color: #2b3138 !important;
+    box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2) !important;
+}
+
+.custom-select-input .ant-input-search-button {
+    border-left: none !important;
+    background-color: #4a5568 !important;
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+.custom-select-input .ant-input-search-button:hover {
+    background-color: #3f454b !important;
+}
+
+.custom-select-input .ant-picker-input > input {
+    font-weight: 600 !important;
+    color: #8a8e96 !important;
+}
+
+.custom-select-input .ant-picker-suffix {
+    color: #4a5568 !important;
+}
+
+.custom-select-input .ant-input::placeholder {
+    color: #718096 !important;
+    font-weight: 500 !important;
+}
+
+/* Style for DatePicker dropdown */
+.custom-select-input .ant-picker-dropdown {
+    border: 2px solid #4a5568 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.custom-select-input .ant-picker-dropdown .ant-picker-cell {
+    color: #4a5568 !important;
+}
+
+.custom-select-input .ant-picker-dropdown .ant-picker-cell:hover {
+    background-color: #ebf8ff !important;
+}
+
+.custom-select-input .ant-picker-dropdown .ant-picker-cell-selected {
+    background-color: #bee3f8 !important;
+    font-weight: 600 !important;
+}
+
+.custom-select-input .ant-picker-dropdown .ant-picker-today-btn {
+    color: #2b6cb0 !important;
+    font-weight: 600 !important;
+}
+
+.custom-select-input .ant-picker-dropdown .ant-picker-header-view button {
+    font-weight: 600 !important;
+    color: #2d3748 !important;
+}
+
+.custom-select-input .ant-picker-dropdown .ant-picker-header-super-prev-btn,
+.custom-select-input .ant-picker-dropdown .ant-picker-header-super-next-btn {
+    color: #4a5568 !important;
+}
+
+/* Table Styles */
+.analytics-table {
+    width: 100%;
+    background-color: white;
+    font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+    .analytics-table {
+        font-size: 1rem;
+    }
+}
+
+.analytics-table thead tr {
+    background: linear-gradient(to right, #05025e, #05025e);
+    color: #fff;
+}
+
+.analytics-table th {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #0b3b99;
+    font-weight: 600;
+    text-align: left;
+    color: #e1e4e8;
+}
+
+.analytics-table tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+    transition: background-color 0.2s ease;
+}
+
+.analytics-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.analytics-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+.analytics-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.analytics-table .total-row {
+    background: linear-gradient(to right, #05025e, #05025e);
+    font-weight: 600;
+    color: #fff;
+}
+
+.analytics-table .total-row td {
+    border-bottom: none;
+}
+
+/* Address Cell Styles */
+.address-cell {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.address-text {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.875rem;
+    background-color: #f9fafb;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #e5e7eb;
+}
+
+.copy-button {
+    padding: 0.375rem;
+    border-radius: 9999px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+}
+
+.copy-button:hover {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+}
+
+.copy-button .copy-icon {
+    color: #9ca3af;
+    transition: color 0.2s ease;
+}
+
+.copy-button:hover .copy-icon {
+    color: #3b82f6;
+}
+
+.copy-button.copied .copy-icon {
+    color: #22c55e;
+}
+
+/* Chain Token Count Styles */
+.chain-token-count {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 120px;
+}
+
+.chain-token-row {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    min-width: 120px;
+}
+
+.chain-name {
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.token-count {
+    font-weight: 600;
+    color: #2563eb;
+}
+
+/* Token List Styles */
+.token-list {
+    list-style-type: decimal;
+    padding-left: 1rem;
+}
+
+.token-list li {
+    margin-bottom: 0.25rem;
+}
+
+.token-list .chain-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-left: 0.25rem;
+}
+
+/* Table Container Styles */
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.table-container .min-w-full {
+    min-width: 1200px;
+}
+
+/* Chain Token Count Styles */
+.chain-token-count {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    min-width: 120px;
+}
+
+.chain-token-row {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    min-width: 120px;
+}
+
+/* Token Modal Styles */
+.token-modal .ant-modal-content {
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 0.875rem;
+    height: 80vh;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.token-modal .ant-modal-header {
+    background: linear-gradient(to right, #f0f9ff, #e0f2fe);
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.token-modal .ant-modal-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #1f2937;
+    padding: 8px 12px;
+}
+
+.token-modal .ant-modal-body {
+    padding: 0;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.token-modal .user-info {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background-color: #f9fafb;
+    padding: 6px 10px;
+    border-radius: 0;
+    border-bottom: 1px solid #e5e7eb;
+    margin: 0;
+    font-size: 0.875rem;
+}
+
+.token-modal .user-info p {
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.token-modal .user-info .label {
+    font-weight: 600;
+    color: #4b5563;
+    min-width: 100px;
+    font-size: 0.875rem;
+}
+
+.token-modal .user-info .value {
+    color: #1f2937;
+    word-break: break-all;
+    font-size: 0.875rem;
+}
+
+/* Token Tabs Styles */
+.token-tabs .ant-tabs-nav {
+    background: #f8fafc;
+    padding: 8px 8px 0;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+    border: 1px solid #e5e7eb;
+    border-bottom: none;
+}
+
+.token-tabs .ant-tabs-tab {
+    padding: 6px 12px;
+    margin: 0 4px;
+    border-radius: 6px 6px 0 0;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-bottom: none;
+    transition: all 0.2s ease;
+}
+
+.token-tabs .ant-tabs-tab:hover {
+    background: #f1f5f9;
+}
+
+.token-tabs .ant-tabs-tab-active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.token-tabs .ant-tabs-tab-active .tab-label {
+    color: white;
+}
+
+.token-tabs .ant-tabs-tab-active .token-count {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.token-tabs .tab-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+    color: #64748b;
+}
+
+.token-tabs .token-count {
+    background: #f1f5f9;
+    padding: 1px 6px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+/* Token Table Styles */
+.token-table {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.875rem;
+}
+
+.token-table .ant-table-container {
+    border-radius: 6px;
+}
+
+.token-table .ant-table-thead > tr > th {
+    background: #f0f9ff;
+    padding: 6px 8px;
+    white-space: nowrap;
+}
+
+.token-table .ant-table-tbody > tr > td {
+    padding: 6px 8px;
+    white-space: nowrap;
+}
+
+.token-table .ant-table-tbody > tr > td:first-child {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Chain Summary Styles */
+.chain-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 12px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+}
+
+.chain-card {
+    position: relative;
+    padding: 8px 12px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.chain-card[data-chain="base-mainnet"] {
+    background: #eef2ff;
+    border: 1px solid #c7d2fe;
+}
+
+.chain-card[data-chain="solana-mainnet"] {
+    background: #fdf4ff;
+    border: 1px solid #f5d0fe;
+}
+
+.chain-card[data-chain="worldchain-mainnet"] {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.chain-card.total-card {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    border: none;
+    color: white;
+}
+
+.chain-card .chain-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chain-card .chain-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.chain-card[data-chain="base-mainnet"] .chain-name {
+    color: #4338ca;
+}
+
+.chain-card[data-chain="solana-mainnet"] .chain-name {
+    color: #7e22ce;
+}
+
+.chain-card[data-chain="worldchain-mainnet"] .chain-name {
+    color: #15803d;
+}
+
+.chain-card .chain-value {
+    font-size: 0.875rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.chain-card[data-chain="base-mainnet"] .chain-value {
+    background: #ffffff;
+    color: #4338ca;
+    border: 1px solid #c7d2fe;
+}
+
+.chain-card[data-chain="solana-mainnet"] .chain-value {
+    background: #ffffff;
+    color: #7e22ce;
+    border: 1px solid #f5d0fe;
+}
+
+.chain-card[data-chain="worldchain-mainnet"] .chain-value {
+    background: #ffffff;
+    color: #15803d;
+    border: 1px solid #bbf7d0;
+}
+
+.chain-card.total-card .chain-name,
+.chain-card.total-card .chain-value {
+    color: white;
+}
+
+.chain-card.total-card .chain-value {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.chain-card .token-count {
+    font-size: 0.7rem;
+    margin-top: 2px;
+}
+
+.chain-card[data-chain="base-mainnet"] .token-count {
+    color: #8984c7;
+}
+
+.chain-card[data-chain="solana-mainnet"] .token-count {
+    color: #7e22ce;
+}
+
+.chain-card[data-chain="worldchain-mainnet"] .token-count {
+    color: #15803d;
+}
+
+.chain-card .token-count strong {
+    font-weight: 700;
+}
+
+/* Address truncation styles */
+.truncated-address {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.75rem;
+    color: #1f2937;
+    background: #f3f4f6;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid #e5e7eb;
+}
+
+.truncated-address .start {
+    color: #2563eb;
+}
+
+.truncated-address .end {
+    color: #2563eb;
+}
+
+.truncated-address .separator {
+    color: #9ca3af;
+    margin: 0 2px;
+}
+
+/* Responsive styles */
+@media (max-width: 640px) {
+    .token-modal .ant-modal-content {
+        margin: 0px;
+        height: 80vh;
+        max-height: 90vh;
+    }
+    
+    .token-modal .ant-modal-body {
+        padding: 0px;
+    }
+    
+    .chain-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+        padding: 2px;
+    }
+    
+    .chain-card {
+        padding: 0px 0px;
+    }
+
+    .chain-card .chain-value {
+        font-size: 0.75rem;
+        padding: 2px 6px;
+    }
+
+    .token-tabs .ant-tabs-tab {
+        padding: 4px 8px;
+    }
+}
+
+/* Custom styles for export select */
+.export-select.ant-select {
+    width: 100% !important;
+    background-color: #fcfcfc !important;
+    color: #111010 !important;
+    border-radius: 6px !important;
+    
+}
+
+.export-select .ant-select-selector {
+    border: 2px solid #fcfcfc !important;
+    border-radius: 6px !important;
+   
+}
+
+.export-select .ant-select-arrow {
+    color: #faeded !important;
+    font-weight: bold !important;
+}
+
+.export-select:hover .ant-select-selector {
+    border-color: #efe4e4 !important;
+    box-shadow: none !important;
+}
+
+.export-select.ant-select-focused .ant-select-selector {
+    border-color: #f5ebeb !important;
+    box-shadow: none !important;
+}
+
+.export-select .ant-select-selection-item {
+    color: #111010 !important;
+    font-weight: 600 !important;
+}
+
+.export-select .ant-select-dropdown {
+    border: 2px solid #f1e8e8 !important;
+}
+
+.export-select .ant-select-item {
+    padding: 8px 12px !important;
+}
+
+.export-select .ant-select-item-option-selected {
+    background-color: #f0f0f0 !important;
+    font-weight: 600 !important;
+}
+
+.export-select .ant-select-item-option-active {
+    background-color: #f5f5f5 !important;
+}
+
+/* Loading state styles */
+.export-loading-state {
+    background: linear-gradient(to right, #0c5fb3, #0f6fce);
+    border: 2px solid #000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    gap: 12px;
+    width: 100%;
+    min-width: 140px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    color: #fff;
+}
+
+.export-loading-state::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% {
+        left: 100%;
+    }
+}
+
+.export-loading-state .ant-spin {
+    margin: 0;
+}
+
+.export-loading-state .ant-spin-dot {
+    font-size: 18px;
+}
+
+.export-loading-state .ant-spin-dot-item {
+    background-color: #fff;
+}
+
+.export-loading-state span {
+    font-weight: 600;
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* Responsive styles for loading state */
+@media (max-width: 640px) {
+    .export-loading-state {
+        padding: 8px 12px;
+        width: 100%;
+        min-width: unset;
+    }
+    
+    .export-loading-state span {
+        font-size: 13px;
+    }
+    
+    .export-loading-state .ant-spin-dot {
+        font-size: 16px;
+    }
+}
+
+/* Container styles to ensure consistent width */
+.flex.flex-col.w-full.sm\:flex-row {
+    gap: 12px !important;
+}
+
+@media (min-width: 640px) {
+    .flex.flex-col.w-full.sm\:flex-row {
+        gap: 16px !important;
+    }
+    
+    .export-loading-state {
+        width: auto;
+    }
+}
+
