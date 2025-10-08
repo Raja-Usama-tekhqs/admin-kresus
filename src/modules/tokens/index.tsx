@@ -68,8 +68,8 @@ const Index: React.FC = () => {
         >
           <div className="w-full">
             {/* Title Row */}
-            <div className=" text-center">
-              <h1 className="text-2xl sm:text-3xl font-bold text-white relative inline-block after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-gradient-to-r after:from-blue-500 after:to-blue-600 pb-4">
+            <div className="my-14">
+              <h1 className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0]  align-middle text-[#FFFFFF] sm:mx-20">
                 Token Management
               </h1>
             </div>
@@ -77,18 +77,19 @@ const Index: React.FC = () => {
             {/* Dropdown Row */}
 
             {/* Tabs */}
-            <div className="px-4 sm:px-6 mt-2 lg:px-8">
+            <div className="px-4 sm:px-6 mt-2 lg:px-8 mx-8 ">
               <Tabs
                 defaultActiveKey="active"
                 items={items}
-                className="custom-tabs"
+                className="custom-tabss  "
                 size="large"
                 onChange={handleTabChange}
                 tabBarStyle={{
-                  background: "#577BC1",
-                  padding: "0.5rem",
-                  borderRadius: "0.75rem",
+                  background: "#000000",
+                  borderRadius: "40px",
                   marginBottom: "2rem",
+                  marginLeft:"100px",
+                  marginRight:"100px"
                 }}
                 tabBarGutter={16}
               />

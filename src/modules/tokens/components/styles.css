@@ -18,26 +18,31 @@
 
 /* Tabs styles */
 .custom-tabs .ant-tabs-nav {
-    margin-bottom: 1.5rem !important;
-    border-bottom: none !important;
-    background: #d0dbe6 !important;
-    padding: 0.5rem !important;
-    border-radius: 0.75rem !important;
+   background: #000000 !important;
+  border-radius: 40px;
+  padding: 6px;
+  margin-bottom: 2rem;
+   margin-right: 150px;
+  margin-left: 10px;
 }
 
+
+.custom-tabs .ant-tabs-nav-list {
+   width: 100%;
+  display: flex;
+  justify-content: space-between;
+ 
+}
 .custom-tabs .ant-tabs-tab {
-    padding: 0.5rem 1.25rem !important;
-    margin: 0 !important;
-    font-size: 0.9375rem !important;
-    font-weight: 500 !important;
-    color: #525a66 !important;
-    transition: all 0.2s ease-in-out !important;
-    border: none !important;
-    background: transparent !important;
-    border-radius: 0.5rem !important;
-    position: relative !important;
-    height: 2.25rem !important;
-    line-height: 1.25rem !important;
+  flex: 1;
+  justify-content: center;
+  border-radius: 40px;
+  transition: all 0.3s ease;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
 }
 
 .custom-tabs .ant-tabs-tab:hover {
@@ -45,10 +50,19 @@
     background: rgba(37, 99, 235, 0.05) !important;
 }
 
-.custom-tabs .ant-tabs-tab.ant-tabs-tab-active {
-    background: #050e77 !important;
-    border-radius: 0.5rem !important;
-    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1) !important;
+.custom-tabs .ant-tabs-tab .ant-tabs-tab-active {
+    position: relative;
+  color: white !important;
+  border-radius: 40px;
+  padding: 2px; 
+border: 1px solid #1A26E7;
+ background:
+    linear-gradient(314.39deg, rgba(7, 52, 169, 0.35) 0%, rgba(14, 22, 150, 0.35) 53.42%, rgba(75, 7, 146, 0.35) 98.92%);
+  background-clip: padding-box, border-box;
+}
+.custom-tabs .ant-tabs-tab-active,
+.custom-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: white !important;
 }
 
 .custom-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -116,7 +130,7 @@
 /* Table styles */
 .ant-table {
     background: #f3f4f6 !important;
-    border-radius: 0.75rem !important;
+    /* border-radius: 0.75rem !important; */
     overflow: hidden !important;
 }
 
@@ -124,17 +138,20 @@
     background: #051270 !important;
     color: #e0e3e8 !important;
     font-weight: 700 !important;
-    padding: 1rem !important;
+    padding: 28px !important;
 }
 
 .ant-table-tbody > tr > td {
-    padding: 1rem !important;
-    border-bottom: 1px solid #e5e7eb !important;
-    color: #4b5563 !important;
+    /* padding: 1rem !important; */
+    border-bottom: 1px solid #7b7c7e !important;
+    color: #C7C7CC !important;
+    font-weight: 400;
+    font-size: small;
 }
 
 .ant-table-tbody > tr:hover > td {
     background: #f9fafb !important;
+    color: black !important
 }
 
 /* Pagination styles */
@@ -425,10 +442,12 @@
 
 .ant-checkbox .ant-checkbox-inner {
     border-radius: 0.25rem !important;
-    border: 2px solid #000000 !important;
+    border: 2px solid #4e3d3d !important;
     width: 18px !important;
     height: 18px !important;
     transition: all 0.2s ease-in-out !important;
+        background-color: #000000;
+
 }
 
 .ant-checkbox:hover .ant-checkbox-inner {
@@ -436,12 +455,13 @@
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #2563eb !important;
-    border-color: #2563eb !important;
+    background-color: #dadde4 !important;
+    border-color: #9B3CFF !important;
+    
 }
 
 .ant-checkbox-checked .ant-checkbox-inner::after {
-    border-color: white !important;
+    border-color: #9B3CFF !important;
     width: 6px !important;
     height: 10px !important;
     top: 45% !important;
@@ -452,6 +472,7 @@
 .ant-checkbox:hover .ant-checkbox-inner,
 .ant-checkbox-input:focus + .ant-checkbox-inner {
     border-color: #1c1d22 !important;
+    background-color: #ceb3b3;
 }
 
 /* Custom Select Dropdown Styling */
@@ -471,4 +492,147 @@
 
 .custom-select-dropdown .ant-select-selection-item {
     line-height: 38px !important;
+    color: white;
 } 
+
+
+
+
+
+/* Custom table styling */
+.active-token-table .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+.active-token-table {
+  background-color: #161616 !important;
+  border-radius: 24px !important;
+  overflow: hidden;
+  padding: 24px;
+}
+
+
+
+/* Table header */
+
+.active-token-table .ant-table-thead > tr > th {
+  background-color: #161616 !important;
+  color: #FFFFFF !important;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-style: normal; /* 'Medium' isn’t a valid value — use font-weight instead */
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  border: none !important;
+  text-align: left;
+  /* padding: 8px 20px; */
+}
+.active-token-table .ant-table-thead > tr > th {
+  border: none !important;
+}
+
+/* .active-token-table .ant-table-tbody  {
+  background-color: #cc0d0d !important;
+ border-radius: 24px;
+ border:#991b1b;
+ padding: 12px;
+} */
+
+/* Table body rows */
+.active-token-table .ant-table-tbody > tr {
+  background-color: #0B0B0B !important;
+  border-bottom: 1px solid #2C2C2E !important;
+  border-radius: 24px;
+}
+
+
+.active-token-table .ant-table-container {
+  border-radius: 24px;
+
+}
+/* 
+.custom-table .ant-table-tbody > tr:hover {
+  background-color: #1C1C1E !important;
+} */
+
+.custom-table .ant-table-tbody > tr > td {
+  color: #FFFFFF !important;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  /* padding: 16px 20px; */
+}
+.active-token-table .ant-table-cell {
+  border-right: none !important;
+}
+
+/* Pagination styling */
+.active-token-table .ant-pagination {
+  color: #9ca3af !important; /* gray-400 equivalent */
+}
+
+/* Normal pagination items */
+.active-token-table .ant-pagination-item {
+  background-color: transparent !important;
+  border: 1px solid #9ca3af !important; /* gray-400 border */
+  color: #9ca3af !important; /* gray-400 text */
+  border-radius: 9999px !important; /* rounded-full */
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.active-token-table .ant-pagination-item:hover {
+  background-color: #4b5563 !important; /* gray-600 on hover */
+  border-color: #4b5563 !important;
+  color: white !important;
+}
+
+/* Active page item */
+.active-token-table .ant-pagination-item-active {
+  border: 1px solid #9B3CFF !important; /* now it will show */
+  color: white !important;
+  background: transparent !important; /* optional if you removed gradient */
+}
+/* Pagination links (numbers) */
+.active-token-table .ant-pagination-item a {
+  color: #9ca3af !important; /* gray-400 */
+}
+
+/* Active page text color */
+.active-token-table .ant-pagination-item-active a {
+  color: white !important;
+}
+
+/* Previous/Next arrows */
+.active-token-table .ant-pagination-prev .ant-pagination-item-link,
+.active-token-table .ant-pagination-next .ant-pagination-item-link {
+  color: #9ca3af !important;
+  border: 1px solid #9ca3af !important;
+  border-radius: 9999px !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease;
+}
+
+.active-token-table .ant-pagination-prev:hover .ant-pagination-item-link,
+.active-token-table .ant-pagination-next:hover .ant-pagination-item-link {
+  background-color: #4b5563 !important;
+  color: white !important;
+}
+
+.active-token-table .ant-pagination-options,
+.active-token-table .ant-pagination-options .ant-select,
+.active-token-table .ant-pagination-options .ant-select-selector,
+.active-token-table .ant-pagination-options .ant-select-selection-item {
+  color: #C7C7CC !important;
+  border-color: #9ca3af !important; /* optional: keep consistent gray border */
+  background: transparent !important;
+  border-radius: 40px;
+}
+
+/* Dropdown arrow and icon */
+.active-token-table .ant-pagination-options .ant-select-arrow {
+  color: #C7C7CC !important;
+}
+

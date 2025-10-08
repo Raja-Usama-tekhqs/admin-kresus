@@ -1,7 +1,16 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 import { useEffect, useState, useMemo } from "react";
-import { Card, DatePicker, message, Select, Skeleton, Image } from "antd";
+import {
+  Card,
+  DatePicker,
+  message,
+  Select,
+  Skeleton,
+  Image,
+  Tabs,
+  TabsProps,
+} from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import useApiClient from "hooks/useApiClient";
 import "./index.css";
@@ -11,9 +20,10 @@ import solanaa from "../../../assets/allAssets/solanaa.png";
 import base from "../../../assets/allAssets/base.png";
 import worldchain from "../../../assets/allAssets/worldchain.png";
 import homePage from "../../../assets/allAssets/homePage.png";
-import { IoFilterSharp } from "react-icons/io5";
 import { FcCalendar } from "react-icons/fc";
-
+import { kresusAssets } from "assets";
+import AnalyticsHolding from "./analyticsHolding";
+import VolumeAnalytics from "./volumeAnalytics";
 interface VolumeItem {
   chain: string;
   total_volume: string;
@@ -91,6 +101,8 @@ const MonthlyActive = () => {
     deposit: [],
     withdraw: [],
   });
+  const [activeTab, setActiveTab] = useState<string>("active");
+
   const [activeUserStats, setActiveUserStats] =
     useState<ActiveUserResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -445,6 +457,27 @@ const MonthlyActive = () => {
     [volumeData, earnMetrics]
   );
 
+  const items: TabsProps["items"] = [
+    {
+      key: "active",
+      label: "Holding Analytics",
+      children: <AnalyticsHolding activeTab={activeTab} />,
+    },
+    {
+      key: "volume",
+      label: "Volume Analytics",
+      children:' <VolumeAnalytics activeTab={activeTab} />,'
+    },
+    {
+      key: "transaction",
+      label: "Transactions Analytics",
+      children: "",
+    },
+  ];
+
+  const handleTabChange = (key: string) => {
+    setActiveTab(key);
+  };
   const augmentedTransactionData = useMemo(
     () =>
       transactionData.map((t) => {
@@ -470,13 +503,15 @@ const MonthlyActive = () => {
   const renderActiveUserCard = () => (
     <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616]  p-[24px] rounded-[24px]">
       <Card
-      style={{
-        // background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
-        // backgroundSize: "cover",
-        // backgroundPosition: "center",
-        // backgroundRepeat: "no-repeat",
-        // backgroundAttachment: "fixed",
-      }}
+        style={
+          {
+            // background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
+            // backgroundSize: "cover",
+            // backgroundPosition: "center",
+            // backgroundRepeat: "no-repeat",
+            // backgroundAttachment: "fixed",
+          }
+        }
       >
         {loading || !activeUserStats ? (
           <Skeleton active paragraph={{ rows: 4 }} />
@@ -485,22 +520,22 @@ const MonthlyActive = () => {
             {[
               {
                 label: "Monthly Active",
-                icon: "📅",
+                icon: kresusAssets.calendar,
                 value: activeUserStats.monthlyActiveUsers,
               },
               {
                 label: "Weekly Active",
-                icon: "🗓️",
+                icon: kresusAssets.weeklyActiveCalendar,
                 value: activeUserStats.weeklyActiveUsers,
               },
               {
                 label: "Daily Active",
-                icon: "📆",
+                icon: kresusAssets.dailyActiveIcon,
                 value: activeUserStats.dailyActiveUsers,
               },
               {
                 label: "Filtered Users",
-                icon: "🔍",
+                icon: kresusAssets.filteredUserIcon,
                 value: activeUserStats.filteredActiveUsers,
               },
             ].map((metric, index) =>
@@ -512,7 +547,7 @@ const MonthlyActive = () => {
                 >
                   <div className="flex justify-center items-center gap-5">
                     <div className="w-[72px] h-[72px]">
-                      <FcCalendar className="w-[72px] h-[72px]" />
+                      <img src={metric.icon} className="w-[72px] h-[72px]" />
                     </div>
                     <div className="flex flex-col gap-5">
                       <div>
@@ -533,8 +568,8 @@ const MonthlyActive = () => {
                   key={metric?.label}
                   className=" opacity-100 rounded-[16px] px-[16px] py-[32px] bg-[#000000] flex flex-col items-center gap-2"
                 >
-                  <div className="text-2xl sm:text-3xl mb-2 sm:mb-3 transform transition-transform duration-300 hover:scale-110 text-white">
-                    {metric?.icon}
+                  <div className="text-2xl sm:text-3xl mb-2 sm:mb-3 transform transition-transform duration-300 hover:scale-110 text-white flex justify-center items-center">
+                    <img src={metric.icon} alt="" />
                   </div>
                   <div className="font-roboto font-bold text-[32px] leading-[100%] tracking-[0%] text-center text-[#FFFFFF]">
                     {metric?.value?.toLocaleString()}
@@ -567,11 +602,10 @@ const MonthlyActive = () => {
         <span className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0%] text-center align-middle text-[#FFFFFF]">
           Dashboard Analytics
         </span>
-        <h1 className="text-white"></h1>
 
         <div className="rounded-[24px] py-[12px] px-[24px] bg-[#FFFFFF]">
           <div className="flex items-center justify-center gap-[8px]">
-            <IoFilterSharp />
+            <img src={kresusAssets.filterAnalyticsIcon} alt="" />
             <span className="font-roboto font-medium text-[16px] leading-[100%] tracking-[0%] text-center align-middle">
               Filter Analytics
             </span>
@@ -678,7 +712,27 @@ const MonthlyActive = () => {
 
       {renderActiveUserCard()}
 
-      {renderCardSection(
+      {/* Tabs */}
+
+      <div className="px-4 sm:px-6 mt-2 lg:px-8 ">
+        <Tabs
+          defaultActiveKey="active"
+          items={items}
+          className="custom-tabss  "
+          size="large"
+          onChange={handleTabChange}
+          tabBarStyle={{
+            background: "#000000",
+            borderRadius: "40px",
+            marginBottom: "2rem",
+            marginLeft:"100px",
+            marginRight:"100px"
+          }}
+          tabBarGutter={16}
+        />
+      </div>
+
+      {/* {renderCardSection(
         "Volume Analytics",
         augmentedVolumeData,
         [
@@ -719,7 +773,7 @@ const MonthlyActive = () => {
             ["Dapp Transaction", "dapp_transaction"],
           ],
         }
-      )}
+      )} */}
     </div>
   );
 };

@@ -93,7 +93,7 @@ const MenuAntD = () => {
   );
   return (
     <>
-      <div className="static h-20 bg-[#000000] flex justify-between items-center  shadow-sm px-[120px]">
+      <div className="static h-20 bg-[#000000] flex justify-between items-center  shadow-sm px-[120px] ">
         <div className="flex items-center">
           <img
             src={kresusAssets.KresusLogo}

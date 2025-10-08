@@ -9,6 +9,7 @@ interface CustomSearchProps {
     error?: string | null;
     onClear?: () => void;
     className?: string;
+    inputClassName?:string
 }
 
 const CustomSearch: React.FC<CustomSearchProps> = ({
@@ -18,7 +19,8 @@ const CustomSearch: React.FC<CustomSearchProps> = ({
     placeholder = "Search...",
     error,
     onClear,
-    className = ""
+    className = "",
+    inputClassName =""
 }) => {
     const [isFocused, setIsFocused] = useState(false);
 
@@ -66,13 +68,13 @@ const CustomSearch: React.FC<CustomSearchProps> = ({
                     placeholder={placeholder}
                     className={`w-full h-9 px-4 pr-20 text-sm sm:text-base rounded-lg outline-none bg-white ${
                         error ? 'text-red-900 placeholder-red-300' : 'text-gray-900 placeholder-gray-400'
-                    }`}
+                    } ${inputClassName}`}
                 />
                 <div className="absolute right-0 flex items-center h-full">
                     {value && (
                         <button
                             onClick={handleClear}
-                            className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+                            className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200 bg-transparent outline-none border-none"
                             aria-label="Clear input"
                         >
                             <X size={18} className="stroke-[2.5]" />
@@ -80,10 +82,10 @@ const CustomSearch: React.FC<CustomSearchProps> = ({
                     )}
                     <button
                         onClick={handleSearch}
-                        className={`h-full px-4 flex items-center justify-center rounded-r-lg transition-colors duration-200 ${
+                        className={`h-full px-4 flex items-center justify-center rounded-r-lg transition-colors duration-200 bg-transparent border-none outline-none ${
                             error
-                                ? 'bg-red-500 hover:bg-red-600 text-white'
-                                : 'bg-blue-500 hover:bg-blue-600 text-white'
+                                ? 'bg-red-500 text-white'
+                                : ' text-white'
                         }`}
                         aria-label="Search"
                     >

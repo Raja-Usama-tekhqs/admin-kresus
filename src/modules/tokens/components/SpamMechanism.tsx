@@ -461,7 +461,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                             className: "px-4 py-2"
                         }}
                         className={classNames(
-                            "custom-table",
+                            "active-token-table",
                             "hover:shadow-md transition-shadow duration-200",
                             "[&_.ant-table-thead>tr>th]:bg-gray-100 [&_.ant-table-thead>tr>th]:py-3 [&_.ant-table-thead>tr>th]:text-base [&_.ant-table-thead>tr>th]:font-bold"
                         )}
