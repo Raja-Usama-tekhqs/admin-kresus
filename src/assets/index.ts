@@ -22,6 +22,10 @@ import searchIcon from "./allAssets/searchIcon.svg";
 import tokenDropdownIcon from "./allAssets/tokenDropdonIcon.svg";
 import chainIcon from "./allAssets/chainIcon.svg";
 import moveToSpamIcon from "./allAssets/moveToSpamIcon.svg";
+import actionMoveIcon from "./allAssets/actionMoveIcon.svg";
+import crossIcon from "./allAssets/crossIcon.svg";
+import scoreIconTop from "./allAssets/scoreIconTop.svg";
+import scoreIconDown from "./allAssets/scoreIconDown.svg";
 
 const kresusAssets = {
   BrytLogo: brytLogo,
@@ -48,5 +52,9 @@ const kresusAssets = {
   tokenDropdownIcon: tokenDropdownIcon,
   chainIcon: chainIcon,
   moveToSpamIcon: moveToSpamIcon,
+  actionMoveIcon: actionMoveIcon,
+  crossIcon: crossIcon,
+  scoreIconTop: scoreIconTop,
+  scoreIcondown: scoreIconDown,
 };
 export { kresusAssets };

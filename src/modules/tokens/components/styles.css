@@ -636,3 +636,61 @@ border: 1px solid #1A26E7;
   color: #C7C7CC !important;
 }
 
+
+
+.ant-modal-confirm-title {
+  color: #ffffff !important;
+}
+.ant-modal-confirm-content {
+  color: #c7c7cc !important;
+}
+.ant-modal .ant-modal-content{
+    background-color: #000000 !important;
+    padding: 0px;
+}
+
+.custom-cancel-btn {
+  border-radius: 24px !important;
+  background-color: #161616 !important;
+  border: 1px solid #2C2C2E !important;
+  color: #AEAEB2 !important;
+  font-weight: 400 !important;
+  /* height: 48px !important; */
+  padding: 14px 20px !important;
+  font-size: 16px;
+
+}
+
+.custom-cancel-btn:hover {
+  background-color: #2C2C2E !important;
+  border-color: #2C2C2E !important;
+  color: #FFFFFF !important;
+}
+
+.custom-primary-btn {
+  border-radius: 24px !important;
+  background-color: #FF6669!important;
+  border-color: #D70015 !important;
+  font-weight: 500 !important;
+  /* height: 48px !important; */
+  padding: 14px 20px !important;
+  color:#D70015 !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+}
+
+.custom-primary-btn:hover {
+  background-color: #e91b2f !important;
+  border-color: #e0d0d1 !important;
+}
+
+
+.custom-move-btn{
+      border-radius: 24px !important;
+  background-color: #FFFFFF !important;
+  font-weight: 500 !important;
+  /* height: 48px !important; */
+  padding: 12px 24px !important;
+  color:#000000!important;
+  font-size: 16px !important;
+}
