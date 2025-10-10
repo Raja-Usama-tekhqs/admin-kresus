@@ -583,7 +583,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                   setPagination((prev) => ({ ...prev, current: 1 }));
                 }}
                 className="px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616]"
-                inputClassName="w-full bg-transparent outline-none border-none text-white placeholder:text-[#7D7D7D] font-roboto text-[16px] leading-[100%]"
+                inputClassName="w-full bg-transparent outline-none border-none text-white placeholder:text-[#7D7D7D] !bg-[#2C2C2E] font-roboto text-[16px] leading-[100%]"
               />
             </div>
           </div>

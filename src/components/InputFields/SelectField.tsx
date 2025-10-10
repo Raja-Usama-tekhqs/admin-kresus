@@ -56,7 +56,7 @@ const SelectField: React.FC<SelectFieldProps> = ({
     };
   }
 
-  const { themeMode:string, colorTheme:string } = useSelector(
+  const { themeMode, colorTheme} = useSelector(
     (state: RootState) => state.states || {}
   );
   const [dropdownOpen, setDropdownOpen] = useState(false);
