@@ -1,18 +1,8 @@
 import type { TableProps } from "antd";
-import {
-  Button,
-  Dropdown,
-  message,
-  Popconfirm,
-  Select,
-  Spin,
-  Table,
-  Modal,
-} from "antd";
+import { Button, Dropdown, message, Spin, Table, Modal } from "antd";
 import classNames from "classnames";
 import useApiClient from "hooks/useApiClient";
 import React, { useEffect, useMemo, useState } from "react";
-import { IoMoveOutline } from "react-icons/io5";
 import CustomSearch from "../../../components/CustomSearch/CustomSearch";
 import "./styles.css";
 import { kresusAssets } from "assets";
@@ -39,14 +29,12 @@ interface SpamMechanismProps {
 }
 
 const chainOptions = [
-  { label: "Select a chain", value: "" },
   { label: "Solana Mainnet", value: "solana-mainnet" },
   { label: "Base Mainnet", value: "base-mainnet" },
   { label: "WorldChain Mainnet", value: "worldchain-mainnet" },
 ];
 
 const scoreRangeOptions = [
-  { label: "Select option", value: "" },
   { label: "Below 50", value: "below-50" },
   { label: "Between 50 and 60", value: "50-60" },
   { label: "Between 60 and 70", value: "60-70" },
@@ -56,7 +44,6 @@ const scoreRangeOptions = [
 ];
 
 const sortOptions = [
-  { label: "Select option", value: "" },
   { label: "Ascending", value: "asc" },
   { label: "Descending", value: "desc" },
 ];
@@ -368,7 +355,216 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4">
           {/* left side - Filters and Search */}
 
+          {/* Custom Search */}
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+            <Dropdown
+              trigger={["hover"]}
+              placement="bottomRight"
+              dropdownRender={() => (
+                <div
+                  className=" mt-3 bg-black text-white w-[325px] p-[24px] rounded-[16px] flex flex-col gap-2 s-mac-border min-h-[60vh]
+  [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]"
+                >
+                  <div className="flex items-center gap-2 px-2 pb-2 border-b border-[#2C2C2E]">
+                    <img
+                      src={kresusAssets?.tokenDropdownIcon}
+                      alt=""
+                      className="w-6 h-6 text-[#AEAEB2]"
+                    />
+                    <span className="font-roboto font-semibold leading-[100%] tracking-[0] text-[#AEAEB2] text-[16px]">
+                      Filter By
+                    </span>
+                  </div>
+                  {/* Chain Section */}
+                  <div className="mt-2 flex flex-col gap-2">
+                    <Dropdown
+                      trigger={["click"]}
+                      placement="bottom"
+                      dropdownRender={() => (
+                        <div className=" rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
+                          {chainOptions.map((option, idx) => (
+                            <>
+                              <div className="h-[1px] bg-[#5e5e61] " />
+
+                              <div
+                                key={option.value}
+                                onClick={() => {
+                                  setSelectedChain(option.value);
+                                  setPagination((prev) => ({
+                                    ...prev,
+                                    current: 1,
+                                  }));
+                                }}
+                                className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                              >
+                                <span className="text-[#C7C7CC] font-roboto font-normal text-[14px] leading-[100%] tracking-[0]  ">
+                                  {option.label}
+                                </span>
+                              </div>
+                              {idx === chainOptions.length - 1 && (
+                                <div className="h-[1px] bg-[#5e5e61] " />
+                              )}
+                            </>
+                          ))}
+                        </div>
+                      )}
+                    >
+                      <div className="bg-black p-[16px] flex items-center justify-between cursor-pointer">
+                        <div className="px-[18px] flex items-center gap-[8px]">
+                          <img src={kresusAssets.chainIcon} alt="" />
+                          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0%] text-[#C7C7CC]">
+                            Chain
+                          </span>
+                        </div>
+                        <div className=" ">
+                          <img src={kresusAssets.iconDownward} alt="" />
+                        </div>
+                      </div>
+                    </Dropdown>
+                  </div>
+
+                  {/* Sort Score Section */}
+                  <Dropdown
+                    trigger={["click"]}
+                    placement="bottom"
+                    dropdownRender={() => (
+                      <div className="rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
+                        {sortOptions.map((option, idx) => (
+                          <>
+                            <div className="h-[1px] bg-[#5e5e61]" />
+                            <div
+                              key={option.value}
+                              className="bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                              onClick={
+                                option.value === "asc"
+                                  ? () => {
+                                      setDateSort("asc");
+                                      setPagination((prev) => ({
+                                        ...prev,
+                                        current: 1,
+                                      }));
+                                    }
+                                  : () => {
+                                      setDateSort("desc");
+                                      setPagination((prev) => ({
+                                        ...prev,
+                                        current: 1,
+                                      }));
+                                    }
+                              }
+                            >
+                              <span className="text-[#C7C7CC] font-roboto font-normal text-[14px]">
+                                {option.label}
+                              </span>
+                            </div>
+
+                            {idx === sortOptions.length - 1 && (
+                              <div className="h-[1px] bg-[#5e5e61]" />
+                            )}
+                          </>
+                        ))}
+                      </div>
+                    )}
+                  >
+                    <div className="bg-black p-[16px] flex items-center justify-between rounded-[6px] cursor-pointer">
+                      <div className="px-[18px] flex items-center gap-[8px]">
+                        <img src={kresusAssets.chainIcon} alt="" />
+                        <span className="font-roboto font-medium text-[14px] text-[#C7C7CC]">
+                          Sort Score
+                        </span>
+                      </div>
+                      <img src={kresusAssets.iconDownward} alt="" />
+                    </div>
+                  </Dropdown>
+
+                  {/* Sort Date Range Section */}
+                  <Dropdown
+                    trigger={["click"]}
+                    placement="bottom"
+                    dropdownRender={() => (
+                      <div className="rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
+                        {sortOptions.map((option, idx) => (
+                          <React.Fragment key={option.value}>
+                            <div className="h-[1px] bg-[#5e5e61]" />
+                            <div
+                              onClick={() => {
+                                setDateSort(option.value);
+                                setPagination((prev) => ({
+                                  ...prev,
+                                  current: 1,
+                                }));
+                              }}
+                              className={`bg-[#3A3A3C] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer hover:bg-[#2C2C2E] transition-all ${
+                                dateSort === option.value ? "bg-[#1C1C1E]" : ""
+                              }`}
+                            >
+                              <span className="text-[#C7C7CC] font-roboto font-normal text-[14px] leading-[100%]">
+                                {option.label}
+                              </span>
+                            </div>
+                            {idx === sortOptions.length - 1 && (
+                              <div className="h-[1px] bg-[#5e5e61]" />
+                            )}
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    )}
+                  >
+                    <div className="bg-black p-[16px] flex items-center justify-between rounded-[6px] cursor-pointer">
+                      <div className="px-[18px] flex items-center gap-[8px]">
+                        <img src={kresusAssets.chainIcon} alt="" />
+                        <span className="font-roboto font-medium text-[14px] text-[#C7C7CC]">
+                          Sort Date Range
+                        </span>
+                      </div>
+                      <img src={kresusAssets.iconDownward} alt="" />
+                    </div>
+                  </Dropdown>
+
+                  {/* Range Section */}
+
+                  <Dropdown
+                    trigger={["click"]}
+                    placement="bottom"
+                    dropdownRender={() => (
+                      <div className="rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
+                        {scoreRangeOptions.map((option, idx) => (
+                          <>
+                            <div className="h-[1px] bg-[#5e5e61]" />
+                            <div
+                              key={option.value}
+                              onClick={() => setScoreRange(option.value)}
+                              className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                            >
+                              <span className="text-[#C7C7CC] font-roboto font-normal text-[14px]">
+                                {option.label}
+                              </span>
+                            </div>
+                            {idx === scoreRangeOptions.length - 1 && (
+                              <div className="h-[1px] bg-[#5e5e61]" />
+                            )}
+                          </>
+                        ))}
+                      </div>
+                    )}
+                  >
+                    <div className="bg-black p-[16px] flex items-center justify-between rounded-[6px] cursor-pointer">
+                      <div className="px-[18px] flex items-center gap-[8px]">
+                        <img src={kresusAssets.chainIcon} alt="" />
+                        <span className="font-roboto font-medium text-[14px] text-[#C7C7CC]">
+                          Range
+                        </span>
+                      </div>
+                      <img src={kresusAssets.iconDownward} alt="" />
+                    </div>
+                  </Dropdown>
+                </div>
+              )}
+            >
+              <div className="w-[45px] h-[45px] rounded-full bg-[#2C2C2E] flex items-center justify-center border border-[#2C2C2E] cursor-pointer hover:bg-[#3A3A3C] transition-all">
+                <img src={kresusAssets?.whiteFilter} alt="" />
+              </div>
+            </Dropdown>
             <div className="flex items-center gap-1">
               <CustomSearch
                 placeholder="Search..."
@@ -392,12 +588,9 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-            {/* Chain Selection */}
-            <div className="w-full sm:w-auto sm:min-w-[200px]">
-              <label className="block mb-1 font-bold text-xs sm:text-sm text-gray-700">
-                Chain
-              </label>
+          {/* <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto"> */}
+          {/* Chain Selection */}
+          {/* <div className="w-full sm:w-auto sm:min-w-[200px]">
               <Select
                 value={selectedChain}
                 onChange={(value) => {
@@ -411,10 +604,10 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                 }}
                 options={chainOptions}
               />
-            </div>
+            </div> */}
 
-            {/* Score Range Filter */}
-            <div className="w-full sm:w-auto sm:min-w-[200px]">
+          {/* Score Range Filter */}
+          {/* <div className="w-full sm:w-auto sm:min-w-[200px]">
               <label className="block mb-1 font-bold text-xs sm:text-sm text-gray-700">
                 Score Range
               </label>
@@ -431,10 +624,10 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                 }}
                 options={scoreRangeOptions}
               />
-            </div>
+            </div> */}
 
-            {/* Score Sort */}
-            <div className="w-full sm:w-auto sm:min-w-[150px]">
+          {/* Score Sort */}
+          {/* <div className="w-full sm:w-auto sm:min-w-[150px]">
               <label className="block mb-1 font-bold text-xs sm:text-sm text-gray-700">
                 Score Sort
               </label>
@@ -451,10 +644,10 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                 }}
                 options={sortOptions}
               />
-            </div>
+            </div> */}
 
-            {/* Date Sort */}
-            <div className="w-full sm:w-auto sm:min-w-[150px]">
+          {/* Date Sort */}
+          {/* <div className="w-full sm:w-auto sm:min-w-[150px]">
               <label className="block mb-1 font-bold text-xs sm:text-sm text-gray-700">
                 Date Sort
               </label>
@@ -471,8 +664,8 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                 }}
                 options={sortOptions}
               />
-            </div>
-          </div>
+            </div> */}
+          {/* </div>  */}
 
           {/* right side - Total Tokens Count */}
           <div className="flex items-center justify-center gap-2  rounded-[30px] border-[2px] border-solid border-[#1A26E7] px-[30px] py-[16px] bg-[linear-gradient(314.39deg,#0734A9_0%,#0E1696_53.42%,#4B0792_98.92%)]">

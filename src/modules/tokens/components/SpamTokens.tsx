@@ -1,11 +1,9 @@
-import { DeleteOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import {
   Button,
   Dropdown,
   message,
-  Popconfirm,
-  Select,
+
   Spin,
   Table,
   Modal,
@@ -15,7 +13,6 @@ import useApiClient from "hooks/useApiClient";
 import React, { useEffect, useMemo, useState } from "react";
 import CustomSearch from "../../../components/CustomSearch/CustomSearch";
 import "./styles.css";
-import { IoMoveOutline } from "react-icons/io5";
 import { kresusAssets } from "assets";
 
 interface Token {

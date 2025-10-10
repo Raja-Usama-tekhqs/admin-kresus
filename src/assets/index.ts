@@ -26,6 +26,7 @@ import actionMoveIcon from "./allAssets/actionMoveIcon.svg";
 import crossIcon from "./allAssets/crossIcon.svg";
 import scoreIconTop from "./allAssets/scoreIconTop.svg";
 import scoreIconDown from "./allAssets/scoreIconDown.svg";
+import iconDownward from "./allAssets/iconDownward.svg";
 
 const kresusAssets = {
   BrytLogo: brytLogo,
@@ -56,5 +57,6 @@ const kresusAssets = {
   crossIcon: crossIcon,
   scoreIconTop: scoreIconTop,
   scoreIcondown: scoreIconDown,
+  iconDownward: iconDownward,
 };
 export { kresusAssets };
