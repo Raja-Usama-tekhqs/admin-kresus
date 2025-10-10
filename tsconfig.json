@@ -21,11 +21,11 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "src",
 
-    
-   
+        "strict": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "strict": false
+   
+  
   },
 
   
