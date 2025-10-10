@@ -378,7 +378,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                   {/* Chain Section */}
                   <div className="mt-2 flex flex-col gap-2">
                     <Dropdown
-                      trigger={["click"]}
+                      trigger={["hover"]}
                       placement="bottom"
                       dropdownRender={() => (
                         <div className=" rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
@@ -425,7 +425,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
 
                   {/* Sort Score Section */}
                   <Dropdown
-                    trigger={["click"]}
+                    trigger={["hover"]}
                     placement="bottom"
                     dropdownRender={() => (
                       <div className="rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
@@ -479,7 +479,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
 
                   {/* Sort Date Range Section */}
                   <Dropdown
-                    trigger={["click"]}
+                    trigger={["hover"]}
                     placement="bottom"
                     dropdownRender={() => (
                       <div className="rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
@@ -524,7 +524,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                   {/* Range Section */}
 
                   <Dropdown
-                    trigger={["click"]}
+                    trigger={["hover"]}
                     placement="bottom"
                     dropdownRender={() => (
                       <div className="rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
