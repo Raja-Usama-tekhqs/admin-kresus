@@ -376,52 +376,50 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                     </span>
                   </div>
                   {/* Chain Section */}
-                  <div className="mt-2 flex flex-col gap-2">
-                    <Dropdown
-                      trigger={["hover"]}
-                      placement="bottom"
-                      dropdownRender={() => (
-                        <div className=" rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
-                          {chainOptions.map((option, idx) => (
-                            <>
-                              <div className="h-[1px] bg-[#5e5e61] " />
+                  <Dropdown
+                    trigger={["hover"]}
+                    placement="bottom"
+                    dropdownRender={() => (
+                      <div className=" rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
+                        {chainOptions.map((option, idx) => (
+                          <>
+                            <div className="h-[1px] bg-[#5e5e61] " />
 
-                              <div
-                                key={option.value}
-                                onClick={() => {
-                                  setSelectedChain(option.value);
-                                  setPagination((prev) => ({
-                                    ...prev,
-                                    current: 1,
-                                  }));
-                                }}
-                                className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
-                              >
-                                <span className="text-[#C7C7CC] font-roboto font-normal text-[14px] leading-[100%] tracking-[0]  ">
-                                  {option.label}
-                                </span>
-                              </div>
-                              {idx === chainOptions.length - 1 && (
-                                <div className="h-[1px] bg-[#5e5e61] " />
-                              )}
-                            </>
-                          ))}
-                        </div>
-                      )}
-                    >
-                      <div className="bg-black p-[16px] flex items-center justify-between cursor-pointer">
-                        <div className="px-[18px] flex items-center gap-[8px]">
-                          <img src={kresusAssets.chainIcon} alt="" />
-                          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0%] text-[#C7C7CC]">
-                            Chain
-                          </span>
-                        </div>
-                        <div className=" ">
-                          <img src={kresusAssets.iconDownward} alt="" />
-                        </div>
+                            <div
+                              key={option.value}
+                              onClick={() => {
+                                setSelectedChain(option.value);
+                                setPagination((prev) => ({
+                                  ...prev,
+                                  current: 1,
+                                }));
+                              }}
+                              className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                            >
+                              <span className="text-[#C7C7CC] font-roboto font-normal text-[14px] leading-[100%] tracking-[0]  ">
+                                {option.label}
+                              </span>
+                            </div>
+                            {idx === chainOptions.length - 1 && (
+                              <div className="h-[1px] bg-[#5e5e61] " />
+                            )}
+                          </>
+                        ))}
                       </div>
-                    </Dropdown>
-                  </div>
+                    )}
+                  >
+                    <div className="bg-black p-[16px] flex items-center justify-between cursor-pointer">
+                      <div className="px-[18px] flex items-center gap-[8px]">
+                        <img src={kresusAssets.chainIcon} alt="" />
+                        <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0%] text-[#C7C7CC]">
+                          Chain
+                        </span>
+                      </div>
+                      <div className=" ">
+                        <img src={kresusAssets.iconDownward} alt="" />
+                      </div>
+                    </div>
+                  </Dropdown>
 
                   {/* Sort Score Section */}
                   <Dropdown
@@ -434,7 +432,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                             <div className="h-[1px] bg-[#5e5e61]" />
                             <div
                               key={option.value}
-                              className="bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                              className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
                               onClick={
                                 option.value === "asc"
                                   ? () => {
