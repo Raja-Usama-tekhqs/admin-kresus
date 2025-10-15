@@ -358,11 +358,11 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
           {/* Custom Search */}
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
             <Dropdown
-              trigger={["hover"]}
+              trigger={["click"]}
               placement="bottomRight"
               dropdownRender={() => (
                 <div
-                  className=" mt-3 bg-black text-white w-[325px] p-[24px] rounded-[16px] flex flex-col gap-2 s-mac-border min-h-[80vh]
+                  className=" mt-3 bg-black text-white w-[325px] p-[24px] rounded-[16px] flex flex-col gap-2 s-mac-border 
   [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]"
                 >
                   <div className="flex items-center gap-2 px-2 pb-2 border-b border-[#2C2C2E]">

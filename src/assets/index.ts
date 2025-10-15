@@ -27,6 +27,10 @@ import crossIcon from "./allAssets/crossIcon.svg";
 import scoreIconTop from "./allAssets/scoreIconTop.svg";
 import scoreIconDown from "./allAssets/scoreIconDown.svg";
 import iconDownward from "./allAssets/iconDownward.svg";
+import filterDownArrow from "./allAssets/filterDownArrow.svg";
+import filterDateCalendar from "./allAssets/filterDateCalendar.svg";
+import arrowRight from "./allAssets/arrowRight.svg";
+import eyeIcon from "./allAssets/eyeIcon.svg";
 
 const kresusAssets = {
   BrytLogo: brytLogo,
@@ -58,5 +62,9 @@ const kresusAssets = {
   scoreIconTop: scoreIconTop,
   scoreIcondown: scoreIconDown,
   iconDownward: iconDownward,
+  filterDownArrow: filterDownArrow,
+  filterDateCalendar: filterDateCalendar,
+  arrowRight: arrowRight,
+  eyeIcon: eyeIcon,
 };
 export { kresusAssets };

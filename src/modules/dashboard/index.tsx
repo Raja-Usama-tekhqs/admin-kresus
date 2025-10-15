@@ -1,5 +1,5 @@
 import React from "react";
-import AnalyticsHolding from "./components/analyticsHolding";
+// import AnalyticsHolding from "./components/analyticsHolding";
 import MonthlyActive from "./components/monthlyActive";
 import MenuAntD from "layout/menu";
 import FooterAntD from "layout/footer";
@@ -12,7 +12,7 @@ const Index: React.FC = () => {
         </div> */}
       <MenuAntD />
       <MonthlyActive />
-      <AnalyticsHolding />
+      {/* <AnalyticsHolding /> */}
       <FooterAntD />
     </div>
   );

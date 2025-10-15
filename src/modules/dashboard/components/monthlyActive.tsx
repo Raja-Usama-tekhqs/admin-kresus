@@ -10,6 +10,7 @@ import {
   Image,
   Tabs,
   TabsProps,
+  Dropdown,
 } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import useApiClient from "hooks/useApiClient";
@@ -68,7 +69,7 @@ interface EarnResponse {
 }
 
 const chainOptions = [
-  { label: "All chains", value: "" },
+  // { label: "All chains", value: "" },
   { label: "Solana Mainnet", value: "solana-mainnet" },
   { label: "Base Mainnet", value: "base-mainnet" },
   { label: "WorldChain Mainnet", value: "worldchain-mainnet" },
@@ -466,7 +467,7 @@ const MonthlyActive = () => {
     {
       key: "volume",
       label: "Volume Analytics",
-      children:' <VolumeAnalytics activeTab={activeTab} />,'
+      children:  "<VolumeAnalytics activeTab={activeTab}/>",
     },
     {
       key: "transaction",
@@ -501,7 +502,7 @@ const MonthlyActive = () => {
   );
 
   const renderActiveUserCard = () => (
-    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616]  p-[24px] rounded-[24px]">
+    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616]  p-[24px] rounded-[24px] ms-16">
       <Card
         style={
           {
@@ -598,22 +599,133 @@ const MonthlyActive = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="flex items-center justify-between ">
-        <span className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0%] text-center align-middle text-[#FFFFFF]">
+      <div className="flex items-center justify-between ms-20 mt-10">
+        <span className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0%] text-center align-middle text-[#FFFFFF] ">
           Dashboard Analytics
         </span>
 
-        <div className="rounded-[24px] py-[12px] px-[24px] bg-[#FFFFFF]">
-          <div className="flex items-center justify-center gap-[8px]">
-            <img src={kresusAssets.filterAnalyticsIcon} alt="" />
-            <span className="font-roboto font-medium text-[16px] leading-[100%] tracking-[0%] text-center align-middle">
-              Filter Analytics
-            </span>
+        <Dropdown
+          trigger={["hover"]}
+          placement="bottomRight"
+          dropdownRender={() => (
+            <div
+              className="bg-[#0C0C0E] text-white w-[340px] p-6 rounded-[20px] flex flex-col gap-4 border border-[#1A26E7]
+                 shadow-[0_0_25px_rgba(26,38,231,0.2)]"
+            >
+              {/* Header */}
+              <div className="flex items-center gap-2 pb-3 border-b border-[#2C2C2E]">
+                <img
+                  src={kresusAssets?.tokenDropdownIcon}
+                  alt="Filters Icon"
+                  className="w-[24px] h-[24px] text-[#FFFFFF]"
+                />
+                <span className="font-roboto font-semibold text-[20px] leading-[100%]">
+                  Filters
+                </span>
+              </div>
+
+              {/* Select Chain */}
+              <div className="flex flex-col gap-1 custom-select-wrapper">
+                <Select
+                  value={form.chain}
+                  onChange={(val) =>
+                    handleChange("chain", Array.isArray(val) ? val[0] : val)
+                  }
+                  placeholder="Select Chain"
+                  className="custom-placeholder !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[50px] hover:!bg-[#2C2C2E] transition-all"
+                  popupClassName="!bg-[#1C1C1E] !text-white !border-none"
+                  suffixIcon={
+                    <img
+                      src={kresusAssets?.filterDownArrow}
+                      alt=""
+                      className="w-5 h-5"
+                    />
+                  }
+                >
+                  {chainOptions?.map((opt) => (
+                    <Option key={opt.value} value={opt.value}>
+                      <span className="text-[#C7C7CC]">{opt.label}</span>
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+
+              {/* Select Address */}
+              <div className="flex flex-col gap-1 custom-select-wrapper">
+                <Select
+                  value={form.address}
+                  onChange={(val) =>
+                    handleChange("address", Array.isArray(val) ? val[0] : val)
+                  }
+                  placeholder="Select Address"
+                  className="custom-placeholder !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] hover:!bg-[#2C2C2E] transition-all"
+                  popupClassName="!bg-[#1C1C1E] !text-white !border-none"
+                  suffixIcon={
+                    <img
+                      src={kresusAssets?.filterDownArrow}
+                      alt=""
+                      className="w-5 h-5"
+                    />
+                  }
+                >
+                  {addressOptions?.map((opt) => (
+                    <Option key={opt.value} value={opt.value}>
+                      <span className="text-[#C7C7CC]">{opt.label}</span>
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+
+              {/* Start Date */}
+              <div className="flex flex-col gap-1">
+                <DatePicker
+                  value={form.start_date ? dayjs(form.start_date) : null}
+                  onChange={(d) => handleDateChange("start_date", d)}
+                  format="YYYY-MM-DD"
+                  className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E]  custom-datepicker"
+                  suffixIcon={
+                    <img
+                      src={kresusAssets?.filterDateCalendar}
+                      alt=""
+                      className="w-5 h-5"
+                    />
+                  }
+                  placeholder="Select Start Date"
+                />
+              </div>
+
+              {/* End Date */}
+              <div className="flex flex-col gap-1">
+                <DatePicker
+                  value={form.end_date ? dayjs(form.end_date) : null}
+                  onChange={(d) => handleDateChange("end_date", d)}
+                  format="YYYY-MM-DD"
+                  className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E] custom-datepicker"
+                  suffixIcon={
+                    <img
+                      src={kresusAssets?.filterDateCalendar}
+                      alt=""
+                      className="w-5 h-5"
+                    />
+                  }
+                  placeholder="Select End Date"
+                />
+              </div>
+            </div>
+          )}
+        >
+          <div className="rounded-[24px] py-[12px] px-[24px] bg-[#FFFFFF] cursor-pointer hover:bg-[#F3F3F3] transition-all">
+            <div className="flex items-center justify-center gap-[8px]">
+              <img src={kresusAssets.filterAnalyticsIcon} alt="" />
+              <span className="font-roboto font-medium text-[16px] text-[#000]">
+                Filter Analytics
+              </span>
+            </div>
           </div>
-        </div>
+        </Dropdown>
       </div>
-      {/* 
-      <div className=" rounded-xl text-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4 sm:p-6 mb-6 sm:mb-8 border-2 !border-white transition-all duration-300 ease-in-out hover:shadow-[0_8px_30px_rgb(0,0,0,0.16)]">
+
+      {/* <div className=" rounded-xl text-white shadow-[0_8px_30px_rgb(0,0,0,0.12)] p-4 sm:p-6 mb-6 sm:mb-8 border-2 !border-white transition-all duration-300 ease-in-out hover:shadow-[0_8px_30px_rgb(0,0,0,0.16)]">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 border-2 !border-white">
           <div className="space-y-2">
             <div className="w-full">
@@ -725,8 +837,8 @@ const MonthlyActive = () => {
             background: "#000000",
             borderRadius: "40px",
             marginBottom: "2rem",
-            marginLeft:"100px",
-            marginRight:"100px"
+            marginLeft: "100px",
+            marginRight: "100px",
           }}
           tabBarGutter={16}
         />

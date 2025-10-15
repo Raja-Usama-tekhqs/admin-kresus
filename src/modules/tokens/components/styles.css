@@ -150,8 +150,8 @@ border: 1px solid #1A26E7;
 }
 
 .ant-table-tbody > tr:hover > td {
-    background: #f9fafb !important;
-    color: black !important
+  background-color: #393939 !important;
+  transition: background-color 0.2s ease;
 }
 
 /* Pagination styles */
@@ -520,14 +520,17 @@ border: 1px solid #1A26E7;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
   font-style: normal; /* 'Medium' isn’t a valid value — use font-weight instead */
-  font-size: 14px;
+  /* font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
   vertical-align: middle;
   border: none !important;
-  text-align: left;
+  text-align: left; */
   /* padding: 8px 20px; */
-}
+ } 
+
+
+
 .active-token-table .ant-table-thead > tr > th {
   border: none !important;
 }

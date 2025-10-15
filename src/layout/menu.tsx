@@ -113,7 +113,7 @@ const MenuAntD = () => {
               style={{
                 overflow: "hidden",
               }}
-              className="custom-menu rounded-[24px] bg-[#48484A] text-white"
+              className="custom-menu rounded-[24px] bg-[#48484A] text-white custom-tabss"
             />
           </div>
 

@@ -837,4 +837,317 @@ border: 1px solid #1A26E7;
 
 
 
- 
+.custom-placeholder .ant-select-selection-placeholder {
+  font-family: Roboto ;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: 14px !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  color: #AEAEB2 !important;
+}
+
+.custom-placeholder .ant-select-item-option {
+ color:  #C7C7CC ;
+ transition: all
+}
+
+.custom-placeholder .ant-select-item-option-active {
+ background-color: #FFFFFF !important;
+ color: black !important;
+}
+
+
+/* Remove Ant Design select borders and outlines */
+.custom-select .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: #1C1C1E !important;
+}
+
+/* Remove focus border */
+.custom-select.ant-select-focused .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Style arrow and placeholder */
+.custom-select .ant-select-arrow {
+  color: #C7C7CC !important;
+}
+
+.custom-select .ant-select-selection-placeholder {
+  color: #C7C7CC !important;
+}
+
+.custom-placeholder .ant-select-selection-placeholder {
+  font-family: Roboto !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-size: 14px !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  color: #C7C7CC !important;
+  border: none !important;
+}
+
+.custom-datepicker .ant-picker-input input::placeholder {
+  color: #C7C7CC !important;
+}
+
+.active-token-table .ant-table-cell {
+  border-right: none !important;
+}
+
+/* Pagination styling */
+.active-token-table .ant-pagination {
+  color: #9ca3af !important; /* gray-400 equivalent */
+}
+
+/* Normal pagination items */
+.active-token-table .ant-pagination-item {
+  background-color: transparent !important;
+  border: 1px solid #9ca3af !important; /* gray-400 border */
+  color: #9ca3af !important; /* gray-400 text */
+  border-radius: 9999px !important; /* rounded-full */
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.active-token-table .ant-pagination-item:hover {
+  background-color: #4b5563 !important; /* gray-600 on hover */
+  border-color: #4b5563 !important;
+  color: white !important;
+}
+
+/* Active page item */
+.active-token-table .ant-pagination-item-active {
+  border: 1px solid #9B3CFF !important; /* now it will show */
+  color: white !important;
+  background: transparent !important; /* optional if you removed gradient */
+}
+/* Pagination links (numbers) */
+.active-token-table .ant-pagination-item a {
+  color: #9ca3af !important; /* gray-400 */
+}
+
+/* Active page text color */
+.active-token-table .ant-pagination-item-active a {
+  color: white !important;
+}
+
+* Previous/Next arrows */
+.active-token-table .ant-pagination-prev .ant-pagination-item-link,
+.active-token-table .ant-pagination-next .ant-pagination-item-link {
+  color: #9ca3af !important;
+  border: 1px solid #9ca3af !important;
+  border-radius: 9999px !important;
+  background-color: transparent !important;
+  transition: all 0.3s ease;
+}
+
+.active-token-table .ant-pagination-prev:hover .ant-pagination-item-link,
+.active-token-table .ant-pagination-next:hover .ant-pagination-item-link {
+  background-color: #4b5563 !important;
+  color: white !important;
+}
+
+.active-token-table .ant-pagination-options,
+.active-token-table .ant-pagination-options .ant-select,
+.active-token-table .ant-pagination-options .ant-select-selector,
+.active-token-table .ant-pagination-options .ant-select-selection-item {
+  color: #C7C7CC !important;
+  border-color: #9ca3af !important; /* optional: keep consistent gray border */
+  background: transparent !important;
+  border-radius: 40px;
+}
+
+/* Dropdown arrow and icon */
+.active-token-table .ant-pagination-options .ant-select-arrow {
+  color: #C7C7CC !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background-color: #393939 !important;
+  transition: background-color 0.2s ease;
+}
+
+
+.analytics-table tbody tr:hover {
+    background-color: #393939 !important;
+}
+
+/* Also ensure Ant Design table rows get the same hover color */
+.ant-table-tbody > tr:hover > td {
+    background-color: #393939 !important;
+    transition: background-color 0.2s ease;
+}
+
+/* If you're using the active-token-table class */
+/* Nuclear option for inner table hover removal */
+.expanded-tokens-table tr.ant-table-row:hover > td,
+.expanded-tokens-table .ant-table-tbody > tr.ant-table-row:hover > td,
+.expanded-tokens-table .ant-table-tbody > tr:hover > td,
+.expanded-tokens-table .ant-table-tbody > tr:hover,
+.expanded-tokens-table tr:hover {
+  background-color: #000000BF !important;
+  background: #000000BF !important;
+}
+
+.expanded-tokens-table .ant-table-tbody > tr {
+  pointer-events: none;
+}
+
+.expanded-tokens-table .ant-table-tbody > tr > td {
+  pointer-events: none;
+      background-color: #393939 !important;
+
+}
+
+/* Keep main table expanded row highlighted */
+.active-token-table .ant-table-tbody > tr.ant-table-expanded-row ~ tr.ant-table-expanded-row:hover > td,
+.active-token-table .ant-table-tbody > tr.ant-table-expanded-row:hover > td {
+    background-color: #393939 !important;
+}
+
+/* Highlight the main table row when expanded */
+.active-token-table .ant-table-tbody > tr.ant-table-expanded-row > td {
+    background-color: #393939 !important;
+    border-bottom: 1px solid #393939 !important;
+      border-radius: 0 0 48px 48px;
+
+  }
+
+/* Remove hover effect for expanded main row since it's already highlighted */
+.active-token-table .ant-table-tbody > tr.ant-table-expanded-row:hover > td {
+    background-color: #393939 !important;
+}
+
+/* Normal hover for non-expanded main rows */
+.active-token-table .ant-table-tbody > tr:not(.ant-table-expanded-row):hover > td {
+    background-color: #393939 !important;
+}
+
+/* Style for expandable table headers - green background */
+.active-token-table .ant-table-expanded-row .ant-table-thead > tr > th {
+  background-color: #393939 !important;
+  color: #FFFFFF !important;
+    padding: 11px 20px;
+
+}
+/* Apply hover only to main table rows, NOT expanded inner table rows */
+.active-token-table .ant-table-tbody > tr:not(.ant-table-expanded-row):hover > td {
+    background-color: #393939 !important;
+}
+
+/* Specifically remove hover from inner expanded table */
+.expanded-tokens-table .ant-table-tbody > tr:hover > td {
+    background-color: #000000BF !important; /* Keep original background */
+}
+
+/* Style for expandable table body */
+.expanded-tokens-table .ant-table-tbody > tr > td {
+    background-color: #000000BF !important; /* black */
+    color: #ffffff !important;
+    border-bottom: 1px solid #374151 !important;
+}
+/* Apply hover only to main table rows, NOT expanded inner table rows */
+.active-token-table .ant-table-tbody > tr:not(.ant-table-expanded-row):hover > td {
+    background-color: #393939 !important;
+}
+
+/* Specifically remove hover from inner expanded table */
+.expanded-tokens-table .ant-table-tbody > tr:hover > td {
+    background-color: #000000BF !important; /* Keep original background */
+}
+
+
+/* Remove bottom border between same chain rows */
+.expanded-tokens-table .ant-table-tbody > tr.same-chain-row td {
+  border-bottom: none !important;
+  border-top:none !important
+}
+
+/* Remove borders between rows belonging to the same chain group */
+.expanded-tokens-table .ant-table-tbody > tr.same-chain-row td {
+  border-top: none !important;  /* remove top line */
+  border-bottom: none !important; /* remove bottom line */
+}
+
+/* Optional: keep borders between different chain groups */
+.expanded-tokens-table .ant-table-tbody > tr:not(.same-chain-row) td {
+  border-top: 1px solid #3b3b3b !important;
+}
+
+/* Ensure consistent background inside grouped rows */
+/* Apply left border ONLY to the merged total cell */
+.expanded-tokens-table .total-usd-cell {
+  border-left: 1px solid #3B3B3B !important;
+}
+
+
+
+
+.expanded-empty-container tr {
+  border: none !important;
+}
+.expanded-tokens-table .ant-table-tbody > tr.ant-table-placeholder td {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Remove borders for all same-chain rows */
+.expanded-tokens-table .ant-table-tbody > tr.same-chain-row td {
+  border-top: none !important;
+}
+
+/* Add border only for the first row of each chain group */
+.expanded-tokens-table .ant-table-tbody > tr.chain-group-first td {
+  border-top: 1px solid #3b3b3b !important;
+}
+
+/* Remove top border from the very first row */
+.expanded-tokens-table .ant-table-tbody > tr:first-child td {
+  border-top: none !important;
+}
+/* Remove all internal top borders */
+.expanded-tokens-table .ant-table-tbody > tr td {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* Add bottom border to the entire table container instead */
+.expanded-tokens-table {
+  border-bottom: 1px solid #3b3b3b;
+}
+
+/* Fix for expanded table scroll issues */
+.expanded-tokens-table .ant-table-container {
+  border: none !important;
+}
+
+.expanded-tokens-table .ant-table-content {
+  overflow-x: hidden !important;
+}
+
+.expanded-tokens-table .ant-table-body {
+  overflow-x: hidden !important;
+  scrollbar-width: none !important; /* Firefox */
+}
+
+.expanded-tokens-table .ant-table-body::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Edge */
+}
+
+/* Ensure proper column width calculation */
+.expanded-tokens-table .ant-table-thead > tr > th,
+.expanded-tokens-table .ant-table-tbody > tr > td {
+  width: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
+}
+
+/* Fix for row spanning layout */
+.expanded-tokens-table .ant-table-tbody > tr > td[rowspan] {
+  border-right: 1px solid #3b3b3b !important;
+}

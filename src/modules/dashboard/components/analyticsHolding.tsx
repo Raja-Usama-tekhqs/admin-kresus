@@ -9,6 +9,8 @@ import {
   Spin,
   message,
   Tooltip,
+  Dropdown,
+  Table,
 } from "antd";
 import { CopyOutlined } from "@ant-design/icons";
 import classNames from "classnames";
@@ -26,6 +28,7 @@ import homePage from "../../../assets/allAssets/homePage.png";
 import { kresusAssets } from "assets/index.ts";
 import { CiExport } from "react-icons/ci";
 import { MdExpandMore } from "react-icons/md";
+import { AlignCenter } from "lucide-react";
 
 const { Option } = Select;
 console.log(Option, "Option");
@@ -255,6 +258,8 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [dateError, setDateError] = useState<string | null>(null);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+  const [expandedRowKeys, setExpandedRowKeys] = useState<React.Key[]>([]);
+
   const [selectedUser, setSelectedUser] = useState<{
     tokens: { [chain: string]: Token[] };
     totalUsd: number;
@@ -497,7 +502,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
 
   return (
     <div
-      className="min-h-screen  px-3 sm:px-4 py-6 sm:py-8 lg:px-8"
+      className="min-h-screen  px-3 sm:px-4 py-6 sm:py-8 lg:px-8 "
       style={
         {
           // background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
@@ -508,9 +513,9 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
         }
       }
     >
-      <div className=" mx-auto">
+      <div className=" mx-auto ">
         <h1 className="text-white">Holding Analytics</h1>
-        <div>
+        <div className="">
           {/* <div
             className="mb-4 sm:mb-6 p-2 sm:p-3 md:p-4 bg-white border border-gray-400  shadow-none w-full"
             style={{
@@ -670,24 +675,99 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
 
           <div className="flex items-center justify-between mt-8 mb-5">
             <div className="flex items-center gap-1">
-              <div className="w-[40px] h-[40px] rounded-full bg-[#2C2C2E] flex items-center justify-center border-[1px] border-[#161616] ">
-                <img src={kresusAssets.whiteFilter} alt="" />
-              </div>
+              {/* Dropdown (Filter Icon) */}
+              <Dropdown
+                trigger={["hover"]}
+                placement="bottomRight"
+                dropdownRender={() => (
+                  <div
+                    className="bg-black text-white  w-[325px] px-[24px] py-[32px] rounded-[16px] flex flex-col gap-2 border border-[#2C2C2E]
+                   [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]"
+                  >
+                    {/* Dropdown Header */}
+                    <div className="flex items-center gap-2 px-2 pb-2 border-b border-[#2C2C2E]">
+                      <img
+                        src={kresusAssets?.tokenDropdownIcon}
+                        alt=""
+                        className="w-6 h-6 text-[#AEAEB2]"
+                      />
+                      <span className="font-roboto font-semibold leading-[100%] text-[#AEAEB2] text-[16px]">
+                        Filters
+                      </span>
+                    </div>
 
-              <div className="">
-                <CustomSearch
-                  value={form.email}
-                  onChange={handleEmailInputChange}
-                  onSearch={handleEmailSearch}
+                    {/* Dropdown Options */}
+                    <div className="mt-2 flex flex-col gap-2">
+                      <div className="flex flex-col gap-3">
+                        {/* Start Date */}
+                        <div className="flex flex-col gap-1">
+                          <DatePicker
+                            value={
+                              form.start_date ? dayjs(form.start_date) : null
+                            }
+                            onChange={(d) => handleDateChange("start_date", d)}
+                            format="YYYY-MM-DD"
+                            className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E]  custom-datepicker"
+                            suffixIcon={
+                              <img
+                                src={kresusAssets?.filterDateCalendar}
+                                alt=""
+                                className="w-5 h-5"
+                              />
+                            }
+                            placeholder="Select Start Date"
+                          />
+                        </div>
+
+                        {/* End Date */}
+                        <div className="flex flex-col gap-1">
+                          <DatePicker
+                            value={form.end_date ? dayjs(form.end_date) : null}
+                            onChange={(d) => handleDateChange("end_date", d)}
+                            format="YYYY-MM-DD"
+                            className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E] custom-datepicker"
+                            suffixIcon={
+                              <img
+                                src={kresusAssets?.filterDateCalendar}
+                                alt=""
+                                className="w-5 h-5"
+                              />
+                            }
+                            placeholder="Select End Date"
+                          />
+                        </div>
+                      </div>
+                      {/* ))} */}
+                    </div>
+                  </div>
+                )}
+              >
+                {/* Dropdown Trigger Button */}
+                <div className="w-[45px] h-[45px] rounded-full bg-[#2C2C2E] flex items-center justify-center border border-[#2C2C2E] cursor-pointer hover:bg-[#3A3A3C] transition-all">
+                  <img src={kresusAssets?.whiteFilter} alt="" />
+                </div>
+              </Dropdown>
+
+              {/* Search Input */}
+              <div className="max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616]">
+                <Input
                   placeholder="Search by email"
-                  error={emailError}
-                  onClear={() => {
-                    setForm((prev) => ({ ...prev, email: "" }));
-                    setSearchEmail("");
-                    setEmailError(null);
+                  suffix={<img src={kresusAssets.searchIcon} className="" />}
+                  value={form.email}
+                  onChange={(e) => handleEmailInputChange(e.target.value)}
+                  allowClear
+                  variant="borderless"
+                  size="large"
+                  style={{
+                    height: "40px",
+                    backgroundColor: "transparent",
+                    color: "white",
+                    fontSize: "16px",
+                    fontFamily: "Roboto, sans-serif",
                   }}
-                  className=" px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616]"
-                  inputClassName="w-full bg-transparent outline-none border-none text-white placeholder:text-[#7D7D7D] font-roboto text-[16px] leading-[100%]"
+                  classNames={{
+                    input: "text-white placeholder:text-[#7D7D7D]",
+                  }}
                 />
               </div>
             </div>
@@ -698,211 +778,401 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
               <MdExpandMore className="text-[20px] text-[#000000]" />
             </div>
           </div>
-
-          <div>
+          <div className="">
             {loading ? (
               <div className="text-center py-8 sm:py-10">
                 <Spin size="large" />
               </div>
             ) : data && data?.users && data?.users?.length > 0 ? (
               <>
-                <div className="table-container rounded-[24px] p-[24px] bg-[#2C2C2E]">
-                  <div className="min-w-full">
-                    <table className="analytics-table">
-                      <thead className="py-[8px] px-[20px] bg-[#2C2C2E] ">
-                        <tr>
-                          <th>Email</th>
-                          <th>Base Address</th>
-                          <th>Solana Address</th>
-                          <th>Chain Tokens</th>
-                          <th>Token Names</th>
-                          <th>Tokens</th>
-                          <th>View Spam Tokens</th>
-                          <th>Total AC in USD</th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-black rounded-[24px] ">
-                        {data?.users?.map((user: User, idx: number) => {
-                          const totalUsd = calculateTotalUsd(user.tokens);
-                          const totalTokens = getTotalTokensCount(user.tokens);
-                          return (
-                            <tr key={idx}>
-                              <td className="whitespace-nowrap font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] align-middle underline decoration-solid text-[#4898F3] underline-offset-[0px]">
-                                <span className="p-[8px] pr-10">
-                                  <img src={kresusAssets.tableIcon} alt="" />
+                <div className="">
+                  <Spin spinning={loading}>
+                    <Table
+                      columns={[
+                        {
+                          title: "Email",
+                          dataIndex: "email",
+                          key: "email",
+                          render: (email, record) => (
+                            <div className="">
+                              <Button
+                                type="text"
+                                icon={
+                                  <img
+                                    src={kresusAssets?.arrowRight}
+                                    alt="Expand"
+                                    className={`transition-transform p-1 ${
+                                      record.expanded ? "rotate-90" : ""
+                                    }`}
+                                  />
+                                }
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  const newUsers = data.users.map((user) =>
+                                    user.email === record.email
+                                      ? { ...user, expanded: !user.expanded }
+                                      : { ...user, expanded: false }
+                                  );
+                                  setData((prev) =>
+                                    prev ? { ...prev, users: newUsers } : null
+                                  );
+                                }}
+                                className="!flex items-center justify-center hover:!bg-[#2C2C2E]"
+                              >
+                                <span className="whitespace-nowrap font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] align-middle underline decoration-solid text-[#4898F3] underline-offset-[0px]">
+                                  {email}
                                 </span>
-                                {user.email}
-                              </td>
-                              <td>
-                                <AddressCell
-                                  address={user.address}
-                                  type="wallet"
-                                />
-                              </td>
-                              <td>
-                                <AddressCell
-                                  address={user.solana_address}
-                                  type="solana"
-                                />
-                              </td>
-                              <td>
-                                <ChainTokenCount tokens={user.tokens} />
-                              </td>
-                              <td>
-                                {totalTokens > 0 ? (
-                                  <div>
-                                    <TokenList
-                                      tokens={user.tokens}
-                                      showCount={TOKENS_TO_SHOW}
-                                    />
-                                    {totalTokens > TOKENS_TO_SHOW && (
-                                      <Button
-                                        type="link"
-                                        onClick={() =>
-                                          setSelectedUser({
-                                            tokens: user.tokens,
-                                            totalUsd: totalUsd,
-                                            email: user.email,
-                                            address: user.address,
-                                            solana_address: user.solana_address,
-                                          })
-                                        }
-                                        className="mt-1 text-blue-600 hover:text-blue-800"
-                                      >
-                                        Show All Tokens ({totalTokens})
-                                      </Button>
-                                    )}
-                                  </div>
-                                ) : (
-                                  <span className="text-red-600 font-semibold">
-                                    No Token Found
-                                  </span>
-                                )}
-                              </td>
-                              <td>
-                                {totalTokens > 0 ? (
-                                  <div>
-                                    <TokenBalanceList
-                                      tokens={user.tokens}
-                                      showCount={TOKENS_TO_SHOW}
-                                    />
-                                    {totalTokens > TOKENS_TO_SHOW && (
-                                      <Button
-                                        type="link"
-                                        onClick={() =>
-                                          setSelectedUser({
-                                            tokens: user.tokens,
-                                            totalUsd: totalUsd,
-                                            email: user.email,
-                                            address: user.address,
-                                            solana_address: user.solana_address,
-                                          })
-                                        }
-                                        className="mt-1 text-blue-600 hover:text-blue-800"
-                                      >
-                                        Show All Balances
-                                      </Button>
-                                    )}
-                                  </div>
-                                ) : (
-                                  <span className="text-red-600 font-semibold">
-                                    No Token Found
-                                  </span>
-                                )}
-                              </td>
-                              <td>
-                                <Button
-                                  type="link"
-                                  onClick={() =>
-                                    setSelectedUser({
-                                      tokens: user.tokens,
-                                      totalUsd: totalUsd,
-                                      email: user.email,
-                                      address: user.address,
-                                      solana_address: user.solana_address,
-                                    })
-                                  }
-                                  size="large"
-                                  className="text-blue-800 text-bold text-md underline"
-                                >
-                                  View Spam Tokens
-                                </Button>
-                              </td>
-                              <td className="font-semibold">
-                                {totalTokens > 0 ? (
-                                  <div>
-                                    <TokenValueList
-                                      tokens={user.tokens}
-                                      totalUsd={totalUsd}
-                                      showCount={TOKENS_TO_SHOW}
-                                    />
-                                    {totalTokens > TOKENS_TO_SHOW && (
-                                      <Button
-                                        type="link"
-                                        onClick={() =>
-                                          setSelectedUser({
-                                            tokens: user.tokens,
-                                            totalUsd: totalUsd,
-                                            email: user.email,
-                                            address: user.address,
-                                            solana_address: user.solana_address,
-                                          })
-                                        }
-                                        className="mt-1 text-blue-600 hover:text-blue-800"
-                                      >
-                                        Show All Values
-                                      </Button>
-                                    )}
-                                  </div>
-                                ) : (
-                                  <span className="text-green-700 font-bold">
-                                    $0.00
-                                  </span>
-                                )}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                              </Button>
+                            </div>
+                          ),
+                        },
+                        {
+                          title: "Base Address",
+                          dataIndex: "address",
+                          key: "address",
+                          render: (address) => (
+                            <AddressCell address={address} type="wallet" />
+                          ),
+                        },
+                        {
+                          title: "Solana Address",
+                          dataIndex: "solana_address",
+                          key: "solana_address",
+                          render: (solana_address) => (
+                            <AddressCell
+                              address={solana_address}
+                              type="solana"
+                            />
+                          ),
+                        },
+                        {
+                          title: "Actions",
+                          key: "actions",
+                          align: "center",
+                          render: (_, record) => (
+                            <Button
+                              type="link"
+                              onClick={() =>
+                                setSelectedUser({
+                                  tokens: record.tokens,
+                                  totalUsd: calculateTotalUsd(record.tokens),
+                                  email: record.email,
+                                  address: record.address,
+                                  solana_address: record.solana_address,
+                                })
+                              }
+                              className="text-[#4898F3] font-semibold underline hover:text-[#7D0BF4] !p-0"
+                            >
+                              <img src={kresusAssets.eyeIcon} alt="" />
+                            </Button>
+                          ),
+                        },
+                      ]}
+                      dataSource={data?.users?.map((user) => ({
+                        ...user,
+                        key: user.email,
+                        expanded: user.expanded || false,
+                      }))}
+                      rowKey="email"
+                      pagination={{
+                        current: pagination.current,
+                        pageSize: pagination.pageSize,
+                        total: data.pagination?.totalPages
+                          ? data.pagination.totalPages * pagination.pageSize
+                          : 0,
+                        showSizeChanger: true,
+                        pageSizeOptions: ["5", "10", "20", "50", "100"],
+                        onChange: handlePageChange,
+                        onShowSizeChange: handlePageChange,
+                        showTotal: (total, range) =>
+                          `${range[0]}-${range[1]} of ${total} items`,
+                      }}
+                      className="active-token-table"
+                      scroll={{ x: "max-content" }}
+                      rowClassName={(record) =>
+                        record.expanded
+                          ? "!bg-gradient-to-r from-[#2D2D2D]  to-[#2D2D2D] "
+                          : ""
+                      }
+                      expandable={{
+                        expandedRowRender: (record) => {
+                          const allTokens = Object.values(record.tokens).flat();
+                          const sortedTokens = [...allTokens].sort((a, b) => {
+                            const aValue = parseFloat(
+                              a.usd_balance_formatted || "0"
+                            );
+                            const bValue = parseFloat(
+                              b.usd_balance_formatted || "0"
+                            );
+                            return bValue - aValue;
+                          });
 
-                        {/* Total row */}
-                        {data?.users && data.users.length > 0 && (
-                          <tr className="total-row">
-                            <td colSpan={7} className="text-center">
-                              Total AC in USD of above Data
-                            </td>
-                            <td className="text-center">
-                              <span className="text-white font-bold">
-                                {`$${data.users
-                                  .reduce(
-                                    (sum, user) =>
-                                      sum + calculateTotalUsd(user.tokens),
+                          const expandedColumns = [
+                            {
+                              title: "Sr",
+                              key: "serial",
+                              width: 60,
+                              align: "center",
+                              render: (_, __, index) => index + 1,
+                            },
+                            {
+                              title: "Chain Token",
+                              key: "chain",
+                              align: "center",
+                              width: 120,
+                              render: (_, token, index) => {
+                                const firstIndex = sortedTokens.findIndex(
+                                  (t) => t.chain === token.chain
+                                );
+                                const sameChainTokens = sortedTokens.filter(
+                                  (t) => t.chain === token.chain
+                                );
+                                const isFirst = index === firstIndex;
+
+                                if (isFirst) {
+                                  return {
+                                    children: (
+                                      <div className="flex flex-col items-center justify-center text-white font-medium">
+                                        <span>
+                                          {formatChainName(token.chain)}
+                                        </span>
+                                      </div>
+                                    ),
+                                    props: {
+                                      rowSpan: sameChainTokens.length,
+                                      className: "align-middle text-center",
+                                    },
+                                  };
+                                }
+
+                                return {
+                                  children: null,
+                                  props: { rowSpan: 0 },
+                                };
+                              },
+                            },
+                            {
+                              title: "Token Name",
+                              key: "tokenName",
+                              width: 200,
+                              align: "center",
+                              render: (_, token) => (
+                                <span className="text-white">
+                                  {token.name || "Unknown"}{" "}
+                                  {token.symbol ? `(${token.symbol})` : ""}
+                                </span>
+                              ),
+                            },
+                            {
+                              title: "Tokens",
+                              key: "tokens",
+                              width: 120,
+                              align: "center",
+                              render: (_, token) => (
+                                <span className="text-white font-medium">
+                                  {parseFloat(
+                                    token.balance_formatted || "0"
+                                  ).toFixed(2)}
+                                </span>
+                              ),
+                            },
+                            {
+                              title: "AC in USD",
+                              key: "usdValue",
+                              width: 120,
+                              align: "center",
+                              render: (_, token) => (
+                                <span className="text-green-400 font-bold">
+                                  $
+                                  {parseFloat(
+                                    token.usd_balance_formatted || "0"
+                                  ).toFixed(2)}
+                                </span>
+                              ),
+                            },
+                            {
+                              title: "Total AC in USD",
+                              key: "totalUsd",
+                              width: 150,
+                              align: "center",
+                              render: (_, token, index) => {
+                                // Only show once (first row)
+                                if (index === 0) {
+                                  const totalUsd = sortedTokens.reduce(
+                                    (sum, t) =>
+                                      sum +
+                                      parseFloat(
+                                        t.usd_balance_formatted || "0"
+                                      ),
                                     0
-                                  )
-                                  .toFixed(2)}`}
-                              </span>
-                            </td>
-                          </tr>
-                        )}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div className="flex justify-end  bg-white  p-2">
-                  <Pagination
-                    current={pagination.current}
-                    pageSize={pagination.pageSize}
-                    total={
-                      data.pagination?.totalPages
-                        ? data.pagination.totalPages * pagination.pageSize
-                        : 0
-                    }
-                    showSizeChanger
-                    pageSizeOptions={["5", "10", "20", "50", "100"]}
-                    onChange={handlePageChange}
-                    onShowSizeChange={handlePageChange}
-                    size="small"
-                    className="text-xs sm:text-sm text-white"
-                  />
+                                  );
+                                  return {
+                                    children: (
+                                      <span className="text-purple-400 font-bold text-center">
+                                        ${totalUsd.toFixed(2)}
+                                      </span>
+                                    ),
+                                    props: {
+                                      rowSpan: sortedTokens.length,
+                                      className:
+                                        "text-center border-l border-[#3B3B3B] total-usd-cell",
+                                    },
+                                  };
+                                }
+
+                                // Hide rest of cells
+                                return {
+                                  children: null,
+                                  props: {
+                                    rowSpan: 0,
+                                  },
+                                };
+                              },
+                            },
+                          ];
+
+                          return (
+                            <div className="bg-[#393939]  p-4 rounded-b-2xl ">
+                              {/* <div className="mb-4">
+                                <h3 className="text-white font-roboto font-semibold text-[16px] mb-2">
+                                  Token Details for {record.email}
+                                </h3>
+                                <div className="flex gap-4 text-sm text-gray-300">
+                                  <div>
+                                    <span className="font-medium">
+                                      Base Address:{" "}
+                                    </span>
+                                    <span className="text-blue-400">
+                                      {formatAddress(record.address)}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <span className="font-medium">
+                                      Solana Address:{" "}
+                                    </span>
+                                    <span className="text-blue-400">
+                                      {formatAddress(record.solana_address)}
+                                    </span>
+                                  </div>
+                                </div>
+                              </div> */}
+  
+                              <Table
+                                columns={expandedColumns}
+                                dataSource={sortedTokens.map(
+                                  (token, index) => ({
+                                    ...token,
+                                    key: `${token.token_address}-${index}`,
+                                    chainGroup:
+                                      index > 0 &&
+                                      token.chain ===
+                                        sortedTokens[index - 1].chain
+                                        ? "same-chain-row"
+                                        : "",
+                                  })
+                                )}
+                                rowClassName={(record, index) => {
+                                  const baseClass = record.chainGroup || "";
+
+                                  // Add a class for the first row of each chain group
+                                  if (
+                                    index === 0 ||
+                                    record.chain !==
+                                      sortedTokens[index - 1]?.chain
+                                  ) {
+                                    return `${baseClass} chain-group-first`;
+                                  }
+
+                                  return baseClass;
+                                }}
+                                pagination={false}
+                                size="small"
+                                className="expanded-tokens-table  "
+                                scroll={{ x: "max-content" }}
+                                locale={{
+                                  emptyText: (
+                                    <div className="expanded-empty-container ">
+                                      <table className="w-full border-none ">
+                                        <tbody>
+                                          <tr>
+                                            {expandedColumns.map(
+                                              (column, index) => (
+                                                <td
+                                                  key={column.key || index}
+                                                  className={`text-[#BA2130] font-inter font-normal text-[14px]  ${
+                                                    index ===
+                                                    expandedColumns.length - 1
+                                                      ? "border-l border-[#f1ecec]" // Use your existing border color
+                                                      : "border-none !border-0"
+                                                  }`}
+                                                  style={{
+                                                    width: column.width,
+                                                    minWidth: column.width,
+                                                    textAlign:
+                                                      column.align || "center",
+                                                  }}
+                                                >
+                                                  N/A
+                                                </td>
+                                              )
+                                            )}
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  ),
+                                }}
+                              />
+                            </div>
+                          );
+                        },
+                        expandedRowKeys: data.users
+                          .filter((user) => user.expanded)
+                          .map((user) => user.email),
+                        onExpand: (expanded, record) => {
+                          const newUsers = data.users.map((user) =>
+                            user.email === record.email
+                              ? { ...user, expanded }
+                              : { ...user, expanded: false }
+                          );
+                          setData((prev) =>
+                            prev ? { ...prev, users: newUsers } : null
+                          );
+                        },
+                        expandIcon: () => null,
+                        rowExpandable: () => true,
+                      }}
+                      summary={() =>
+                        data?.users && data.users.length > 0 ? (
+                          <Table.Summary>
+                            <Table.Summary.Row className="total-row bg-[#2C2C2E] bg-[linear-gradient(90deg,rgba(255,255,255,0.08)_33.33%,rgba(255,255,255,0.18)_50%,rgba(255,255,255,0.08)_66.5%)]">
+                              <Table.Summary.Cell
+                                index={0}
+                                colSpan={4}
+                                className="font-roboto font-bold text-[16px] leading-[100%] tracking-[0] text-center text-[#FFFFFF]"
+                              >
+                                Total AC in USD of above Data
+                              </Table.Summary.Cell>
+                              <Table.Summary.Cell
+                                index={1}
+                                className="text-center"
+                              >
+                                <span className="font-roboto font-bold text-[16px] leading-[100%] tracking-[0] align-middle bg-[linear-gradient(135deg,#7D0BF4_0%,#0D4BEF_100%)] bg-clip-text text-transparent">
+                                  {`$${data.users
+                                    .reduce(
+                                      (sum, user) =>
+                                        sum + calculateTotalUsd(user.tokens),
+                                      0
+                                    )
+                                    .toFixed(2)}`}
+                                </span>
+                              </Table.Summary.Cell>
+                            </Table.Summary.Row>
+                          </Table.Summary>
+                        ) : null
+                      }
+                    />
+                  </Spin>
                 </div>
               </>
             ) : (
@@ -915,28 +1185,19 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                           Email
                         </th>
                         <th className="px-2 sm:px-3 md:px-4 py-2 border font-bold">
-                          Wallet Address
+                          Base Address
                         </th>
                         <th className="px-2 sm:px-3 md:px-4 py-2 border font-bold">
                           Solana Address
                         </th>
                         <th className="px-2 sm:px-3 md:px-4 py-2 border font-bold">
-                          Token Names
-                        </th>
-                        <th className="px-2 sm:px-3 md:px-4 py-2 border font-bold">
-                          Tokens
-                        </th>
-                        <th className="px-2 sm:px-3 md:px-4 py-2 border font-bold">
-                          View Spam Tokens
-                        </th>
-                        <th className="px-2 sm:px-3 md:px-4 py-2 border font-bold">
-                          Total AC in USD
+                          Chain Tokens
                         </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td colSpan={6} className="border">
+                        <td colSpan={4} className="border">
                           <div className="text-center py-8 text-red-400 font-medium">
                             No data available
                           </div>
