@@ -121,9 +121,7 @@ const TokenModal: React.FC<TokenModalProps> = ({
   solana_address,
 }) => {
   const [activeMainTab, setActiveMainTab] = useState<string>("details");
-  const [activeChainTab, setActiveChainTab] = useState<string>(
-    Object.keys(tokens)[0] || ""
-  );
+
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: "usd_value",
     order: "descend",
@@ -300,33 +298,65 @@ const TokenModal: React.FC<TokenModalProps> = ({
   const spamTokenColumns = useMemo(
     () => [
       {
-        title: "Chain",
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Chain Token
+          </span>
+        ),
         dataIndex: "chain",
         key: "chain",
-        render: (chain: string) => formatChainName(chain),
+        render: (chain: string) => (
+          <span className="font-inter font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            {formatChainName(chain)}
+          </span>
+        ),
         width: 100,
       },
       {
-        title: "Token Name",
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Token Name
+          </span>
+        ),
         dataIndex: "name",
         key: "name",
-        render: (text: string | null) => text || "Unknown",
+        render: (text: string | null) => (
+          <span className="font-inter font-normal text-[14px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+            {text || "Unknown"}
+          </span>
+        ),
         width: 120,
         ellipsis: true,
       },
       {
-        title: "Balance",
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Balance
+          </span>
+        ),
         dataIndex: "balance_formatted",
         key: "balance",
-        render: formatBalance,
+        render: (text: string) => (
+          <span className="font-inter font-normal text-[14px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+            {formatBalance(text)}
+          </span>
+        ),
         width: 100,
         align: "right" as const,
       },
       {
-        title: "USD Value",
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            USD Value
+          </span>
+        ),
         dataIndex: "usd_balance_formatted",
         key: "usd_value",
-        render: formatUsdValue,
+        render: (value: string) => (
+          <span className="font-inter font-normal text-[14px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+            {formatUsdValue(value)}
+          </span>
+        ),
         width: 100,
         align: "right" as const,
       },

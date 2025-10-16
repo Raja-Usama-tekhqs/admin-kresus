@@ -25,6 +25,7 @@ import { FcCalendar } from "react-icons/fc";
 import { kresusAssets } from "assets";
 import AnalyticsHolding from "./analyticsHolding";
 import VolumeAnalytics from "./volumeAnalytics";
+import TransactionAnalytics from "./transactionAnalytics";
 interface VolumeItem {
   chain: string;
   total_volume: string;
@@ -467,12 +468,24 @@ const MonthlyActive = () => {
     {
       key: "volume",
       label: "Volume Analytics",
-      children:  "<VolumeAnalytics activeTab={activeTab}/>",
+      children: (
+        <VolumeAnalytics
+          volumeData={volumeData}
+          earnMetrics={earnMetrics}
+          loading={loading}
+        />
+      ),
     },
     {
       key: "transaction",
       label: "Transactions Analytics",
-      children: "",
+      children: (
+        <TransactionAnalytics
+          transactionData={transactionData}
+          earnMetrics={earnMetrics}
+          loading={loading}
+        />
+      ),
     },
   ];
 
@@ -864,9 +877,9 @@ const MonthlyActive = () => {
           ],
         },
         true
-      )}
+      )} */}
 
-      {renderCardSection(
+      {/* {renderCardSection(
         "Transaction Analytics",
         augmentedTransactionData,
         [
