@@ -1,47 +1,52 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Modal, Tabs, Table, Tooltip, Spin, Button } from 'antd';
-import type { TabsProps, TableProps } from 'antd';
-import { Token } from './analyticsHolding';
-import { CopyOutlined } from '@ant-design/icons';
-import { message } from 'antd';
+import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { Modal, Tabs, Table, Tooltip, Spin, Button } from "antd";
+import type { TabsProps, TableProps } from "antd";
+import { chainIcon, Token } from "./analyticsHolding";
+import { CopyOutlined } from "@ant-design/icons";
+import { message } from "antd";
 import useApiClient from "hooks/useApiClient";
+import { kresusAssets } from "assets";
 
 // Types
 interface TokenModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    tokens: { [chain: string]: Token[] };
-    totalUsd: number;
-    email: string;
-    address: string;
-    solana_address: string;
+  isOpen: boolean;
+  onClose: () => void;
+  tokens: { [chain: string]: Token[] };
+  totalUsd: number;
+  email: string;
+  address: string;
+  solana_address: string;
 }
 
 interface SpamTokensResponse {
-    spamTokens?: { [chain: string]: Token[] };
-    error?: string;
+  spamTokens?: { [chain: string]: Token[] };
+  error?: string;
 }
 
 interface ChainSummary {
-    chain: string;
-    total: number;
-    tokenCount: number;
-    sortedTokens: Token[];
+  chain: string;
+  total: number;
+  tokenCount: number;
+  sortedTokens: Token[];
 }
 
 interface SortConfig {
-    key: string;
-    order: 'ascend' | 'descend' | null;
+  key: string;
+  order: "ascend" | "descend" | null;
 }
 
 // Constants
 const CHAIN_NAME_MAP: Record<string, string> = {
-    'base-mainnet': 'Base',
-    'solana-mainnet': 'Solana',
-    'worldchain-mainnet': 'WLD',
+  "base-mainnet": "Base",
+  "solana-mainnet": "Solana",
+  "worldchain-mainnet": "WLD",
 };
 
-const ALL_CHAINS = ['base-mainnet', 'worldchain-mainnet', 'solana-mainnet'] as const;
+const ALL_CHAINS = [
+  "base-mainnet",
+  "worldchain-mainnet",
+  "solana-mainnet",
+] as const;
 
 const TABLE_SCROLL_CONFIG = { x: 400, y: 250 };
 const SYMBOL_MAX_LENGTH = 8;
@@ -50,411 +55,506 @@ const USD_DECIMAL_PLACES = 2;
 
 // Utility functions
 const formatChainName = (chain: string): string => {
-    return CHAIN_NAME_MAP[chain] || chain;
+  return CHAIN_NAME_MAP[chain] || chain;
 };
 
-const truncateAddress = (address: string): React.ReactElement => {
-    if (!address) return <></>;
-    const start = address.slice(0, 3);
-    const end = address.slice(-3);
-    return (
-        <span className="truncated-address">
-            <span className="start">{start}</span>
-            <span className="separator">...</span>
-            <span className="end">{end}</span>
-        </span>
-    );
+const truncateAddress = (address: string): string => {
+  if (!address) return "";
+  const start = address.slice(0, 4);
+  const end = address.slice(-4);
+  return `${start}...${end}`;
 };
 
 const formatBalance = (value: string): string => {
-    return parseFloat(value).toFixed(BALANCE_DECIMAL_PLACES);
+  return parseFloat(value).toFixed(BALANCE_DECIMAL_PLACES);
 };
 
 const formatUsdValue = (value: string): string => {
-    return `$${parseFloat(value).toFixed(USD_DECIMAL_PLACES)}`;
+  return `$${parseFloat(value).toFixed(USD_DECIMAL_PLACES)}`;
 };
 
 const parseNumericValue = (value: string | null | undefined): number => {
-    return parseFloat(value || "0");
+  return parseFloat(value || "0");
 };
 
 // Sub-components
-const CopyButton: React.FC<{ text: string; onCopy: (text: string) => void }> = ({ text, onCopy }) => (
-    <button
-        onClick={() => onCopy(text)}
-        className="ml-2 p-1 hover:bg-blue-50 rounded-full transition-colors"
-        aria-label="Copy address"
-    >
-        <CopyOutlined className="text-blue-500" />
-    </button>
-);
-
-const UserInfo: React.FC<{ email: string; address: string; solanaAddress?: string; onCopy: (text: string) => void }> = ({
-    email,
-    address,
-    solanaAddress,
-    onCopy
-}) => (
-    <div className="user-info">
-        <p>
-            <span className="label">Email:</span>
-            <span className="value">{email}</span>
-        </p>
-        <p>
-            <span className="label">Base:</span>
-            <span className="value">
-                {truncateAddress(address)}
-                <CopyButton text={address} onCopy={onCopy} />
-            </span>
-        </p>
-        {solanaAddress && (
-            <p>
-                <span className="label">Solana:</span>
-                <span className="value">
-                    {truncateAddress(solanaAddress)}
-                    <CopyButton text={solanaAddress} onCopy={onCopy} />
-                </span>
-            </p>
-        )}
-    </div>
+const CopyButton: React.FC<{
+  text: string;
+  onCopy: (text: string) => void;
+}> = ({ text, onCopy }) => (
+  <button
+    onClick={() => onCopy(text)}
+    className="ml-2 p-1 hover:cursor-pointer  rounded-full bg-black border-none "
+    aria-label="Copy address"
+  >
+    <img src={kresusAssets.copyIcon} alt="" width={20} height={20} />
+  </button>
 );
 
 const ChainSummaryCard: React.FC<{ summary: ChainSummary }> = ({ summary }) => (
-    <div key={summary.chain} className="chain-card" data-chain={summary.chain}>
-        <div className="chain-header">
-            <span className="chain-name">{formatChainName(summary.chain)}</span>
-            <span className="chain-value">${summary.total.toFixed(USD_DECIMAL_PLACES)}</span>
-        </div>
-        <div className="token-count">
-            <strong>{summary.tokenCount}</strong> tokens
-        </div>
+  <div
+    key={summary.chain}
+    className="chain-card flex flex-col gap-2"
+    data-chain={summary.chain}
+  >
+    <div className="chain-header">
+      <span className="chain-name">
+        <span className="">{chainIcon(summary.chain, 12)} </span>
+        <span>{formatChainName(summary.chain)}</span>
+      </span>
+      <span className="token-count">{summary.tokenCount} tokens</span>
     </div>
+    <div className="chain-value">
+      ${summary.total.toFixed(USD_DECIMAL_PLACES)}
+    </div>
+  </div>
 );
-
-const SpamTokensSection: React.FC<{
-    spamTokens: SpamTokensResponse | null;
-    spamLoading: boolean;
-    onRetry: () => void;
-}> = ({ spamTokens, spamLoading, onRetry }) => {
-    const spamColumns = useMemo(() => [
-        {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: (text: string | null) => text || 'Unknown',
-        },
-        {
-            title: 'Symbol',
-            dataIndex: 'symbol',
-            key: 'symbol',
-            render: (text: string | null) => text || 'Unknown',
-        },
-        {
-            title: 'Balance',
-            dataIndex: 'balance_formatted',
-            key: 'balance_formatted',
-            render: formatBalance,
-            align: 'right' as const,
-        },
-        {
-            title: 'USD Value',
-            dataIndex: 'usd_balance_formatted',
-            key: 'usd_balance_formatted',
-            render: formatUsdValue,
-            align: 'right' as const,
-        },
-    ], []);
-
-    if (spamLoading) {
-        return (
-            <div style={{ marginTop: 32, textAlign: 'center' }}>
-                <h4 style={{ marginBottom: 12 }}>Spam Tokens</h4>
-                <Spin size="large" style={{ padding: 32 }} />
-            </div>
-        );
-    }
-
-    if (spamTokens?.error) {
-        return (
-            <div style={{ marginTop: 32, textAlign: 'center' }}>
-                <h4 style={{ marginBottom: 12, color: "red" }}>Spam Tokens</h4>
-                <p style={{ color: "red" }}>{spamTokens.error}</p>
-                <Button size="small" onClick={onRetry} style={{ marginTop: '8px' }}>
-                    Retry
-                </Button>
-            </div>
-        );
-    }
-
-    if (!spamTokens?.spamTokens) return null;
-
-    return (
-        <div style={{ marginTop: 32 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                <h2 style={{ color: "red", margin: 0 }}>Spam Tokens</h2>
-            </div>
-            <Tabs
-                items={ALL_CHAINS.map((chain) => {
-                    const chainTokens = spamTokens.spamTokens?.[chain] || [];
-                    return {
-                        key: chain,
-                        label: (
-                            <div className="tab-label">
-                                <span className="capitalize">{formatChainName(chain)}</span>
-                                <span className="token-count">{chainTokens.length}</span>
-                            </div>
-                        ),
-                        children: (
-                            <div className="mt-4">
-                                <Table
-                                    dataSource={chainTokens}
-                                    columns={spamColumns}
-                                    rowKey="token_address"
-                                    pagination={false}
-                                    size="small"
-                                    className="token-table"
-                                    scroll={TABLE_SCROLL_CONFIG}
-                                />
-                            </div>
-                        )
-                    };
-                })}
-                className="token-tabs"
-            />
-        </div>
-    );
-};
 
 // Main component
 const TokenModal: React.FC<TokenModalProps> = ({
-    isOpen,
-    onClose,
-    tokens,
-    totalUsd,
-    email,
-    address,
-    solana_address
+  isOpen,
+  onClose,
+  tokens,
+  totalUsd,
+  email,
+  address,
+  solana_address,
 }) => {
-    const [activeTab, setActiveTab] = useState<string>(Object.keys(tokens)[0] || '');
-    const [sortConfig, setSortConfig] = useState<SortConfig>({
-        key: 'usd_value',
-        order: 'descend'
-    });
-    console.log(sortConfig)
-    const [spamTokens, setSpamTokens] = useState<SpamTokensResponse | null>(null);
-    const [spamLoading, setSpamLoading] = useState(false);
-    const { getRequest } = useApiClient();
+  const [activeMainTab, setActiveMainTab] = useState<string>("details");
+  const [activeChainTab, setActiveChainTab] = useState<string>(
+    Object.keys(tokens)[0] || ""
+  );
+  const [sortConfig, setSortConfig] = useState<SortConfig>({
+    key: "usd_value",
+    order: "descend",
+  });
+  const [spamTokens, setSpamTokens] = useState<SpamTokensResponse | null>(null);
+  const [spamLoading, setSpamLoading] = useState(false);
+  const { getRequest } = useApiClient();
 
-    // Memoized values
-    const totalTokenCount = useMemo(() => 
-        Object.values(tokens).reduce((sum, tokens) => sum + tokens.length, 0), 
-        [tokens]
-    );
+  // Memoized values
+  const totalTokenCount = useMemo(
+    () => Object.values(tokens).reduce((sum, tokens) => sum + tokens.length, 0),
+    [tokens]
+  );
 
-    const chainSummaries = useMemo((): ChainSummary[] => 
-        Object.entries(tokens).map(([chain, chainTokens]) => {
-            const sortedChainTokens = [...chainTokens].sort((a, b) => {
-                const aValue = parseNumericValue(a.usd_balance_formatted);
-                const bValue = parseNumericValue(b.usd_balance_formatted);
-                return bValue - aValue;
-            });
-            const chainTotal = sortedChainTokens.reduce((sum, token) =>
-                sum + parseNumericValue(token.usd_balance_formatted), 0
-            );
-            return {
-                chain,
-                total: chainTotal,
-                tokenCount: chainTokens.length,
-                sortedTokens: sortedChainTokens
-            };
-        }), [tokens]
-    );
-
-    const columns = useMemo(() => [
-        {
-            title: 'Token Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: (text: string | null) => text || 'Unknown',
-            width: 120,
-            ellipsis: true,
-            sorter: (a: Token, b: Token) => (a.name || '').localeCompare(b.name || ''),
-        },
-        {
-            title: 'Symbol',
-            dataIndex: 'symbol',
-            key: 'symbol',
-            render: (text: string | null) => {
-                const symbol = text || 'Unknown';
-                if (symbol.length <= SYMBOL_MAX_LENGTH) return symbol;
-                return (
-                    <Tooltip title={symbol}>
-                        <span>{symbol.slice(0, SYMBOL_MAX_LENGTH)}...</span>
-                    </Tooltip>
-                );
-            },
-            width: 80,
-            sorter: (a: Token, b: Token) => (a.symbol || '').localeCompare(b.symbol || ''),
-        },
-        {
-            title: 'Balance',
-            dataIndex: 'balance_formatted',
-            key: 'balance',
-            render: formatBalance,
-            width: 100,
-            align: 'right' as const,
-            sorter: (a: Token, b: Token) => {
-                const aValue = parseNumericValue(a.balance_formatted);
-                const bValue = parseNumericValue(b.balance_formatted);
-                return aValue - bValue;
-            },
-        },
-        {
-            title: 'USD Value',
-            dataIndex: 'usd_balance_formatted',
-            key: 'usd_value',
-            render: formatUsdValue,
-            width: 100,
-            align: 'right' as const,
-            sorter: (a: Token, b: Token) => {
-                const aValue = parseNumericValue(a.usd_balance_formatted);
-                const bValue = parseNumericValue(b.usd_balance_formatted);
-                return aValue - bValue;
-            },
-        },
-    ], []);
-
-   
-
-    // Callbacks
-    const fetchSpamTokens = useCallback(async () => {
-        setSpamLoading(true);
-        setSpamTokens(null);
-        try {
-            const vaultURL = import.meta.env.VITE_REACT_APPLICATION_VAULT_URL;
-            const params: Record<string, string> = { address };
-            if (solana_address) params.solana = solana_address;
-            const res = await getRequest<SpamTokensResponse>(`${vaultURL}analytics/spamTokens`, params);
-            setSpamTokens(res);
-        } catch (err) {
-            setSpamTokens({ error: 'Failed to fetch spam tokens' });
-            // message.error('Faizled to fetch spam tokens');
-        } finally {
-            setSpamLoading(false);
-        }
-    }, [address, solana_address]);
-
-    const handleCopyAddress = useCallback(async (text: string) => {
-        try {
-            await navigator.clipboard.writeText(text);
-            message.success('Address copied to clipboard');
-        } catch (err) {
-            message.error('Failed to copy address');
-        }
-    }, []);
-
-    const handleTableChange: TableProps<Token>['onChange'] = useCallback((sorter: any) => {
-        if (Array.isArray(sorter)) return;
-        setSortConfig({
-            key: sorter.field as string,
-            order: sorter.order
+  const chainSummaries = useMemo(
+    (): ChainSummary[] =>
+      Object.entries(tokens).map(([chain, chainTokens]) => {
+        const sortedChainTokens = [...chainTokens].sort((a, b) => {
+          const aValue = parseNumericValue(a.usd_balance_formatted);
+          const bValue = parseNumericValue(b.usd_balance_formatted);
+          return bValue - aValue;
         });
-    }, []);
+        const chainTotal = sortedChainTokens.reduce(
+          (sum, token) => sum + parseNumericValue(token.usd_balance_formatted),
+          0
+        );
+        return {
+          chain,
+          total: chainTotal,
+          tokenCount: chainTokens.length,
+          sortedTokens: sortedChainTokens,
+        };
+      }),
+    [tokens]
+  );
 
+  // Columns for different tables
+  const detailsColumns = useMemo(
+    () => [
+      {
+        title: (
+          <span className="font-roboto font-medium not-italic text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Email
+          </span>
+        ),
+        dataIndex: "email",
+        key: "email",
+        render: (text: string) =>
+          text ? (
+            <span className="text-[#4898F3] font-roboto font-normal text-[14px] leading-[100%] tracking-[0] align-middle underline decoration-solid decoration-auto  underline-offset-[0px]">
+              {text}
+            </span>
+          ) : (
+            "N/A"
+          ),
+      },
+      {
+        title: (
+          <span className="text-[#FFFFFF] font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle">
+            Base Address
+          </span>
+        ),
+        dataIndex: "baseAddress",
+        key: "baseAddress",
+        render: (text: string) => (
+          <span className="flex items-center">
+            <span className="font-roboto font-normal not-italic text-[14px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+              {truncateAddress(text)}
+            </span>
+            <CopyButton text={text} onCopy={handleCopyAddress} />
+          </span>
+        ),
+      },
+      {
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Solana Address
+          </span>
+        ),
+        dataIndex: "solanaAddress",
+        key: "solanaAddress",
+        render: (text: string) => (
+          <span className="flex items-center">
+            {truncateAddress(text)}
+            <CopyButton text={text} onCopy={handleCopyAddress} />
+          </span>
+        ),
+      },
+    ],
+    []
+  );
 
-    const tabItems = useMemo((): TabsProps['items'] => 
-        Object.entries(tokens).map(([chain, chainTokens]) => {
-            const sortedChainTokens = [...chainTokens].sort((a, b) => {
-                const aValue = parseNumericValue(a.usd_balance_formatted);
-                const bValue = parseNumericValue(b.usd_balance_formatted);
-                return bValue - aValue;
-            });
+  const activeTokenColumns = useMemo(
+    () => [
+      {
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Chain Token
+          </span>
+        ),
+        dataIndex: "chain",
+        key: "chain",
+        render: (chain: string) => (
+          <span className="font-inter font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            {formatChainName(chain)}
+          </span>
+        ),
+        width: 100,
+      },
+      {
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Token Name
+          </span>
+        ),
+        dataIndex: "name",
+        key: "name",
+        render: (text: string | null) => (
+          <span className="font-inter font-normal text-[14px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+            {text || "Unknown"}
+          </span>
+        ),
+        width: 120,
+        ellipsis: true,
+        sorter: (a: Token, b: Token) =>
+          (a.name || "").localeCompare(b.name || ""),
+      },
+      {
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            Balance
+          </span>
+        ),
+        dataIndex: "balance_formatted",
+        key: "balance",
+        render: (text: string) => (
+          <span className="font-inter font-normal text-[14px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+            {formatBalance(text)}
+          </span>
+        ),
+        width: 100,
+        align: "right" as const,
+        sorter: (a: Token, b: Token) => {
+          const aValue = parseNumericValue(a.balance_formatted);
+          const bValue = parseNumericValue(b.balance_formatted);
+          return aValue - bValue;
+        },
+      },
+      {
+        title: (
+          <span className="font-roboto font-medium text-[14px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
+            USD Value
+          </span>
+        ),
+        dataIndex: "usd_balance_formatted",
+        key: "usd_value",
+        render: (value: string) => (
+          <span className="font-inter font-normal text-[14px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+            {formatUsdValue(value)}
+          </span>
+        ),
+        width: 100,
+        align: "right" as const,
+        sorter: (a: Token, b: Token) => {
+          const aValue = parseNumericValue(a.usd_balance_formatted);
+          const bValue = parseNumericValue(b.usd_balance_formatted);
+          return aValue - bValue;
+        },
+      },
+    ],
+    []
+  );
 
-            return {
-                key: chain,
-                label: (
-                    <div className="tab-label">
-                        <span className="capitalize">{formatChainName(chain)}</span>
-                        <span className="token-count">{chainTokens.length}</span>
-                    </div>
-                ),
-                children: (
-                    <div className="mt-4">
-                        <Table
-                            dataSource={sortedChainTokens}
-                            columns={columns}
-                            rowKey="token_address"
-                            pagination={false}
-                            size="small"
-                            className="token-table"
-                            scroll={TABLE_SCROLL_CONFIG}
-                            onChange={handleTableChange}
-                            sortDirections={['ascend', 'descend']}
-                        />
-                    </div>
-                ),
-            };
-        }), [tokens, columns]
-    );
-    // Effects
-    useEffect(() => {
-        if (isOpen && address) {
-            fetchSpamTokens();
-        }
-        if (!isOpen) {
-            setSpamTokens(null);
-            setSpamLoading(false);
-        }
-    }, [isOpen, address, solana_address]);
+  const spamTokenColumns = useMemo(
+    () => [
+      {
+        title: "Chain",
+        dataIndex: "chain",
+        key: "chain",
+        render: (chain: string) => formatChainName(chain),
+        width: 100,
+      },
+      {
+        title: "Token Name",
+        dataIndex: "name",
+        key: "name",
+        render: (text: string | null) => text || "Unknown",
+        width: 120,
+        ellipsis: true,
+      },
+      {
+        title: "Balance",
+        dataIndex: "balance_formatted",
+        key: "balance",
+        render: formatBalance,
+        width: 100,
+        align: "right" as const,
+      },
+      {
+        title: "USD Value",
+        dataIndex: "usd_balance_formatted",
+        key: "usd_value",
+        render: formatUsdValue,
+        width: 100,
+        align: "right" as const,
+      },
+    ],
+    []
+  );
 
-    return (
-        <Modal
-            title={
-                <div>
-                    <h3 className="text-lg font-bold">Token Details</h3>
-                    <UserInfo 
-                        email={email} 
-                        address={address} 
-                        solanaAddress={solana_address} 
-                        onCopy={handleCopyAddress} 
-                    />
-                </div>
-            }
-            open={isOpen}
-            onCancel={onClose}
-            footer={null}
-            width={600}
-            className="token-modal"
-        >
-            <div className="chain-summary">
-                <div className="chain-card total-card">
-                    <div className="chain-header">
-                        <span className="chain-name">Total</span>
-                        <span className="chain-value">${totalUsd.toFixed(USD_DECIMAL_PLACES)}</span>
-                    </div>
-                    <div className="text-white">
-                        <strong>{totalTokenCount}</strong> tokens
-                    </div>
-                </div>
-                {chainSummaries.map((summary) => (
-                    <ChainSummaryCard key={summary.chain} summary={summary} />
-                ))}
-            </div>
+  // Data for tables
+  const detailsData = useMemo(
+    () => [
+      {
+        key: "1",
+        email: email,
+        baseAddress: address,
+        solanaAddress: solana_address,
+      },
+    ],
+    [email, address, solana_address]
+  );
 
-            <Tabs
-                activeKey={activeTab}
-                onChange={setActiveTab}
-                items={tabItems}
-                className="token-tabs"
+  const activeTokensData = useMemo(() => {
+    const allTokens: (Token & { chain: string })[] = [];
+    Object.entries(tokens).forEach(([chain, chainTokens]) => {
+      chainTokens.forEach((token) => {
+        allTokens.push({ ...token, chain });
+      });
+    });
+    return allTokens;
+  }, [tokens]);
+
+  const spamTokensData = useMemo(() => {
+    if (!spamTokens?.spamTokens) return [];
+    const allSpamTokens: (Token & { chain: string })[] = [];
+    Object.entries(spamTokens.spamTokens).forEach(([chain, chainTokens]) => {
+      chainTokens.forEach((token) => {
+        allSpamTokens.push({ ...token, chain });
+      });
+    });
+    return allSpamTokens;
+  }, [spamTokens]);
+
+  // Callbacks
+  const fetchSpamTokens = useCallback(async () => {
+    setSpamLoading(true);
+    setSpamTokens(null);
+    try {
+      const vaultURL = import.meta.env.VITE_REACT_APPLICATION_VAULT_URL;
+      const params: Record<string, string> = { address };
+      if (solana_address) params.solana = solana_address;
+      const res = await getRequest<SpamTokensResponse>(
+        `${vaultURL}analytics/spamTokens`,
+        params
+      );
+      setSpamTokens(res);
+    } catch (err) {
+      setSpamTokens({ error: "Failed to fetch spam tokens" });
+    } finally {
+      setSpamLoading(false);
+    }
+  }, [address, solana_address]);
+
+  const handleCopyAddress = useCallback(async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      message.success("Address copied to clipboard");
+    } catch (err) {
+      message.error("Failed to copy address");
+    }
+  }, []);
+
+  const handleTableChange: TableProps<Token>["onChange"] = useCallback(
+    (sorter: any) => {
+      if (Array.isArray(sorter)) return;
+      setSortConfig({
+        key: sorter.field as string,
+        order: sorter.order,
+      });
+    },
+    []
+  );
+
+  // Main tabs configuration
+  // Main tabs configuration
+  const mainTabItems: TabsProps["items"] = useMemo(
+    () => [
+      {
+        key: "details",
+        label: <div className="tab-label">Details</div>,
+        children: (
+          <div className="mt-4 bg-[#161616] p-[16px] rounded-[24px]">
+            <Table
+              dataSource={detailsData}
+              columns={detailsColumns}
+              pagination={false}
+              size="small"
+              className="token-modal-table"
+              // scroll={TABLE_SCROLL_CONFIG}
             />
-
-            <SpamTokensSection 
-                spamTokens={spamTokens}
-                spamLoading={spamLoading}
-                onRetry={fetchSpamTokens}
+          </div>
+        ),
+      },
+      {
+        key: "active",
+        label: <div className="tab-label">Active Tokens</div>,
+        children: (
+          <div className="mt-4 bg-[#161616] p-[16px] rounded-[24px]">
+            <Table
+              dataSource={activeTokensData}
+              columns={activeTokenColumns}
+              rowKey={(record) => `${record.chain}-${record.token_address}`}
+              pagination={false}
+              size="small"
+              className="token-modal-table"
+              // scroll={TABLE_SCROLL_CONFIG}
+              onChange={handleTableChange}
+              sortDirections={["ascend", "descend"]}
             />
-        </Modal>
-    );
+          </div>
+        ),
+      },
+      {
+        key: "spam",
+        label: <div className="tab-label">Spam Tokens</div>,
+        children: (
+          <div className="mt-4 bg-[#161616] p-[16px] rounded-[24px]">
+            {spamLoading ? (
+              <div className="text-center py-8">
+                <Spin size="large" />
+              </div>
+            ) : spamTokens?.error ? (
+              <div className="text-center py-8">
+                <p className="text-red-500 mb-4">{spamTokens.error}</p>
+                <Button size="small" onClick={fetchSpamTokens}>
+                  Retry
+                </Button>
+              </div>
+            ) : (
+              <Table
+                dataSource={spamTokensData}
+                columns={spamTokenColumns}
+                rowKey={(record) => `${record.chain}-${record.token_address}`}
+                pagination={false}
+                size="small"
+                className="token-modal-table"
+                //   scroll={TABLE_SCROLL_CONFIG}
+              />
+            )}
+          </div>
+        ),
+      },
+    ],
+    [
+      detailsData,
+      detailsColumns,
+      activeTokensData,
+      activeTokenColumns,
+      spamTokensData,
+      spamTokenColumns,
+      spamLoading,
+      spamTokens,
+      handleTableChange,
+      fetchSpamTokens,
+    ]
+  );
+
+  // Effects
+  useEffect(() => {
+    if (isOpen && address) {
+      fetchSpamTokens();
+    }
+    if (!isOpen) {
+      setSpamTokens(null);
+      setSpamLoading(false);
+    }
+  }, [isOpen, address, solana_address]);
+
+  return (
+    <Modal
+      title={
+        <div>
+          <h3 className="font-roboto font-semibold text-[24px] leading-[100%] tracking-[0] text-[#FFFFFF]">
+            Token Details
+          </h3>
+          <p className="font-roboto font-normal text-[12px] leading-[100%] tracking-[0] align-middle text-[#C7C7CC]">
+            TXT Record and Verification
+          </p>
+        </div>
+      }
+      open={isOpen}
+      onCancel={onClose}
+      footer={null}
+      width={652}
+      className="token-modal"
+    >
+      {/* Chain Summary Cards */}
+      <div className="chain-summary mb-6">
+        {chainSummaries.map((summary) => (
+          <ChainSummaryCard key={summary.chain} summary={summary} />
+        ))}
+        <div className="chain-card total-card flex flex-col gap-2">
+          <div className="chain-header">
+            <span className="chain-name flex items-center gap-1">
+              <img src={kresusAssets.totalAmount} alt="Total" />
+              Total
+            </span>
+            <span className="chain-value flex items-center">
+              {totalTokenCount} tokens
+            </span>
+          </div>
+          <div className="font-roboto font-semibold text-[16px] leading-[100%] tracking-[0px] text-[#FFFFFF]">
+            ${totalUsd.toFixed(USD_DECIMAL_PLACES)}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Tabs */}
+      <Tabs
+        activeKey={activeMainTab}
+        onChange={setActiveMainTab}
+        items={mainTabItems}
+        className="custom-modal-tabs"
+        tabBarStyle={{
+          background: "#000000",
+          borderRadius: "40px",
+        }}
+      />
+    </Modal>
+  );
 };
 
 export default TokenModal;

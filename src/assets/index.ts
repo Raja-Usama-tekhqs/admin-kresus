@@ -31,6 +31,7 @@ import filterDownArrow from "./allAssets/filterDownArrow.svg";
 import filterDateCalendar from "./allAssets/filterDateCalendar.svg";
 import arrowRight from "./allAssets/arrowRight.svg";
 import eyeIcon from "./allAssets/eyeIcon.svg";
+import copy from "./allAssets/Copy.svg";
 
 const kresusAssets = {
   BrytLogo: brytLogo,
@@ -66,5 +67,6 @@ const kresusAssets = {
   filterDateCalendar: filterDateCalendar,
   arrowRight: arrowRight,
   eyeIcon: eyeIcon,
+  copyIcon: copy,
 };
 export { kresusAssets };

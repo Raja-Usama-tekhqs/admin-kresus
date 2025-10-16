@@ -78,15 +78,15 @@ interface ApiError {
   details?: { message: string }[];
 }
 
-const chainIcon = (chain: string) => {
+export const chainIcon = (chain: string, size?: number) => {
   switch (chain) {
     case "solana-mainnet":
       return (
         <Image
           src={kresusAssets?.solana}
           alt="Solana"
-          width={25}
-          height={30}
+          width={size || 25}
+          height={size || 30}
           preview={false}
         />
       );
@@ -1056,7 +1056,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                                   </div>
                                 </div>
                               </div> */}
-  
+
                               <Table
                                 columns={expandedColumns}
                                 dataSource={sortedTokens.map(

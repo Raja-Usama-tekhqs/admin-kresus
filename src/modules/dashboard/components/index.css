@@ -253,10 +253,10 @@
     min-width: 120px;
 }
 
-.chain-name {
+/* .chain-name {
     font-weight: 500;
-    color: #4b5563;
-}
+    color: #e3e6eb;
+} */
 
 .token-count {
     font-weight: 600;
@@ -300,6 +300,7 @@
     min-width: 120px;
 }
 
+
 .chain-token-row {
     display: flex;
     align-items: center;
@@ -317,13 +318,18 @@
     max-height: 90vh;
     display: flex;
     flex-direction: column;
+    border: 0.5px solid #1A26E7;
+    padding: 48px 24px; 
+      box-shadow: 
+    -12px 12px 37px 0px #4C377B1A,
+    -47px 47px 67px 0px #4C377B17,
+    -106px 106px 90px 0px #4C377B0D,
+    -188px 189px 107px 0px #4C377B03,
+    -294px 295px 117px 0px #4C377B00;
 }
 
 .token-modal .ant-modal-header {
-    background: linear-gradient(to right, #f0f9ff, #e0f2fe);
-    border-bottom: 1px solid #e5e7eb;
-    padding: 0;
-    margin-bottom: 0;
+background-color:black;
 }
 
 .token-modal .ant-modal-title {
@@ -341,10 +347,9 @@
 
 .token-modal .user-info {
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    background-color: #f9fafb;
+    /* background-color: #f9fafb; */
     padding: 6px 10px;
     border-radius: 0;
-    border-bottom: 1px solid #e5e7eb;
     margin: 0;
     font-size: 0.875rem;
 }
@@ -367,6 +372,22 @@
     color: #1f2937;
     word-break: break-all;
     font-size: 0.875rem;
+}
+/* Remove the white border/divider from the modal */
+.token-modal .ant-modal-header {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+.token-modal .ant-modal-title {
+  border-bottom: none !important;
+}
+
+/* Ensure there's no border between header and body */
+
+
+.token-modal .ant-modal-header  {
+  border-top: none !important;
 }
 
 /* Token Tabs Styles */
@@ -424,8 +445,7 @@
 }
 
 /* Token Table Styles */
-.token-table {
-    border: 1px solid #e5e7eb;
+/* .token-table {
     border-radius: 6px;
     font-size: 0.875rem;
 }
@@ -450,99 +470,90 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
+} */
 
 /* Chain Summary Styles */
 .chain-summary {
-    display: grid;
+     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 8px;
     margin-bottom: 12px;
     padding: 12px;
-    background: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #e5e7eb;
+    /* background: #ffffff; */
+    /* border-radius: 8px;
+    border: 1px solid #e5e7eb;  */
 }
 
 .chain-card {
     position: relative;
-    padding: 8px 12px;
-    border-radius: 6px;
+    padding: 16px;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
     gap: 4px;
+    border: 1px solid #161616;
+  background: 
+    linear-gradient(0deg, #161616, #161616),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+      box-shadow: 
+    -8px 7px 24px 0px #15228A1A,
+    -33px 28px 44px 0px #15228A17,
+    -75px 63px 59px 0px #15228A0D,
+    -134px 112px 70px 0px #15228A03,
+    -209px 174px 76px 0px #15228A00;
 }
 
-.chain-card[data-chain="base-mainnet"] {
-    background: #eef2ff;
-    border: 1px solid #c7d2fe;
-}
 
-.chain-card[data-chain="solana-mainnet"] {
-    background: #fdf4ff;
-    border: 1px solid #f5d0fe;
-}
 
-.chain-card[data-chain="worldchain-mainnet"] {
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-}
+
 
 .chain-card.total-card {
-    background: linear-gradient(135deg, #1e40af, #3b82f6);
-    border: none;
-    color: white;
+background: 
+    linear-gradient(314.39deg, #0734A9 0%, #0E1696 53.42%, #4B0792 98.92%);
+
+    padding:16px;
+    border-radius: 24px;
+
+    box-shadow:
+  -8px 7px 24px 0px #15228A1A,
+  -33px 28px 44px 0px #15228A17,
+  -75px 63px 59px 0px #15228A0D,
+  -134px 112px 70px 0px #15228A03,
+  -209px 174px 76px 0px #15228A00;
 }
 
 .chain-card .chain-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 8px;
 }
 
 .chain-card .chain-name {
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.025em;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;              /* Medium weight */
+  font-style: normal;            /* “Medium” is a weight, not a valid style */
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-transform: capitalize;
+  color: #FFFFFF;
 }
 
-.chain-card[data-chain="base-mainnet"] .chain-name {
-    color: #4338ca;
-}
 
-.chain-card[data-chain="solana-mainnet"] .chain-name {
-    color: #7e22ce;
-}
 
-.chain-card[data-chain="worldchain-mainnet"] .chain-name {
-    color: #15803d;
-}
 
 .chain-card .chain-value {
-    font-size: 0.875rem;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 4px;
+color: #7654FE;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;          /* SemiBold */
+  font-style: normal;        /* 'SemiBold' is not valid; use normal */
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0px;
 }
 
-.chain-card[data-chain="base-mainnet"] .chain-value {
-    background: #ffffff;
-    color: #4338ca;
-    border: 1px solid #c7d2fe;
-}
 
-.chain-card[data-chain="solana-mainnet"] .chain-value {
-    background: #ffffff;
-    color: #7e22ce;
-    border: 1px solid #f5d0fe;
-}
-
-.chain-card[data-chain="worldchain-mainnet"] .chain-value {
-    background: #ffffff;
-    color: #15803d;
-    border: 1px solid #bbf7d0;
-}
 
 .chain-card.total-card .chain-name,
 .chain-card.total-card .chain-value {
@@ -550,30 +561,45 @@
 }
 
 .chain-card.total-card .chain-value {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+ font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0px;
+color:#C7C7CC;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: 
+    linear-gradient(0deg, #000000, #000000),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 33.33%,
+      rgba(255, 255, 255, 0.18) 50%,
+      rgba(255, 255, 255, 0.08) 66.5%
+    );
 }
 
 .chain-card .token-count {
-    font-size: 0.7rem;
-    margin-top: 2px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: 
+    linear-gradient(0deg, #2C2C2E, #2C2C2E),
+    linear-gradient(90deg, rgba(255, 255, 255, 0) 33.33%, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0) 66.5%);
+ font-family: 'Roboto', sans-serif;
+  font-weight: 400;        /* Regular weight */
+  font-style: normal;      /* 'Regular' → not valid in CSS, use 'normal' */
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  color:#C7C7CC;
+  gap: 10px;
 }
 
-.chain-card[data-chain="base-mainnet"] .token-count {
-    color: #8984c7;
-}
 
-.chain-card[data-chain="solana-mainnet"] .token-count {
-    color: #7e22ce;
-}
 
-.chain-card[data-chain="worldchain-mainnet"] .token-count {
-    color: #15803d;
-}
 
-.chain-card .token-count strong {
-    font-weight: 700;
-}
+
 
 /* Address truncation styles */
 .truncated-address {
@@ -1150,4 +1176,258 @@ border: 1px solid #1A26E7;
 /* Fix for row spanning layout */
 .expanded-tokens-table .ant-table-tbody > tr > td[rowspan] {
   border-right: 1px solid #3b3b3b !important;
+}
+
+
+
+
+
+/* Custom Tabs Styling */
+.custom-modal-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+}
+
+.custom-modal-tabs .ant-tabs-nav-list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+ 
+}
+
+
+.custom-modal-tabs .ant-tabs-nav-wrap {
+  background-color: #000000;
+  border-radius: 40px;
+  border: 0.5px solid #48484A;
+  height: 48px;
+
+}
+
+.custom-modal-tabs .ant-tabs-tab {
+  flex: 1;
+  justify-content: center;
+  padding: 0 24px;
+
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0px;
+  text-align: center;
+  vertical-align: middle;
+  color: #C7C7CC;
+}
+
+.custom-modal-tabs .ant-tabs-tab:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 40px;
+  color: white;
+}
+
+.custom-modal-tabs .ant-tabs-tab-active {
+  background: 
+  linear-gradient(314.39deg, rgba(7, 52, 169, 0.35) 0%, rgba(14, 22, 150, 0.35) 53.42%, rgba(75, 7, 146, 0.35) 98.92%);
+  border: 1px solid #1A26E7 !important;
+  border-radius: 24px !important;
+    font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.custom-modal-tabs .ant-tabs-tab-active,
+.custom-modal-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #FFFFFF !important;
+}
+
+.custom-modal-tabs .ant-tabs-ink-bar {
+  display: none !important; /* hide default underline */
+}
+.custom-modal-tabs .ant-tabs-nav::before {
+  display: none; /* remove top border */
+}
+
+
+
+.custom-modal-tabs .ant-tabs-content-holder {
+  margin-top: 16px;
+}
+
+/* Custom styling for active spam tab */
+.custom-modal-tabs .ant-tabs-tab-active[data-node-key="spam"] {
+  background: linear-gradient(135deg, rgba(255, 102, 105, 0.16) 0%, rgba(215, 0, 21, 0.16) 100%) !important;
+  border: 1px solid #D70015 !important;
+  border-radius: 24px !important;
+}
+
+.custom-modal-tabs .ant-tabs-tab-active[data-node-key="spam"] .ant-tabs-tab-btn {
+  color: #D70015 !important;
+}
+
+/* Chain Summary Cards */
+
+/* Table Styles for all three tables in the modal */
+.token-modal-table .ant-table {
+  background-color: #161616 !important;
+  border-radius: 8px;
+}
+
+.token-modal-table .ant-table-container {
+  background-color: #161616 !important;
+  border-radius: 8px;
+}
+
+.token-modal-table .ant-table-content {
+  background-color: #161616 !important;
+}
+
+/* Table Header Styling - NO BOTTOM BORDER */
+.token-modal-table .ant-table-thead > tr > th {
+  background-color: #161616 !important;
+  border: none !important;
+  border-bottom: none !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  font-size: 14px !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+  color: #FFFFFF !important;
+  padding: 8px 20px !important;
+}
+
+/* Remove borders between header columns */
+.token-modal-table .ant-table-thead > tr > th:not(:last-child) {
+  border-right: none !important;
+}
+
+/* Remove the space/gap between header and body */
+.token-modal-table .ant-table-thead > tr {
+  border-bottom: none !important;
+}
+
+.token-modal-table .ant-table-thead {
+  border-bottom: none !important;
+}
+
+/* Remove the default Ant Design separator between header and body */
+.token-modal-table .ant-table-thead > tr > th::after {
+  display: none !important;
+}
+
+.token-modal-table .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+/* Table Body Container - Rounded corners for entire body */
+.token-modal-table .ant-table-tbody {
+  background-color: #000000 !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  padding: 0 20px;
+}
+
+/* Table Row Styling - Remove individual row border radius */
+.token-modal-table .ant-table-tbody > tr {
+  background-color: #000000 !important;
+  border-radius: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+/* Table Cell Styling - BOTTOM BORDER ONLY ON ROWS WITH SPECIFIC PADDING */
+.token-modal-table .ant-table-tbody > tr > td {
+  background-color: #000000 !important;
+  border-bottom: 0.8px solid #2C2C2E !important;
+  padding-top: 16px !important;
+  padding-bottom: 16px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  font-family: 'Roboto', sans-serif !important;
+  color: #FFFFFF !important;
+}
+
+/* Remove bottom border from the LAST row to avoid double border */
+.token-modal-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: none !important;
+}
+
+/* Remove borders between body columns */
+.token-modal-table .ant-table-tbody > tr > td:not(:last-child) {
+  border-right: none !important;
+}
+
+/* Apply border radius to first row cells */
+.token-modal-table .ant-table-tbody > tr:first-child > td:first-child {
+  border-top-left-radius: 24px !important;
+}
+
+.token-modal-table .ant-table-tbody > tr:first-child > td:last-child {
+  border-top-right-radius: 24px !important;
+}
+
+/* Apply border radius to last row cells */
+.token-modal-table .ant-table-tbody > tr:last-child > td:first-child {
+  border-bottom-left-radius: 24px !important;
+}
+
+.token-modal-table .ant-table-tbody > tr:last-child > td:last-child {
+  border-bottom-right-radius: 24px !important;
+}
+
+/* Remove the default Ant Design table borders */
+.token-modal-table .ant-table-container {
+  border: none !important;
+}
+
+.token-modal-table .ant-table-content {
+  border: none !important;
+}
+
+/* Ensure the table has no outer borders */
+.token-modal-table {
+  border: none !important;
+  background-color: #161616 !important;
+  border-radius: 8px !important;
+}
+
+/* Hover effect for table rows */
+.token-modal-table .ant-table-tbody > tr:hover > td {
+  background-color: #3a3a3a !important;
+}
+
+/* Remove any remaining borders in the table */
+.token-modal-table .ant-table-cell {
+  border: none !important;
+}
+
+.token-modal-table .ant-table-cell::before {
+  display: none !important;
+}
+
+/* Remove header bottom border completely */
+.token-modal-table .ant-table-thead {
+  border-bottom: none !important;
+}
+
+/* Remove any border radius from header cells */
+.token-modal-table .ant-table-thead > tr > th:first-child {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.token-modal-table .ant-table-thead > tr > th:last-child {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/* Ensure no gap between header and first row */
+.token-modal-table .ant-table-tbody > tr:first-child > td {
+  border-top: none !important;
 }
