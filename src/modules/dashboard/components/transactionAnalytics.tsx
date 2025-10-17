@@ -1,5 +1,6 @@
 import { Card, Skeleton, Image } from "antd";
 import { useMemo } from "react";
+import { kresusAssets } from "assets"; // same source as VolumeAnalytics
 
 interface TransactionItem {
   chain: string;
@@ -29,11 +30,6 @@ interface TransactionAnalyticsProps {
   loading: boolean;
 }
 
-const solanaa = "../../../assets/allAssets/solanaa.png";
-const base = "../../../assets/allAssets/base.png";
-const worldchain = "../../../assets/allAssets/worldchain.png";
-const homePage = "../../../assets/allAssets/homePage.png";
-
 const TransactionAnalytics: React.FC<TransactionAnalyticsProps> = ({
   transactionData,
   earnMetrics,
@@ -51,64 +47,36 @@ const TransactionAnalytics: React.FC<TransactionAnalyticsProps> = ({
       case "solana-mainnet":
         return (
           <Image
-            src={solanaa}
+            src={kresusAssets.solana}
             alt="Solana"
-            width={35}
-            height={40}
+            width={32}
+            height={32}
             preview={false}
           />
         );
       case "base-mainnet":
         return (
-          <Image src={base} alt="Base" width={45} height={40} preview={false} />
+          <Image
+            src={kresusAssets.base}
+            alt="Base"
+            width={32}
+            height={32}
+            preview={false}
+          />
         );
       case "worldchain-mainnet":
         return (
           <Image
-            src={worldchain}
-            width={45}
-            height={40}
+            src={kresusAssets.worldChain}
             alt="WorldChain"
+            width={32}
+            height={32}
             preview={false}
           />
         );
       default:
-        return <span className="text-xl sm:text-2xl">🔗</span>;
+        return <img src={kresusAssets?.sui} alt="" width={32} height={32} />;
     }
-  };
-
-  const renderMetric = (label: string, value: number | string) => {
-    const icons: Record<string, string> = {
-      "Total Transactions": "📈",
-      Sent: "📤",
-      Received: "📥",
-      Swapped: "🔄",
-      "Dapp Transaction": "📈",
-      "USDC Deposit Count": "💵",
-      "SOL Deposit Count": "💎",
-      "USDC Withdraw Count": "💸",
-      "SOL Withdraw Count": "💎",
-    };
-
-    const icon = icons[label] || "📌";
-
-    return (
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-y-1 p-2 sm:p-3 hover:bg-blue-600 hover:text-blue-600 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] border border-gray-100 hover:border-blue-200">
-        <div className="flex items-center gap-2 text-xs sm:text-sm text-white font-medium">
-          <span className="text-lg sm:text-xl transform transition-transform duration-300 hover:scale-110 text-white">
-            {icon}
-          </span>
-          <span className="hover:text-blue-600 transition-colors duration-300 text-white">
-            {label}
-          </span>
-        </div>
-        <div className="text-sm sm:text-base lg:text-lg font-semibold break-words text-white hover:text-blue-600 text-right sm:text-left bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
-          {typeof value === "number"
-            ? value.toLocaleString()
-            : Number(value).toLocaleString()}
-        </div>
-      </div>
-    );
   };
 
   const augmentedTransactionData = useMemo(
@@ -136,19 +104,17 @@ const TransactionAnalytics: React.FC<TransactionAnalyticsProps> = ({
   const getFilteredFields = (chain: string, item: any) => {
     const baseFields = [
       ["Total Transactions", "total_transaction"],
-      ["Sent", "sent_transaction"],
-      ["Received", "received_transaction"],
-      ["Swapped", "swapped_transaction"],
-      ["Dapp Transaction", "dapp_transaction"],
+      ["Sent Transactions", "sent_transaction"],
+      ["Received Transactions", "received_transaction"],
+      ["Swapped Transactions", "swapped_transaction"],
+      ["Dapp Transactions", "dapp_transaction"],
     ];
 
-    // Filter out swapped fields for worldchain
     let filteredFields =
       chain === "worldchain-mainnet"
         ? baseFields.filter(([label]) => !label.includes("Swapped"))
         : baseFields;
 
-    // Filter out dapp metrics if they are 0 or undefined
     filteredFields = filteredFields.filter(([label, key]) => {
       if (label.includes("Dapp")) {
         const value = item[key];
@@ -156,6 +122,16 @@ const TransactionAnalytics: React.FC<TransactionAnalyticsProps> = ({
       }
       return true;
     });
+
+    if (chain === "solana-mainnet") {
+      const solanaSpecificFields = [
+        ["USDC Deposit Count", "usdcDepositCount"],
+        ["SOL Deposit Count", "solDepositCount"],
+        ["USDC Withdraw Count", "usdcWithdrawCount"],
+        ["SOL Withdraw Count", "solWithdrawCount"],
+      ];
+      solanaSpecificFields.forEach((field) => filteredFields.push(field));
+    }
 
     return filteredFields;
   };
@@ -177,81 +153,70 @@ const TransactionAnalytics: React.FC<TransactionAnalyticsProps> = ({
 
   return (
     <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
-      <h2 className="text-xl text-white sm:text-2xl font-bold mb-4 sm:mb-6 pb-2 border-b border-gray-200 relative">
-        Transaction Analytics
-      </h2>
       <div className="overflow-x-auto px-1 sm:px-0">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 min-w-[280px] sm:min-w-[300px]">
-          {finalData?.map((item, idx) => (
-            <Card
-              key={loading ? idx : item.chain}
-              title={
-                loading ? (
-                  <Skeleton.Input active size="small" />
-                ) : (
-                  <div className="flex items-center justify-between bg-white p-3 sm:p-4 rounded-t-xl">
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      {renderChainIcon(item.chain)}
-                      <span className="text-base sm:text-lg font-semibold text-black border-b border-gray-200 truncate">
-                        {renderChainTitle(item.chain)}
-                      </span>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-auto">
+          {finalData?.map((item, idx) => {
+            const isSolana = item.chain === "solana-mainnet";
+            const isWorldchain = item.chain === "worldchain-mainnet";
+
+            return (
+              <div
+                key={loading ? idx : item.chain}
+                className={`${isSolana ? "lg:row-span-2" : ""} ${
+                  isWorldchain ? "lg:col-span-2" : ""
+                }`}
+              >
+                <Card
+                  title={
+                    loading ? (
+                      <Skeleton.Input active size="small" />
+                    ) : (
+                      <div
+                        className={`flex ${
+                          isWorldchain ? "flex-row items-center" : "flex-col"
+                        } gap-2 ps-[2px]`}
+                      >
+                        {renderChainIcon(item.chain)}
+                        <span className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0] capitalize text-[#FFFFFF]">
+                          {renderChainTitle(item.chain)}
+                        </span>
+                      </div>
+                    )
+                  }
+                  className="!bg-[#161616] !border-none !shadow-none !rounded-[24px] !p-[24px] h-full"
+                  headStyle={{
+                    background: "transparent",
+                    borderBottom: "none",
+                  }}
+                >
+                  {loading ? (
+                    <Skeleton active paragraph={{ rows: 4 }} />
+                  ) : (
+                    <div className="bg-[#000000] rounded-[24px] px-5 py-1 ">
+                      {getFilteredFields(item.chain, item)?.map(
+                        ([label, key]) => (
+                          <div
+                            key={label}
+                            className="flex justify-between gap-[18px] items-center card-border-bottom last:border-none py-5"
+                          >
+                            <span className="font-roboto font-normal text-[16px] leading-[100%] tracking-[0px] text-[#C7C7CC]">
+                              {label}
+                            </span>
+                            <span className="font-roboto font-normal text-[16px] leading-[100%] tracking-[0px] text-right text-[#7654FE]">
+                              {Number(item[key]).toLocaleString(undefined, {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              })}
+                            </span>
+                          </div>
+                        )
+                      )}
                     </div>
-                  </div>
-                )
-              }
-              className="rounded-xl transition-all duration-200 ease-in-out transform hover:-translate-y-1 border-2 border-gray-200"
-              style={{
-                background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundAttachment: "fixed",
-              }}
-              headStyle={{
-                padding: 0,
-                borderTopLeftRadius: "12px",
-                borderTopRightRadius: "12px",
-                overflow: "hidden",
-                borderBottom: "3px solid blue",
-              }}
-              bodyStyle={{
-                padding: "16px sm:20px",
-              }}
-            >
-              {loading ? (
-                <Skeleton active paragraph={{ rows: 4 }} />
-              ) : (
-                <div className="space-y-2 divide-y">
-                  {getFilteredFields(item.chain, item)?.map(([label, key]) => (
-                    <div key={label} className="first:pt-0">
-                      {renderMetric(label, item[key])}
-                    </div>
-                  ))}
-                  {item.chain === "solana-mainnet" &&
-                    [
-                      ["USDC Deposit Count", "usdcDepositCount"],
-                      ["SOL Deposit Count", "solDepositCount"],
-                      ["USDC Withdraw Count", "usdcWithdrawCount"],
-                      ["SOL Withdraw Count", "solWithdrawCount"],
-                    ].map(([label, key]) => {
-                      const value = (item as any)[key];
-                      if (
-                        value === undefined ||
-                        value === null ||
-                        Number(value) === 0
-                      ) {
-                        return null;
-                      }
-                      return (
-                        <div key={label} className="">
-                          {renderMetric(label, value)}
-                        </div>
-                      );
-                    })}
-                </div>
-              )}
-            </Card>
-          ))}
+                  )}
+                </Card>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

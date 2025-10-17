@@ -1,4 +1,9 @@
 /* Custom styles for Select component */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+
 .custom-select .ant-select-selector {
     border: 1px solid #b6b8bd !important;
     border-radius: 6px !important;
@@ -1439,4 +1444,9 @@ border: 1px solid #1A26E7;
   font-size: 15px !important;
   line-height: 15px !important;
   padding-top: 40px;
+}
+
+
+.card-border-bottom{
+  border-bottom: 1px solid #2C2C2E;
 }

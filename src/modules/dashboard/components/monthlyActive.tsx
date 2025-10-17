@@ -856,8 +856,8 @@ const MonthlyActive = () => {
           tabBarGutter={16}
         />
       </div>
-
-      {/* {renderCardSection(
+{/* 
+     {renderCardSection(
         "Volume Analytics",
         augmentedVolumeData,
         [
@@ -877,7 +877,7 @@ const MonthlyActive = () => {
           ],
         },
         true
-      )} */}
+      )}  */}
 
       {/* {renderCardSection(
         "Transaction Analytics",
