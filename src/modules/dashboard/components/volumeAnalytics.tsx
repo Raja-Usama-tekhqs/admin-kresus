@@ -246,12 +246,12 @@ const getFilteredFields = (chain: string, item: any) => {
                   {loading ? (
                     <Skeleton active paragraph={{ rows: 4 }} />
                   ) : (
-                    <div className="bg-[#000000] rounded-[24px] px-5 py-1 ">
+                    <div className="bg-[#000000] rounded-[24px] px-5  ">
                       {getFilteredFields(item.chain, item)?.map(
                         ([label, key]) => (
                           <div
                             key={label}
-                            className="flex justify-between gap-[18px] items-center card-border-bottom last:border-none py-5"
+                            className="flex justify-between gap-[18px] items-center card-border-bottom  py-5"
                           >
                             <span className="font-roboto font-normal text-[16px] leading-[100%] tracking-[0px] text-[#C7C7CC]">
                               {label}

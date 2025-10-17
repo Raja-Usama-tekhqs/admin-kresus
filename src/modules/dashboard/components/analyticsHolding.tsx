@@ -503,15 +503,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
   return (
     <div
       className="min-h-screen  px-3 sm:px-4 py-6 sm:py-8 lg:px-8 "
-      style={
-        {
-          // background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
-          // backgroundSize: 'cover',
-          // backgroundPosition: 'center',
-          // backgroundRepeat: 'no-repeat',
-          // backgroundAttachment: 'fixed'
-        }
-      }
+    
     >
       <div className=" mx-auto ">
         <h1 className="text-white">Holding Analytics</h1>
@@ -772,11 +764,12 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
               </div>
             </div>
 
-            <div className="px-[24px]  rounded-[24px] bg-white flex gap-[10px] justify-center items-center text-[#000000]">
-              <CiExport className="text-[20px] text-[#000000]" />
-              <p className="text-[#000000]">Export</p>
-              <MdExpandMore className="text-[20px] text-[#000000]" />
-            </div>
+           
+               <ExportHolding
+                  start_date={form.start_date}
+                  end_date={form.end_date}
+                /> 
+       
           </div>
           <div className="">
             {loading ? (
