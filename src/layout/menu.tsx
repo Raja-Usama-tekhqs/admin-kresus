@@ -1,86 +1,62 @@
 import { LogoutOutlined, MoreOutlined, UserOutlined } from "@ant-design/icons";
-import { Avatar, Dropdown, Menu, MenuProps } from "antd";
+import { Avatar, Dropdown, Menu, Tabs, TabsProps } from "antd";
 import { kresusAssets } from "assets";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './styles.css';
-const MenuAntD = () => {
-  type MenuItem = Required<MenuProps>["items"][number];
+import "./styles.css";
 
-  const [current, setCurrent] = useState(location.pathname || "/");
+const MenuAntD = () => {
+  const [current, setCurrent] = useState(location.pathname || "/dashboard");
   const navigate = useNavigate();
 
   const handleMenuClick = ({ key }: { key: string }) => {
     if (key === "profile") {
-      navigate("/dashboard"); // Navigate to the profile page
+      navigate("/dashboard");
     } else if (key === "logout") {
-      // Clear session and local storage
       localStorage.clear();
       sessionStorage.clear();
-      // Redirect to login page
       navigate("/");
     }
   };
-  const onClick: MenuProps["onClick"] = (e) => {
-    setCurrent(e.key);
+
+  const onTabChange = (key: string) => {
+    setCurrent(key);
+    navigate(key);
   };
-  const items: MenuItem[] = [
+
+  // Main tab items for larger screens
+  const mainTabItems: TabsProps["items"] = [
     {
-    
-    label: (
-      <span
-        className={`py-[12px] px-[24px] rounded-[24px] text-white font-semibold transition-all 
-          ${
-            current === "/dashboard"
-              ? "border border-blue-400"
-              : "hover:bg-[#5C5C5E]"
-          }`}
-      >
-        Dashboard
-      </span>
-    ),
-    key: "/dashboard",
-    onClick: () => navigate("/dashboard"),
-  },
-    {
+      key: "/dashboard",
       label: (
-        <span className="py-[12px] px-[24px] rounded-[24px] text-white">
-          Tokens
+        <span className="rounded-[24px] text-white font-semibold transition-all">
+          Dashboard
         </span>
       ),
+    },
+    {
       key: "/tokens",
-      onClick: () => {
-        navigate("/tokens");
-      },
+      label: <span className="rounded-[24px] text-white">Tokens</span>,
     },
   ];
 
-  const items_md: MenuItem[] = [
+  // Mobile tab items with dropdown
+  const mobileTabItems: TabsProps["items"] = [
     {
+      key: "more",
       label: (
         <MoreOutlined
-          style={{ transform: "rotate(90deg)", marginTop: "12px" }}
+          style={{
+            transform: "rotate(90deg)",
+            marginTop: "12px",
+            color: "white",
+          }}
         />
       ),
-      key: "SubMenuitems",
-      children: [
-        {
-          label: "Dashboard",
-          key: "/dashboard",
-          onClick: () => {
-            navigate("/dashboard");
-          },
-        },
-        {
-          label: "Tokens",
-          key: "/tokens",
-          onClick: () => {
-            navigate("/tokens");
-          },
-        },
-      ],
+      children: null,
     },
   ];
+
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="profile" icon={<UserOutlined />}>
@@ -91,35 +67,35 @@ const MenuAntD = () => {
       </Menu.Item>
     </Menu>
   );
+
   return (
     <>
-      <div className="static h-20 bg-[#000000] flex justify-between items-center  shadow-sm px-[120px] ">
+      <div className="  bg-[#000000] h-[80px] flex justify-between items-center  px-[20px] sm:px-[120px] ">
         <div className="flex items-center">
-          <img
-            src={kresusAssets.KresusLogo}
-            alt="Bryt Logo"
-            className="h-36 w-36"
-          />
+          <img src={kresusAssets.KresusLogo} alt="Bryt Logo" height={30} />
         </div>
 
-        <div className="flex items-center justify-between w-[269px] gap-[16px]">
-          <div className="max-md:hidden ">
-            <Menu
-              onClick={onClick}
-              selectedKeys={[current]}
-              mode="horizontal"
-              items={window.innerWidth > 768 ? items : items_md}
-              theme="light"
-              style={{
-                overflow: "hidden",
+        <div className="flex !items-center justify-between gap-2 sm:gap-4 ">
+          <div className="flex items-center max-h-[40px]">
+            <Tabs
+              activeKey={current}
+              onChange={onTabChange}
+              items={mainTabItems}
+              className="custom-header-tabs"
+              tabBarStyle={{
+                background: "#000000",
+                borderRadius: "24px",
               }}
-              className="custom-menu rounded-[24px] bg-[#48484A] text-white custom-tabss"
             />
           </div>
 
-          <div className="flex gap-5 items-center">
+          <div className="flex gap-5 items-center rounded-[24px] max-h-[40px] ">
             <Dropdown overlay={menu} trigger={["click"]}>
-              <Avatar src={kresusAssets.Avatar} className="cursor-pointer" />
+              <Avatar
+                src={kresusAssets.Avatar}
+                size={40}
+                className="cursor-pointer "
+              />
             </Dropdown>
           </div>
         </div>

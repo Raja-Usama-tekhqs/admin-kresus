@@ -502,10 +502,10 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
 
   return (
     <div
-      className="min-h-screen  px-3 sm:px-4 py-6 sm:py-8 lg:px-8 "
+      className="min-h-screen py-6 sm:py-8  "
     
     >
-      <div className=" mx-auto ">
+      <div className=" ">
         <h1 className="text-white">Holding Analytics</h1>
         <div className="">
           {/* <div

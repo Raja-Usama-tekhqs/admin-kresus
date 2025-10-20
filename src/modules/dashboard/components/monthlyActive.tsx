@@ -515,7 +515,7 @@ const MonthlyActive = () => {
   );
 
   const renderActiveUserCard = () => (
-    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616]  p-[24px] rounded-[24px] ms-16">
+    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616]  p-[24px] rounded-[24px] ">
       <Card
         style={
           {
@@ -603,7 +603,7 @@ const MonthlyActive = () => {
 
   return (
     <div
-      className="min-h-screen px-3 sm:px-4 py-6 sm:py-8 lg:px-8 mx-auto flex flex-col gap-8"
+      className="min-h-screen flex flex-col gap-8"
       style={{
         background: `linear-gradient(135deg, rgba(7, 9, 85, 0.85) 10%, rgba(17, 43, 129, 0.7) 25%, rgba(12, 20, 136, 0.6) 50%, rgba(35, 27, 153, 0.7) 75%, rgba(3, 5, 53, 0.85) 100%), url(${homePage})`,
         backgroundSize: "cover",
@@ -612,7 +612,7 @@ const MonthlyActive = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      <div className="flex items-center justify-between ms-20 mt-10">
+      <div className="flex items-center justify-between  mt-10 px-[120px]">
         <span className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0%] text-center align-middle text-[#FFFFFF] ">
           Dashboard Analytics
         </span>
@@ -835,11 +835,10 @@ const MonthlyActive = () => {
         </div>
       </div> */}
 
-      {renderActiveUserCard()}
-
+      <div className=" px-10px sm:px-[40px] md:px-[120px]">{renderActiveUserCard()}</div>
       {/* Tabs */}
 
-      <div className="px-4 sm:px-6 mt-2 lg:px-8 ">
+      <div className="px-4 sm:px-6 mt-2 md:px-[120px] ">
         <Tabs
           defaultActiveKey="active"
           items={items}
@@ -856,7 +855,7 @@ const MonthlyActive = () => {
           tabBarGutter={16}
         />
       </div>
-{/* 
+      {/* 
      {renderCardSection(
         "Volume Analytics",
         augmentedVolumeData,

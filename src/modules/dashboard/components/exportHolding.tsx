@@ -104,7 +104,7 @@ const ExportHolding: React.FC<ExportHoldingProps> = ({
     {
       key: "divider2",
       label: <div className="h-[1px] bg-[#222] my-2" />,
-      disabled: true,
+      disabled: false,
     },
     {
       key: "emails",
