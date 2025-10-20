@@ -8,11 +8,13 @@ import {
   Spin,
   Select,
   Dropdown,
+  Modal,
 } from "antd";
 import type { TableProps } from "antd";
 import useApiClient from "hooks/useApiClient";
 import "./styles.css";
 import { kresusAssets } from "assets";
+
 interface Token {
   token_address: string;
   chain: string;
@@ -49,10 +51,16 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
   const [selectedChain, setSelectedChain] = useState<string>("solana-mainnet");
   const [loading, setLoading] = useState(false);
   const [saveLoading, setSaveLoading] = useState(false);
+  const [moveLoading, setMoveLoading] = useState<Record<string, boolean>>({});
   const [tokens, setTokens] = useState<Token[]>([]);
   const [searchText, setSearchText] = useState("");
   const [selectedTokens, setSelectedTokens] = useState<Set<string>>(new Set());
   const [error, setError] = useState<string | ApiError | null>(null);
+
+  // Modal states
+  const [isMoveModalVisible, setIsMoveModalVisible] = useState<boolean>(false);
+  const [selectedToken, setSelectedToken] = useState<Token | null>(null);
+
   console.log(error, "error");
   const { getRequest, postRequest } = useApiClient();
   const [pagination, setPagination] = useState({
@@ -143,6 +151,66 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
     }
   };
 
+  const handleMoveSingleToken = async (tokenAddress: string, chain: string) => {
+    const key = `${tokenAddress}-${chain}`;
+    setMoveLoading((prev) => ({ ...prev, [key]: true }));
+    setError(null);
+
+    try {
+      const vaultURL = import.meta.env.VITE_REACT_APPLICATION_VAULT_URL;
+      const tokensToSave: SaveTokenRequest = {
+        tokens: [
+          {
+            token_address: tokenAddress,
+            chain: chain,
+          },
+        ],
+      };
+
+      await postRequest<Record<string, never>>(
+        `${vaultURL}spam-tokens`,
+        tokensToSave
+      );
+
+      message.success("Token moved to spam successfully");
+      await fetchTokens();
+    } catch (err: any) {
+      let msg: string | ApiError = "Failed to move token";
+      if (err?.response?.data) {
+        msg = err.response.data;
+      } else if (err?.message) {
+        msg = err.message;
+      } else if (typeof err === "string") {
+        msg = err;
+      }
+      setError(msg);
+      if (typeof msg === "string") {
+        message.error(msg);
+      }
+    } finally {
+      setMoveLoading((prev) => ({ ...prev, [key]: false }));
+    }
+  };
+
+  // 👇 CUSTOM MODAL: Move confirmation for single token
+  const showMoveConfirm = (token: Token): void => {
+    setSelectedToken(token);
+    setIsMoveModalVisible(true);
+  };
+
+  const handleMoveConfirm = (): void => {
+    if (selectedToken) {
+      handleMoveSingleToken(selectedToken.token_address, selectedToken.chain);
+    }
+    setIsMoveModalVisible(false);
+    setSelectedToken(null);
+  };
+
+  const handleMoveModalCancel = (): void => {
+    setIsMoveModalVisible(false);
+    setSelectedToken(null);
+  };
+
   const filteredTokens = useMemo(() => {
     if (!searchText.trim()) return tokens;
 
@@ -222,22 +290,39 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
     },
     {
       title: "Action",
-      dataIndex: "",
       key: "action",
-      render: () => <img src={kresusAssets?.actionIcon} alt="" />,
+      width: 150,
+      render: (_, record) => {
+        const key = `${record.token_address}-${record.chain}`;
+        const isMoveLoading = moveLoading[key] || false;
+
+        return (
+          <div className="flex flex-row gap-2">
+            <Button
+              type="text"
+              icon={<img src={kresusAssets.actionMoveIcon} alt="Move" />}
+              size="small"
+              className="flex items-center justify-center p-0 hover:opacity-80"
+              loading={isMoveLoading}
+              disabled={isMoveLoading}
+              onClick={() => showMoveConfirm(record)}
+            />
+          </div>
+        );
+      },
     },
   ];
 
   return (
     <div className="space-y-4 mt-6 px-[10px] sm-[px-20px] md-[px-40px] lg-[px-120px]">
-      <div className="flex flex-col sm:flex-row justify-between items-end gap-4 mb-6 ">
-        <div className="flex items-center gap-1">
+      <div className="flex flex-col sm:flex-row justify-start items-start sm:justify-between  sm:items-end gap-4 mb-6">
+        <div className="flex items-center gap-2 order-1 flex-1">
           <Dropdown
             trigger={["hover"]}
             placement="bottomRight"
             dropdownRender={() => (
               <div
-                className="bg-black text-white p-[24px] rounded-[16px]  flex flex-col gap-2 !border !border-[#2C2C2E]
+                className="bg-black text-white p-[24px] rounded-[16px] flex flex-col gap-2 !border !border-[#2C2C2E]
                             [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]"
               >
                 {/* Header */}
@@ -258,7 +343,7 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
                     <div key={opt?.value}>
                       <div
                         onClick={() => setSelectedChain(opt?.value)}
-                        className="flex items-center gap-3 px-[28px] py-[16px] cursor-pointer rounded-md hover:bg-[#1C1C1E] transition-all "
+                        className="flex items-center gap-3 px-[28px] py-[16px] cursor-pointer rounded-md hover:bg-[#1C1C1E] transition-all"
                       >
                         <img
                           src={kresusAssets?.chainIcon}
@@ -276,15 +361,20 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
               </div>
             )}
           >
-            <div className="w-[45px] h-[45px] rounded-full bg-[#2C2C2E] flex items-center justify-center border border-[#2C2C2E] cursor-pointer hover:bg-[#3A3A3C] transition-all">
-              <img src={kresusAssets?.whiteFilter} alt="" />
+            <div className="w-[40px] h-[40px] rounded-full p-2 r-border bg-[#161616] flex items-center justify-center border border-[#2C2C2E] cursor-pointer hover:bg-[#3A3A3C] transition-all">
+              <img
+                src={kresusAssets?.whiteFilter}
+                alt=""
+                width={24}
+                height={24}
+              />
             </div>
           </Dropdown>
 
-          <div className="max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616] ">
+          <div className="max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#161616] r-border">
             <Input
               placeholder="Search by name, symbol, token address or chain"
-              suffix={<img src={kresusAssets.searchIcon} className="" />} // 👈 icon on right + custom color
+              suffix={<img src={kresusAssets.searchIcon} className="" />}
               value={searchText}
               onChange={(e) => {
                 const value = e.target.value;
@@ -307,28 +397,8 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
             />
           </div>
         </div>
-        {}{" "}
-        <div className="flex gap-4 items-end">
-          {/* <div className="w-full sm:w-auto">
-            <label className="block text-black font-semibold text-sm  mb-1">
-              Select Chain
-            </label>
-            <Select
-              value={selectedChain}
-              onChange={setSelectedChain}
-              placeholder="Select chain"
-              className="w-full sm:w-64 custom-select"
-              size="large"
-              style={{ height: "40px" }}
-              dropdownClassName="custom-select-dropdown"
-            >
-              {chainOptions.map((opt) => (
-                <Option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </Option>
-              ))}
-            </Select>
-          </div> */}
+
+        <div className="flex gap-0 md:gap-4 !items-start md:items-end order-2">
           {selectedTokens.size > 0 && (
             <Button
               type="primary"
@@ -341,7 +411,6 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
               <span className="px-[4px] py-[1px]">
                 <img src={kresusAssets.moveToSpamIcon} alt="" />
               </span>
-
               <span className="font-roboto font-medium text-[16px] leading-[100%] tracking-[0] text-center align-middle">
                 Move to Spam
               </span>
@@ -381,6 +450,113 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
           />
         </Spin>
       </div>
+
+      {/* CUSTOM MOVE MODAL */}
+      <Modal
+        title={null}
+        open={isMoveModalVisible}
+        onCancel={handleMoveModalCancel}
+        footer={null}
+        centered
+        maskStyle={{
+          backdropFilter: "blur(3px)",
+          WebkitBackdropFilter: "blur(3px)",
+          backgroundColor: "rgba(0, 0, 0, 0.2)",
+        }}
+        style={{
+          borderRadius: "16px",
+          overflow: "hidden",
+          backgroundColor: "#000000",
+          color: "#FFFFFF",
+          boxShadow: "20px 20px 20px 0px rgba(0, 0, 0, 0.08)",
+          position: "relative",
+        }}
+        width={540}
+        closable={false}
+      >
+        {/* Custom Close Button */}
+        <div
+          style={{
+            position: "absolute",
+            top: "16px",
+            right: "16px",
+            width: "32px",
+            height: "32px",
+            borderRadius: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer",
+            zIndex: 1000,
+            transition: "all 0.2s ease",
+            backgroundColor: "none",
+          }}
+          onClick={handleMoveModalCancel}
+        >
+          {/* Cross Icon */}
+          <img src={kresusAssets.crossIcon} alt="" />
+        </div>
+
+        <div
+          style={{
+            padding: "32px 24px",
+            textAlign: "center",
+            background: "#000000",
+            color: "#FFFFFF",
+          }}
+        >
+          {/* Title */}
+          <div
+            style={{
+              fontSize: "24px",
+              fontWeight: "600",
+              color: "#FFFFFF",
+              lineHeight: "100%",
+              letterSpacing: 0,
+              fontStyle: "normal",
+              marginBottom: "20px",
+            }}
+          >
+            Do you want to move token to spam?
+          </div>
+
+          {/* Subtitle */}
+          <div
+            style={{
+              fontSize: "14px",
+              color: "#AEAEB2",
+              marginBottom: "24px",
+              lineHeight: "1.5",
+            }}
+          >
+            Token will be moved to spam tokens
+          </div>
+
+          {/* Buttons */}
+          <div
+            style={{
+              display: "flex",
+              gap: "12px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Button
+              onClick={handleMoveModalCancel}
+              className="custom-cancel-btn"
+            >
+              Cancel
+            </Button>
+
+            <Button
+              onClick={handleMoveConfirm}
+              className="custom-primary-btn"
+            >
+              Move to Spam
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -501,9 +501,11 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
   };
 
   return (
-    <div className="min-h-screen py-6 sm:py-8  ">
+    <div className="min-h-screen py-6 sm:py-10  ">
       <div className=" ">
-        <h1 className="text-white">Holding Analytics</h1>
+        <h1 className="font-roboto font-medium text-[32px] leading-[100%] align-middle tracking-[0%] text-[#FFFFFF] px-[8px]">
+          Holding Analytics
+        </h1>
         <div className="">
           {/* <div
             className="mb-4 sm:mb-6 p-2 sm:p-3 md:p-4 bg-white border border-gray-400  shadow-none w-full"
@@ -582,7 +584,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
           </div> */}
 
           {/* Chain Holdings Cards */}
-          <div className="mb-4 sm:mb-6 w-full">
+          <div className="mb-4 sm:mb-6  w-full">
             {loading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">
                 {[1, 2, 3, 4].map((i) => (
@@ -595,11 +597,11 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                 ))}
               </div>
             ) : data && data.chainHoldings && data.chainHoldings.length > 0 ? (
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-6">
                 {data.chainHoldings.map((ch) => (
                   <div
                     key={ch.chain}
-                    className="flex-1 min-w-[300px] lg:basis-[calc(30.333%-12px)] bg-[#161616] p-[24px] rounded-[24px] border-[2px] border-[#161616] flex flex-col gap-3 shadow-[ -8px_7px_24px_0px_#15228A1A, -33px_28px_44px_0px_#15228A17, -75px_63px_59px_0px_#15228A0D, -134px_112px_70px_0px_#15228A03, -209px_174px_76px_0px_#15228A00 ]"
+                    className="flex-1  lg:basis-[calc(30.333%-24px)] bg-[#161616] p-[24px] rounded-[24px] border-[2px] border-[#161616] flex flex-col gap-3 shadow-[-8px_7px_24px_0px_#15228A1A,_-33px_28px_44px_0px_#15228A17,_-75px_63px_59px_0px_#15228A0D,_-134px_112px_70px_0px_#15228A03,_-209px_174px_76px_0px_#15228A00]"
                   >
                     <div className="flex items-center space-x-2 sm:space-x-3 mb-1 sm:mb-2 ">
                       <div className="">{chainIcon(ch.chain)}</div>
@@ -626,7 +628,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                 ))}
 
                 {/* Total Amount Card */}
-                <div className="flex-1 min-w-[300px] lg:basis-[calc(33.333%-12px)] p-[24px] rounded-[24px] bg-gradient-to-r from-[#0734A9] to-[#4B0792] text-white">
+                <div className="flex-1 min-w-[300px] lg:basis-[calc(33.333%-24px)] p-[24px] rounded-[24px]  text-white my-gradient  shadow-[-8px_7px_24px_0px_#15228A1A,-33px_28px_44px_0px_#15228A17,-75px_63px_59px_0px_#15228A0D,-134px_112px_70px_0px_#15228A03,-209px_174px_76px_0px_#15228A00]">
                   <div className="flex items-center space-x-2 sm:space-x-3 mb-1 sm:mb-2">
                     <div className="p-1 rounded-full">
                       <img
@@ -662,8 +664,8 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
             ) : null}
           </div>
 
-          <div className="flex items-center justify-between mt-8 mb-5">
-            
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 items-center justify-between mt-8 mb-5">
+            {/* Section-1 */}
             <div className="flex items-center gap-1">
               {/* Dropdown (Filter Icon) */}
               <Dropdown
@@ -733,13 +735,13 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                 )}
               >
                 {/* Dropdown Trigger Button */}
-                <div className="w-[45px] h-[45px] rounded-full bg-[#2C2C2E] flex items-center justify-center border border-[#2C2C2E] cursor-pointer hover:bg-[#3A3A3C] transition-all">
-                  <img src={kresusAssets?.whiteFilter} alt="" />
+                <div className="w-[40px] h-[40px] p-2 rounded-full bg-[#161616] flex items-center justify-center r-border cursor-pointer hover:bg-[#3A3A3C] transition-all">
+                  <img src={kresusAssets?.whiteFilter} alt="" width={24} height={24} />
                 </div>
               </Dropdown>
 
               {/* Search Input */}
-              <div className=" w-auto sm:max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616]">
+              <div className=" w-auto sm:max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#161616] r-border  ">
                 <Input
                   placeholder="Search by email"
                   suffix={<img src={kresusAssets.searchIcon} className="" />}
@@ -761,12 +763,11 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                 />
               </div>
             </div>
-
+            {/* Section-2 */}
             <ExportHolding
               start_date={form.start_date}
               end_date={form.end_date}
             />
-
           </div>
 
           <div className="">

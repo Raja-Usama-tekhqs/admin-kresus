@@ -805,6 +805,9 @@ color:#C7C7CC;
     }
 }
 
+.border-dashboard-top{
+  border-top: 0.75px solid #48484A;
+}
 
 
 
@@ -821,6 +824,8 @@ color:#C7C7CC;
   width: 100%;
   display: flex;
   justify-content: space-between;
+    border: 0.5px solid #48484A !important;
+border-radius: 40px;
  
 }
 
@@ -834,6 +839,7 @@ color:#C7C7CC;
   font-size: 16px;
   font-weight: 500;
   text-align: center;
+  padding: 27px 25px;
 }
 
 .custom-tabss .ant-tabs-tab-active {
@@ -866,55 +872,58 @@ border: 1px solid #1A26E7;
   display: none; /* remove top border */
 }
 
-
-/* Mobile Vertical Layout */
-@media (max-width: 768px) {
+@media (max-width: 768px) { 
   .custom-tabss .ant-tabs-nav {
     background: transparent !important;
-    border-radius: 40px;
+    border-radius: 28px;
     padding: 0;
     margin: 0 0 1.5rem 0 !important;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    border: none !important;
   }
 
   .custom-tabss .ant-tabs-nav-list {
-    flex-direction: column;
-    gap: 12px;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
     width: 100%;
+    border-radius: 28px;
+    overflow: hidden;
+        border: none !important;
+        gap: 8px;
+
   }
 
   .custom-tabss .ant-tabs-tab {
-    flex: none;
-    width: 100%;
-    border-radius: 40px !important;
+    flex: 1 1 48%;
+    border-radius: 28px !important; /* ✅ fixed — each tab stays rounded */
     padding: 16px 20px !important;
-    margin: 0 !important;
     background: #000000;
-    border: 1px solid #48484A;
+    border: 0.5px solid #48484A;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+  }
+
+  /* last odd tab spans full width */
+  .custom-tabss .ant-tabs-tab:nth-child(odd):last-child {
+    flex: 1 1 100%;
+    border-right: none !important;
   }
 
   .custom-tabss .ant-tabs-tab-active {
-    border-radius: 40px !important;
-    padding: 16px 20px !important;
+    border-radius: 28px !important; /* ✅ keep rounded on active tab too */
     border: 1px solid #1A26E7 !important;
-    background: linear-gradient(314.39deg, rgba(7, 52, 169, 0.35) 0%, rgba(14, 22, 150, 0.35) 53.42%, rgba(75, 7, 146, 0.35) 98.92%) !important;
-  }
-
-  .custom-tabss .ant-tabs-tab:not(.ant-tabs-tab-active):hover {
-    background: #1C1C1E !important;
-    border-color: #1A26E7 !important;
-  }
-
-  .custom-tabss .ant-tabs-tab-btn {
-    width: 100%;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
+    background: linear-gradient(
+      314.39deg,
+      rgba(7, 52, 169, 0.35) 0%,
+      rgba(14, 22, 150, 0.35) 53.42%,
+      rgba(75, 7, 146, 0.35) 98.92%
+    ) !important;
   }
 }
+
+
+
+
 
 /* Small Mobile Adjustments */
 @media (max-width: 480px) {
@@ -1557,4 +1566,14 @@ border: 1px solid #1A26E7;
 
 .b-bottom{
 border-bottom: 3px solid #2C2C2E;
+}
+.my-gradient {
+  background-color: #161616;
+  background-image: 
+    linear-gradient(314.39deg, #0734A9 0%, #0E1696 53.42%, #4B0792 98.92%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 33.33%, rgba(255, 255, 255, 0.18) 50%, rgba(255, 255, 255, 0.08) 66.5%);
+  background-blend-mode: normal, overlay;
+}
+.r-border{
+  border: 1px solid #2C2C2E;
 }

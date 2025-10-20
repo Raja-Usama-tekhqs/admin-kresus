@@ -1,4 +1,4 @@
-import { LogoutOutlined, MoreOutlined, UserOutlined } from "@ant-design/icons";
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Dropdown, Menu, Tabs, TabsProps } from "antd";
 import { kresusAssets } from "assets";
 import { useState } from "react";
@@ -40,22 +40,7 @@ const MenuAntD = () => {
     },
   ];
 
-  // Mobile tab items with dropdown
-  const mobileTabItems: TabsProps["items"] = [
-    {
-      key: "more",
-      label: (
-        <MoreOutlined
-          style={{
-            transform: "rotate(90deg)",
-            marginTop: "12px",
-            color: "white",
-          }}
-        />
-      ),
-      children: null,
-    },
-  ];
+
 
   const menu = (
     <Menu onClick={handleMenuClick}>

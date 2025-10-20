@@ -144,7 +144,7 @@ const ExportHolding: React.FC<ExportHoldingProps> = ({
         </div>
       )}
     >
-      <div className="px-[24px] h-[48px] rounded-[24px] bg-white flex gap-[10px] justify-center items-center text-[#000000]   cursor-pointer hover:bg-gray-100 transition">
+      <div className=" px-[24px] h-[48px] rounded-[24px] bg-white flex gap-[10px] justify-center items-center text-[#000000]   cursor-pointer hover:bg-gray-100 transition">
         {loading ? (
           <Spin size="small" />
         ) : (

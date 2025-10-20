@@ -356,7 +356,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
           {/* left side - Filters and Search */}
 
           {/* Custom Search */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+          <div className="flex  gap-2 w-full lg:w-auto">
             <Dropdown
               trigger={["click"]}
               placement="bottomRight"
@@ -559,10 +559,11 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                 </div>
               )}
             >
-              <div className="w-[45px] h-[45px] rounded-full bg-[#2C2C2E] flex items-center justify-center border border-[#2C2C2E] cursor-pointer hover:bg-[#3A3A3C] transition-all">
+              <div className="w-[45px] h-[45px] rounded-full bg-[#161616] flex items-center justify-center r-border cursor-pointer hover:bg-[#3A3A3C] transition-all">
                 <img src={kresusAssets?.whiteFilter} alt="" />
               </div>
             </Dropdown>
+
             <div className="flex items-center gap-1">
               <CustomSearch
                 placeholder="Search..."
@@ -580,8 +581,8 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                   setSearchText("");
                   setPagination((prev) => ({ ...prev, current: 1 }));
                 }}
-                className="px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616]"
-                inputClassName="w-full bg-transparent outline-none border-none text-white placeholder:text-[#7D7D7D] !bg-[#2C2C2E] font-roboto text-[16px] leading-[100%]"
+                className="px-[24px] py-[6px] rounded-[24px] bg-[#161616] r-border"
+                inputClassName="w-full bg-transparent outline-none border-none text-white placeholder:text-[#7D7D7D] !bg-[#161616] font-roboto text-[16px] leading-[100%]"
               />
             </div>
           </div>

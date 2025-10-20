@@ -544,9 +544,9 @@ border: 1px solid #1A26E7;
 
 /* Table body rows */
 .active-token-table .ant-table-tbody > tr {
-  background-color: #0B0B0B !important;
+  background-color: #000000 !important;
   border-bottom: 1px solid #2C2C2E !important;
-  border-radius: 24px;
+  border-radius: 24px !important;
 }
 
 
