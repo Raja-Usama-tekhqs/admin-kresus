@@ -41,35 +41,16 @@ const Index: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen">
       {/* Header */}
       <MenuAntD />
 
       {/* Main Content */}
-      <div
-        className="flex-grow w-full  sm:py-8"
-        style={{
-          background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        <div
-          className="bg-white  mx-4 sm:mx-6 lg:mx-8"
-          style={{
-            background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-          }}
-        >
-          <div className="w-full">
+
+          <div className=" flex flex-col px-[10px] sm:[px-20px] md:[px-40px] lg:[px-120px]">
             {/* Title Row */}
             <div className="my-14">
-              <h1 className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0]  align-middle text-[#FFFFFF] sm:mx-20">
+              <h1 className="font-roboto font-medium text-[20px] sm:text-[32px] leading-[100%] tracking-[0]  align-middle text-[#FFFFFF] sm:mx-20">
                 Token Management
               </h1>
             </div>
@@ -77,7 +58,7 @@ const Index: React.FC = () => {
             {/* Dropdown Row */}
 
             {/* Tabs */}
-            <div className="px-4 sm:px-6 mt-2 lg:px-8 mx-8 ">
+            <div className="px-4 sm:px-6 mt-2 lg:px-8  ">
               <Tabs
                 defaultActiveKey="active"
                 items={items}
@@ -95,8 +76,7 @@ const Index: React.FC = () => {
               />
             </div>
           </div>
-        </div>
-      </div>
+      
 
       {/* Footer */}
       <div className="mt-auto">

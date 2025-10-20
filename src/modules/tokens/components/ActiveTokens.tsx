@@ -229,7 +229,7 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
   ];
 
   return (
-    <div className="space-y-4 mt-6">
+    <div className="space-y-4 mt-6 px-[10px] sm-[px-20px] md-[px-40px] lg-[px-120px]">
       <div className="flex flex-col sm:flex-row justify-between items-end gap-4 mb-6 ">
         <div className="flex items-center gap-1">
           <Dropdown
@@ -237,7 +237,7 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
             placement="bottomRight"
             dropdownRender={() => (
               <div
-                className="bg-black text-white w-[325px] p-[24px] rounded-[16px]  flex flex-col gap-2 !border !border-[#2C2C2E]
+                className="bg-black text-white p-[24px] rounded-[16px]  flex flex-col gap-2 !border !border-[#2C2C2E]
                             [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]"
               >
                 {/* Header */}
@@ -371,7 +371,7 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
               showTotal: (total, range) =>
                 `${range[0]}-${range[1]} of ${total} items`,
             }}
-            className="active-token-table !border !border-red-600"
+            className="active-token-table !border "
             scroll={{ x: "max-content" }}
             locale={{
               emptyText: searchText

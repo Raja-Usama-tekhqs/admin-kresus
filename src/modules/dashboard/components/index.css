@@ -867,6 +867,69 @@ border: 1px solid #1A26E7;
 }
 
 
+/* Mobile Vertical Layout */
+@media (max-width: 768px) {
+  .custom-tabss .ant-tabs-nav {
+    background: transparent !important;
+    border-radius: 40px;
+    padding: 0;
+    margin: 0 0 1.5rem 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .custom-tabss .ant-tabs-nav-list {
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .custom-tabss .ant-tabs-tab {
+    flex: none;
+    width: 100%;
+    border-radius: 40px !important;
+    padding: 16px 20px !important;
+    margin: 0 !important;
+    background: #000000;
+    border: 1px solid #48484A;
+    transition: all 0.3s ease;
+  }
+
+  .custom-tabss .ant-tabs-tab-active {
+    border-radius: 40px !important;
+    padding: 16px 20px !important;
+    border: 1px solid #1A26E7 !important;
+    background: linear-gradient(314.39deg, rgba(7, 52, 169, 0.35) 0%, rgba(14, 22, 150, 0.35) 53.42%, rgba(75, 7, 146, 0.35) 98.92%) !important;
+  }
+
+  .custom-tabss .ant-tabs-tab:not(.ant-tabs-tab-active):hover {
+    background: #1C1C1E !important;
+    border-color: #1A26E7 !important;
+  }
+
+  .custom-tabss .ant-tabs-tab-btn {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+/* Small Mobile Adjustments */
+@media (max-width: 480px) {
+  .custom-tabss .ant-tabs-tab {
+    padding: 14px 16px !important;
+  }
+  
+  .custom-tabss .ant-tabs-tab-active {
+    padding: 14px 16px !important;
+  }
+  
+  .custom-tabss .ant-tabs-tab-btn {
+    font-size: 14px;
+  }
+}
 
 .custom-placeholder .ant-select-selection-placeholder {
   font-family: Roboto ;
@@ -1151,6 +1214,9 @@ border: 1px solid #1A26E7;
 .expanded-tokens-table {
   border-bottom: 1px solid #3b3b3b;
 }
+
+
+
 
 /* Fix for expanded table scroll issues */
 .expanded-tokens-table .ant-table-container {
@@ -1449,4 +1515,46 @@ border: 1px solid #1A26E7;
 
 .card-border-bottom{
   border-bottom: 1px solid #2C2C2E;
+}
+
+
+/* Scoped only to selects inside your Filter dropdown */
+.custom-select-wrapper .ant-select-dropdown .ant-select-item-option{
+  background-color: rgba(255, 255, 255, 0.08) !important; /* light gray hover */
+}
+.custom-select-wrapper .ant-select-dropdown .ant-select-item-option:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important; /* light gray hover */
+}
+
+.custom-select-wrapper .ant-select-dropdown .ant-select-item-option-selected {
+  background-color: rgba(255, 255, 255, 0.08) !important; /* same light gray for selected */
+  color: #FFFFFF !important;
+}
+
+.custom-select-wrapper .ant-select-dropdown .ant-select-item-option {
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Apply only to the popup dropdowns inside your Filter Analytics area */
+.filter-select-popup .ant-select-item-option {
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Light gray hover */
+.filter-select-popup .ant-select-item-option:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Selected item background */
+.filter-select-popup .ant-select-item-option-selected {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+.b-all{
+  border: 1px solid #2C2C2E;
+}
+
+.b-bottom{
+border-bottom: 3px solid #2C2C2E;
 }

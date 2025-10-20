@@ -201,7 +201,7 @@ const getFilteredFields = (chain: string, item: any) => {
       ];
 
   return (
-    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
+    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 mt-2 sm:mt-7">
       <div className="overflow-x-auto px-1 sm:px-0">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 auto-rows-auto">
           {finalData?.map((item, idx) => {
@@ -228,7 +228,7 @@ const getFilteredFields = (chain: string, item: any) => {
                         }  gap-2 ps-[2px]`}
                       >
                         {renderChainIcon(item?.chain)}
-                        <span className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0] capitalize text-[#FFFFFF]">
+                        <span className="font-roboto font-medium text-[20px] sm:text-[32px] leading-[100%] tracking-[0] capitalize text-[#FFFFFF]">
                           {renderChainTitle(item?.chain)}
                         </span>
                       </div>
@@ -253,10 +253,10 @@ const getFilteredFields = (chain: string, item: any) => {
                             key={label}
                             className="flex justify-between gap-[18px] items-center card-border-bottom  py-5"
                           >
-                            <span className="font-roboto font-normal text-[16px] leading-[100%] tracking-[0px] text-[#C7C7CC]">
+                            <span className="font-roboto font-normal text-[12px] sm:text-[16px] leading-[100%] tracking-[0px] text-[#C7C7CC]">
                               {label}
                             </span>
-                            <span className="ont-roboto font-normal text-[16px] leading-[100%] tracking-[0px] text-right text-[#7654FE]">
+                            <span className="ont-roboto font-normal text-[12px] sm:text-[16px] leading-[100%] tracking-[0px] text-right text-[#7654FE]">
                               {Number(item[key]).toLocaleString(undefined, {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2,

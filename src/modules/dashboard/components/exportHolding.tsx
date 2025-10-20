@@ -6,6 +6,7 @@ import { FiFilter } from "react-icons/fi";
 import { FaRegEnvelope } from "react-icons/fa6";
 import { RiTokenSwapLine } from "react-icons/ri";
 import useApiClient from "hooks/useApiClient";
+import { kresusAssets } from "assets";
 
 interface ExportHoldingProps {
   start_date?: string;
@@ -82,9 +83,16 @@ const ExportHolding: React.FC<ExportHoldingProps> = ({
       key: "title",
       disabled: true,
       label: (
-        <div className="flex items-center gap-2 text-[#A5A5A5] font-roboto font-medium text-[14px]">
-          <FiFilter className="text-[16px]" />
-          Export Type
+        <div className="flex items-center gap-2 text-[#AEAEB2]">
+          <img
+            src={kresusAssets?.tokenDropdownIcon}
+            alt=""
+            className="w-4 h-4 sm:w-5 sm:h-5"
+          />
+
+          <span className=" text-[#AEAEB2] font-roboto font-semibold text-[16px] leading-[100%] tracking-[0%]">
+            Export Type
+          </span>
         </div>
       ),
     },
@@ -92,26 +100,26 @@ const ExportHolding: React.FC<ExportHoldingProps> = ({
     {
       key: "tokens",
       label: (
-        <div className="flex items-center gap-3 px-2 py-3 rounded-lg hover:bg-[#111111] transition">
-          <RiTokenSwapLine className="text-[18px] text-[#7A2FF9]" />
-          <span className="text-[14px] text-white font-roboto">
+        <div className="flex items-center  px-[18px] gap-[8px] py-4  hover:bg-[#111111] transition border b-bottom">
+          <img src={kresusAssets?.chainIcon} alt="" />{" "}
+          <span className="font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] text-[#C7C7CC]">
             Export By Tokens
           </span>
         </div>
       ),
       onClick: () => handleExport("tokens"),
     },
-    {
-      key: "divider2",
-      label: <div className="h-[1px] bg-[#222] my-2" />,
-      disabled: false,
-    },
+    // {
+    //   key: "divider2",
+    //   label: <div className="h-[1px] bg-[#222] my-2" />,
+    //   disabled: false,
+    // },
     {
       key: "emails",
       label: (
-        <div className="flex items-center gap-3 px-2 py-3 rounded-lg hover:bg-[#111111] transition">
-          <FaRegEnvelope className="text-[18px] text-[#7A2FF9]" />
-          <span className="text-[14px] text-white font-roboto">
+        <div className="flex items-center  px-[18px] gap-[8px] py-4 rounded-lg hover:bg-[#111111] transition border border-b-[#e6e6ec] ">
+          <img src={kresusAssets?.simpleEnvelope} alt="" />{" "}
+          <span className="font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] text-[#C7C7CC]">
             Export By Email & Address
           </span>
         </div>
@@ -131,7 +139,7 @@ const ExportHolding: React.FC<ExportHoldingProps> = ({
       trigger={["hover"]}
       placement="bottomRight"
       dropdownRender={(menu) => (
-        <div className="bg-[#000000] rounded-[16px] border border-[#222] p-4 w-[260px] shadow-[-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
+        <div className="bg-[#000000] rounded-[16px] b-all p-4 w shadow-[-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
           {menu}
         </div>
       )}

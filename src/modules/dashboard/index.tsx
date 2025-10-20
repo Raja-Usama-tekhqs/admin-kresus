@@ -5,7 +5,7 @@ import FooterAntD from "layout/footer";
 
 const Index: React.FC = () => {
   return (
-    <div className="min-h-screen px-120px">
+    <div className="min-h-screen ">
 
       <MenuAntD />
       <MonthlyActive />

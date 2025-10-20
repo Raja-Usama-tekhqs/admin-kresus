@@ -8,7 +8,7 @@ interface OverviewProps {
 const Overview: React.FC<OverviewProps> = ({activeTab}) => {
     console.log(activeTab)
     return (
-        <div className="min-h-screen">
+        <div className="min-h-screen ">
           <p className="text-[32px] text-white font-medium text-center mt-40">
             Coming Soon...!
           </p>

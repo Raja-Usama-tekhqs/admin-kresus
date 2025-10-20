@@ -501,10 +501,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
   };
 
   return (
-    <div
-      className="min-h-screen py-6 sm:py-8  "
-    
-    >
+    <div className="min-h-screen py-6 sm:py-8  ">
       <div className=" ">
         <h1 className="text-white">Holding Analytics</h1>
         <div className="">
@@ -666,6 +663,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
           </div>
 
           <div className="flex items-center justify-between mt-8 mb-5">
+            
             <div className="flex items-center gap-1">
               {/* Dropdown (Filter Icon) */}
               <Dropdown
@@ -673,7 +671,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                 placement="bottomRight"
                 dropdownRender={() => (
                   <div
-                    className="bg-black text-white  w-[325px] px-[24px] py-[32px] rounded-[16px] flex flex-col gap-2 border border-[#2C2C2E]
+                    className="bg-black text-white  min-w-[325px] px-[24px] py-[32px] rounded-[16px] flex flex-col gap-2 border border-[#2C2C2E]
                    [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]"
                   >
                     {/* Dropdown Header */}
@@ -741,7 +739,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
               </Dropdown>
 
               {/* Search Input */}
-              <div className="max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616]">
+              <div className=" w-auto sm:max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#2C2C2E] border-2 border-[#161616]">
                 <Input
                   placeholder="Search by email"
                   suffix={<img src={kresusAssets.searchIcon} className="" />}
@@ -764,13 +762,13 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
               </div>
             </div>
 
-           
-               <ExportHolding
-                  start_date={form.start_date}
-                  end_date={form.end_date}
-                /> 
-       
+            <ExportHolding
+              start_date={form.start_date}
+              end_date={form.end_date}
+            />
+
           </div>
+
           <div className="">
             {loading ? (
               <div className="text-center py-8 sm:py-10">
@@ -880,7 +878,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                         showTotal: (total, range) =>
                           `${range[0]}-${range[1]} of ${total} items`,
                       }}
-                      className="active-token-table"
+                      className="active-token-table bg-bla"
                       scroll={{ x: "max-content" }}
                       rowClassName={(record) =>
                         record.expanded

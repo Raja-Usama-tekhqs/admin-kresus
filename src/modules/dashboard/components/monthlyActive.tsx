@@ -515,22 +515,12 @@ const MonthlyActive = () => {
   );
 
   const renderActiveUserCard = () => (
-    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616]  p-[24px] rounded-[24px] ">
-      <Card
-        style={
-          {
-            // background: `linear-gradient(135deg, rgba(24, 71, 201, 0.9) 0%, rgba(11, 28, 84, 0.8) 25%, rgba(19, 71, 213, 0.7) 50%, rgba(14, 40, 96, 0.8) 75%, rgba(24, 79, 209, 0.9) 100%), url(${homePage})`,
-            // backgroundSize: "cover",
-            // backgroundPosition: "center",
-            // backgroundRepeat: "no-repeat",
-            // backgroundAttachment: "fixed",
-          }
-        }
-      >
+    <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616] p-4 sm:p-6 md:p-[24px] rounded-[24px] ">
+      <Card style={{ background: "transparent", border: "none" }}>
         {loading || !activeUserStats ? (
           <Skeleton active paragraph={{ rows: 4 }} />
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 p-4  text-white">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6 p-2 sm:p-4 text-white">
             {[
               {
                 label: "Monthly Active",
@@ -554,23 +544,27 @@ const MonthlyActive = () => {
               },
             ].map((metric, index) =>
               index === 0 ? (
-                // ✅ Custom gradient card for Monthly Active
+                // Monthly Active Card with gradient
                 <div
                   key={metric?.label}
-                  className="bg-[linear-gradient(314.39deg,#0734A9_0%,#0E1696_53.42%,#4B0792_98.92%)]  gap-[16px] opacity-100 rounded-[16px] px-[64px] py-[32px]"
+                  className="bg-[linear-gradient(314.39deg,#0734A9_0%,#0E1696_53.42%,#4B0792_98.92%)] gap-3 sm:gap-4 md:gap-[16px] opacity-100 rounded-[12px] sm:rounded-[16px] p-4 sm:p-6 md:px-8 md:py-6 lg:px-[64px] lg:py-[32px]"
                 >
-                  <div className="flex justify-center items-center gap-5">
-                    <div className="w-[72px] h-[72px]">
-                      <img src={metric.icon} className="w-[72px] h-[72px]" />
+                  <div className="flex justify-center items-center gap-3 sm:gap-4 md:gap-5 flex-col sm:flex-row">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px]">
+                      <img
+                        src={metric.icon}
+                        className="w-full h-full"
+                        alt={metric.label}
+                      />
                     </div>
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-2 sm:gap-3 md:gap-5 items-center sm:items-start">
                       <div>
-                        <span className="font-roboto font-semibold text-[56px] leading-[100%] tracking-[0%]">
+                        <span className="font-roboto font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-[56px] leading-[100%] tracking-[0%]">
                           {metric?.value?.toLocaleString()}
                         </span>
                       </div>
                       <div>
-                        <span className="font-roboto font-normal text-[20px] leading-[100%] tracking-[0%] text-[#AEAEB2]">
+                        <span className="font-roboto font-normal text-sm sm:text-base md:text-lg lg:text-[20px] leading-[100%] tracking-[0%] text-[#AEAEB2]">
                           {metric?.label}
                         </span>
                       </div>
@@ -578,18 +572,22 @@ const MonthlyActive = () => {
                   </div>
                 </div>
               ) : (
+                // Other metric cards
                 <div
                   key={metric?.label}
-                  className=" opacity-100 rounded-[16px] px-[16px] py-[32px] bg-[#000000] flex flex-col items-center gap-2"
+                  className="opacity-100 rounded-[12px] sm:rounded-[16px] p-4 sm:p-6 md:px-4 lg:px-[16px] py-4 sm:py-6 md:py-[32px] bg-[#000000] flex flex-col items-center gap-2 sm:gap-3"
                 >
-                  <div className="text-2xl sm:text-3xl mb-2 sm:mb-3 transform transition-transform duration-300 hover:scale-110 text-white flex justify-center items-center">
-                    <img src={metric.icon} alt="" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transform transition-transform duration-300 hover:scale-110 text-white flex justify-center items-center">
+                    <img
+                      src={metric.icon}
+                      alt={metric.label}
+                      className="w-full h-full"
+                    />
                   </div>
-                  <div className="font-roboto font-bold text-[32px] leading-[100%] tracking-[0%] text-center text-[#FFFFFF]">
+                  <div className="font-roboto font-bold text-xl sm:text-2xl md:text-3xl lg:text-[32px] leading-[100%] tracking-[0%] text-center text-[#FFFFFF]">
                     {metric?.value?.toLocaleString()}
                   </div>
-
-                  <div className="font-roboto font-normal text-[16px] leading-[100%] tracking-[0%] text-center text-[#8E8E93]">
+                  <div className="font-roboto font-normal text-xs sm:text-sm md:text-base lg:text-[16px] leading-[100%] tracking-[0%] text-center text-[#8E8E93]">
                     {metric?.label}
                   </div>
                 </div>
@@ -603,36 +601,27 @@ const MonthlyActive = () => {
 
   return (
     <div
-      className="min-h-screen flex flex-col gap-8"
-      style={{
-        background: `linear-gradient(135deg, rgba(7, 9, 85, 0.85) 10%, rgba(17, 43, 129, 0.7) 25%, rgba(12, 20, 136, 0.6) 50%, rgba(35, 27, 153, 0.7) 75%, rgba(3, 5, 53, 0.85) 100%), url(${homePage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
+      className="min-h-screen flex flex-col gap-6 sm:gap-8 overflow-x-hidden"
+
     >
-      <div className="flex items-center justify-between  mt-10 px-[120px]">
-        <span className="font-roboto font-medium text-[32px] leading-[100%] tracking-[0%] text-center align-middle text-[#FFFFFF] ">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mt-10 px-4 sm:px-6 md:px-8 lg:px-[120px] dashboard-analytics-filters">
+        <span className="font-roboto font-medium text-2xl sm:text-3xl lg:text-[32px] leading-[100%] tracking-[0%] text-center lg:text-left text-[#FFFFFF] w-full lg:w-auto">
           Dashboard Analytics
         </span>
 
         <Dropdown
-          trigger={["hover"]}
+          trigger={["click"]}
           placement="bottomRight"
           dropdownRender={() => (
-            <div
-              className="bg-[#0C0C0E] text-white w-[340px] p-6 rounded-[20px] flex flex-col gap-4 border border-[#1A26E7]
-                 shadow-[0_0_25px_rgba(26,38,231,0.2)]"
-            >
+            <div className="bg-[#0C0C0E] text-white w-auto lg:w-[325px] p-4 sm:px-[24px] sm:py-[32px] rounded-[20px] flex flex-col gap-4 border border-[#1A26E7] shadow-[0_0_25px_rgba(26,38,231,0.2)] custom-select-wrapper">
               {/* Header */}
               <div className="flex items-center gap-2 pb-3 border-b border-[#2C2C2E]">
                 <img
                   src={kresusAssets?.tokenDropdownIcon}
                   alt="Filters Icon"
-                  className="w-[24px] h-[24px] text-[#FFFFFF]"
+                  className="w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] text-[#FFFFFF]"
                 />
-                <span className="font-roboto font-semibold text-[20px] leading-[100%]">
+                <span className="font-roboto font-semibold text-lg sm:text-[20px] leading-[100%]">
                   Filters
                 </span>
               </div>
@@ -645,19 +634,21 @@ const MonthlyActive = () => {
                     handleChange("chain", Array.isArray(val) ? val[0] : val)
                   }
                   placeholder="Select Chain"
-                  className="custom-placeholder !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[50px] hover:!bg-[#2C2C2E] transition-all"
-                  popupClassName="!bg-[#1C1C1E] !text-white !border-none"
+                  className="custom-placeholder !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[44px] sm:h-[50px] hover:!bg-[#2C2C2E] transition-all text-sm sm:text-base"
+                  popupClassName="filter-select-popup !bg-[#1C1C1E] !text-white !border-none"
                   suffixIcon={
                     <img
                       src={kresusAssets?.filterDownArrow}
                       alt=""
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                     />
                   }
                 >
                   {chainOptions?.map((opt) => (
                     <Option key={opt.value} value={opt.value}>
-                      <span className="text-[#C7C7CC]">{opt.label}</span>
+                      <span className="text-[#C7C7CC] text-sm sm:text-base">
+                        {opt.label}
+                      </span>
                     </Option>
                   ))}
                 </Select>
@@ -671,19 +662,21 @@ const MonthlyActive = () => {
                     handleChange("address", Array.isArray(val) ? val[0] : val)
                   }
                   placeholder="Select Address"
-                  className="custom-placeholder !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] hover:!bg-[#2C2C2E] transition-all"
-                  popupClassName="!bg-[#1C1C1E] !text-white !border-none"
+                  className="custom-placeholder !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[44px] sm:h-[48px] hover:!bg-[#2C2C2E] transition-all text-sm sm:text-base"
+                  popupClassName="filter-select-popup !bg-[#1C1C1E] !text-white !border-none"
                   suffixIcon={
                     <img
                       src={kresusAssets?.filterDownArrow}
                       alt=""
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                     />
                   }
                 >
                   {addressOptions?.map((opt) => (
                     <Option key={opt.value} value={opt.value}>
-                      <span className="text-[#C7C7CC]">{opt.label}</span>
+                      <span className="text-[#C7C7CC] text-sm sm:text-base">
+                        {opt.label}
+                      </span>
                     </Option>
                   ))}
                 </Select>
@@ -695,12 +688,12 @@ const MonthlyActive = () => {
                   value={form.start_date ? dayjs(form.start_date) : null}
                   onChange={(d) => handleDateChange("start_date", d)}
                   format="YYYY-MM-DD"
-                  className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E]  custom-datepicker"
+                  className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[44px] sm:h-[48px] px-3 hover:!bg-[#2C2C2E] custom-datepicker text-sm sm:text-base"
                   suffixIcon={
                     <img
                       src={kresusAssets?.filterDateCalendar}
                       alt=""
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                     />
                   }
                   placeholder="Select Start Date"
@@ -713,12 +706,12 @@ const MonthlyActive = () => {
                   value={form.end_date ? dayjs(form.end_date) : null}
                   onChange={(d) => handleDateChange("end_date", d)}
                   format="YYYY-MM-DD"
-                  className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E] custom-datepicker"
+                  className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[44px] sm:h-[48px] px-3 hover:!bg-[#2C2C2E] custom-datepicker text-sm sm:text-base"
                   suffixIcon={
                     <img
                       src={kresusAssets?.filterDateCalendar}
                       alt=""
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                     />
                   }
                   placeholder="Select End Date"
@@ -727,10 +720,14 @@ const MonthlyActive = () => {
             </div>
           )}
         >
-          <div className="rounded-[24px] py-[12px] px-[24px] bg-[#FFFFFF] cursor-pointer hover:bg-[#F3F3F3] transition-all">
-            <div className="flex items-center justify-center gap-[8px]">
-              <img src={kresusAssets.filterAnalyticsIcon} alt="" />
-              <span className="font-roboto font-medium text-[16px] text-[#000]">
+          <div className="rounded-[20px] sm:rounded-[24px] py-2 sm:py-[12px] px-1 sm:px-[24px] bg-[#FFFFFF] cursor-pointer hover:bg-[#F3F3F3] transition-all w-full sm:w-auto">
+            <div className="flex items-center justify-center gap-2 sm:gap-[8px]">
+              <img
+                src={kresusAssets.filterAnalyticsIcon}
+                alt=""
+                className="w-4 h-4 sm:w-5 sm:h-5"
+              />
+              <span className="font-roboto font-medium text-sm sm:text-[16px] text-[#000] whitespace-nowrap ">
                 Filter Analytics
               </span>
             </div>
@@ -835,24 +832,26 @@ const MonthlyActive = () => {
         </div>
       </div> */}
 
-      <div className=" px-10px sm:px-[40px] md:px-[120px]">{renderActiveUserCard()}</div>
+      <div className=" px-[10px] sm:px-[20px] md:px-[120px]">
+        {renderActiveUserCard()}
+      </div>
       {/* Tabs */}
 
-      <div className="px-4 sm:px-6 mt-2 md:px-[120px] ">
+      <div className="px-3 sm:px-4 md:px-6 mt-2 lg:px-[120px]">
         <Tabs
           defaultActiveKey="active"
           items={items}
-          className="custom-tabss  "
+          className="custom-tabss"
           size="large"
           onChange={handleTabChange}
           tabBarStyle={{
             background: "#000000",
             borderRadius: "40px",
-            marginBottom: "2rem",
+            marginBottom: "",
             marginLeft: "100px",
             marginRight: "100px",
           }}
-          tabBarGutter={16}
+          tabBarGutter={8}
         />
       </div>
       {/* 
