@@ -1,13 +1,5 @@
 import type { TableProps } from "antd";
-import {
-  Button,
-  Dropdown,
-  message,
-
-  Spin,
-  Table,
-  Modal,
-} from "antd";
+import { Button, Dropdown, message, Spin, Table, Modal } from "antd";
 import classNames from "classnames";
 import useApiClient from "hooks/useApiClient";
 import React, { useEffect, useMemo, useState } from "react";
@@ -365,9 +357,7 @@ const SpamTokens: React.FC<SpamTokensProps> = ({ activeTab }) => {
     <div className="min-h-screen ">
       <div className="mb-4 sm:mb-6  brounded-lg shadow-sm ">
         <div className="flex flex-col lg:flex-row items-start lg:items-end justify-between gap-4">
-          
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-
             <div className="flex items-center gap-1">
               <Dropdown
                 trigger={["hover"]}
@@ -399,14 +389,19 @@ const SpamTokens: React.FC<SpamTokensProps> = ({ activeTab }) => {
                                 current: 1,
                               }));
                             }}
-                            className="flex items-center gap-3 px-[28px] py-[16px] cursor-pointer rounded-md hover:bg-[#1C1C1E] transition-all "
+                            className={`flex items-center gap-3 px-[28px] py-[16px] cursor-pointer rounded-md transition-all
+                              ${
+                                automatedFilter === opt.value
+                                  ? "bg-[#5f5f64]" // ✅ very light gray when selected
+                                  : "hover:bg-[#1C1C1E] text-[#C7C7CC] hover:text-white"
+                              }`}
                           >
                             <img
                               src={kresusAssets?.chainIcon}
                               alt=""
                               className="w-6 h-6"
                             />
-                            <span className="text-[#C7C7CC] hover:text-white transition-all font-roboto font-normal text-[14px] leading-[100%] tracking-[0]">
+                            <span className="font-roboto font-normal text-[14px] leading-[100%] tracking-[0]">
                               {opt?.label}
                             </span>
                           </div>

@@ -380,10 +380,10 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                     trigger={["hover"]}
                     placement="bottom"
                     dropdownRender={() => (
-                      <div className=" rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
+                      <div className="rounded-[6px] [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]">
                         {chainOptions.map((option, idx) => (
                           <>
-                            <div className="h-[1px] bg-[#5e5e61] " />
+                            <div className="h-[1px] bg-[#5e5e61]" />
 
                             <div
                               key={option.value}
@@ -394,14 +394,20 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                                   current: 1,
                                 }));
                               }}
-                              className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                              className={`py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer
+                                ${
+                                  selectedChain === option.value
+                                    ? "bg-[#5f5f64] !text-black" // ✅ light gray when selected
+                                    : "bg-[#3A3A3C] hover:bg-[#2C2C2E]"
+                                }`}
                             >
-                              <span className="text-[#C7C7CC] font-roboto font-normal text-[14px] leading-[100%] tracking-[0]  ">
+                              <span className="text-[#C7C7CC] font-roboto font-normal text-[14px] leading-[100%] tracking-[0]">
                                 {option.label}
                               </span>
                             </div>
+
                             {idx === chainOptions.length - 1 && (
-                              <div className="h-[1px] bg-[#5e5e61] " />
+                              <div className="h-[1px] bg-[#5e5e61]" />
                             )}
                           </>
                         ))}
@@ -415,7 +421,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                           Chain
                         </span>
                       </div>
-                      <div className=" ">
+                      <div>
                         <img src={kresusAssets.iconDownward} alt="" />
                       </div>
                     </div>
@@ -432,7 +438,12 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                             <div className="h-[1px] bg-[#5e5e61]" />
                             <div
                               key={option.value}
-                              className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                              className={`py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer 
+                                ${
+                                  dateSort === option.value
+                                    ? "bg-[#5f5f64]" // ✅ selected item color
+                                    : "bg-[#3A3A3C] hover:bg-[#2C2C2E]"
+                                }`}
                               onClick={
                                 option.value === "asc"
                                   ? () => {
@@ -492,9 +503,12 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                                   current: 1,
                                 }));
                               }}
-                              className={`bg-[#3A3A3C] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer hover:bg-[#2C2C2E] transition-all ${
-                                dateSort === option.value ? "bg-[#1C1C1E]" : ""
-                              }`}
+                              className={`py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer transition-all 
+                                  ${
+                                    dateSort === option.value
+                                      ? "bg-[#5f5f64]" // ✅ selected item color
+                                      : "bg-[#3A3A3C] hover:bg-[#2C2C2E]"
+                                  }`}
                             >
                               <span className="text-[#C7C7CC] font-roboto font-normal text-[14px] leading-[100%]">
                                 {option.label}
@@ -520,7 +534,6 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                   </Dropdown>
 
                   {/* Range Section */}
-
                   <Dropdown
                     trigger={["hover"]}
                     placement="bottom"
@@ -532,7 +545,12 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
                             <div
                               key={option.value}
                               onClick={() => setScoreRange(option.value)}
-                              className="bg-[#3A3A3C] hover:bg-[#2C2C2E] py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer"
+                              className={`py-[16px] px-[48px] border-b-2 border-gray-300 cursor-pointer 
+              ${
+                scoreRange === option.value
+                  ? "bg-[#5f5f64]" // ✅ selected item color
+                  : "bg-[#3A3A3C] hover:bg-[#2C2C2E]"
+              }`}
                             >
                               <span className="text-[#C7C7CC] font-roboto font-normal text-[14px]">
                                 {option.label}

@@ -339,18 +339,23 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
 
                 {/* Menu items */}
                 <div className="mt-2 flex flex-col gap-2">
-                  {chainOptions.map((opt, i) => (
+                  {chainOptions.map((opt) => (
                     <div key={opt?.value}>
                       <div
                         onClick={() => setSelectedChain(opt?.value)}
-                        className="flex items-center gap-3 px-[28px] py-[16px] cursor-pointer rounded-md hover:bg-[#1C1C1E] transition-all"
+                        className={`flex items-center gap-3 px-[28px] py-[16px] cursor-pointer rounded-md transition-all
+          ${
+            selectedChain === opt?.value
+              ? "bg-[#5f5f64]" // Light gray when selected
+              : "hover:bg-[#1C1C1E] text-[#C7C7CC] hover:text-white"
+          }`}
                       >
                         <img
                           src={kresusAssets?.chainIcon}
                           alt=""
                           className="w-6 h-6"
                         />
-                        <span className="text-[#C7C7CC] hover:text-white transition-all font-roboto font-normal text-[14px] leading-[100%] tracking-[0]">
+                        <span className="font-roboto font-normal text-[14px] leading-[100%] tracking-[0]">
                           {opt?.label}
                         </span>
                       </div>
@@ -548,10 +553,7 @@ const ActiveTokens: React.FC<ActiveTokensProps> = ({ activeTab }) => {
               Cancel
             </Button>
 
-            <Button
-              onClick={handleMoveConfirm}
-              className="custom-primary-btn"
-            >
+            <Button onClick={handleMoveConfirm} className="custom-primary-btn">
               Move to Spam
             </Button>
           </div>
