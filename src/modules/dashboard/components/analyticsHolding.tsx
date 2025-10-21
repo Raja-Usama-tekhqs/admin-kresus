@@ -462,7 +462,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                 copiedAddress === type ? "copied" : ""
               }`}
             >
-              <CopyOutlined className="copy-icon" />
+              <CopyOutlined className="copy-icon !border-none" />
             </button>
           </div>
         </Tooltip>
@@ -782,7 +782,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
               </div>
             ) : data && data?.users && data?.users?.length > 0 ? (
               <>
-                <div className="">
+                <div className=" ">
                   <Spin spinning={loading}>
                     <Table
                       columns={[
@@ -790,6 +790,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                           title: "Email",
                           dataIndex: "email",
                           key: "email",
+                          align:'left',
                           render: (email, record) => (
                             <div className="">
                               <Button
@@ -814,9 +815,9 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                                     prev ? { ...prev, users: newUsers } : null
                                   );
                                 }}
-                                className="!flex items-center justify-center hover:!bg-[#2C2C2E]"
+                                className=" hover:!bg-[#2C2C2E]"
                               >
-                                <span className="whitespace-nowrap font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] align-middle underline decoration-solid text-[#4898F3] underline-offset-[0px]">
+                                <span className="whitespace-nowrap font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] underline decoration-solid text-[#4898F3] underline-offset-[0px]">
                                   {email}
                                 </span>
                               </Button>

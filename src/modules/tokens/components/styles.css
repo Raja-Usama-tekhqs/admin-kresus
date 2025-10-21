@@ -584,7 +584,7 @@ border: 1px solid #1A26E7;
 
 /* Hover effect */
 .active-token-table .ant-pagination-item:hover {
-  background-color: #4b5563 !important; /* gray-600 on hover */
+  background-color: #63514b !important; /* gray-600 on hover */
   border-color: #4b5563 !important;
   color: white !important;
 }
