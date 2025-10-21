@@ -830,7 +830,7 @@ const SpamMechanism: React.FC<SpamMechanismProps> = ({ activeTab }) => {
             </Button>
 
             <Button
-              type="primary"
+              type=""
               size="large"
               onClick={handleMoveConfirm}
               className="custom-primary-btn"

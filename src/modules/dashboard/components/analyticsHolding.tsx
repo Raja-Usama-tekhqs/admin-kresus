@@ -666,107 +666,133 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
 
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 items-center justify-between mt-8 mb-5">
             {/* Section-1 */}
-            <div className="flex items-center gap-1">
-              {/* Dropdown (Filter Icon) */}
-              <Dropdown
-                trigger={["hover"]}
-                placement="bottomRight"
-                dropdownRender={() => (
-                  <div
-                    className="bg-black text-white  min-w-[325px] px-[24px] py-[32px] rounded-[16px] flex flex-col gap-2 border border-[#2C2C2E]
+            <div className="flex flex-col items-center justify-start">
+              <div className="flex items-center gap-1">
+                {/* Dropdown (Filter Icon) */}
+                <Dropdown
+                  trigger={["hover"]}
+                  placement="bottomRight"
+                  dropdownRender={() => (
+                    <div
+                      className="bg-black text-white  min-w-[325px] px-[24px] py-[32px] rounded-[16px] flex flex-col gap-2 border border-[#2C2C2E]
                    [box-shadow:-12px_12px_37px_0px_#4C377B1A,_-47px_47px_67px_0px_#4C377B17,_-106px_106px_90px_0px_#4C377B0D,_-188px_189px_107px_0px_#4C377B03,_-294px_295px_117px_0px_#4C377B00]"
-                  >
-                    {/* Dropdown Header */}
-                    <div className="flex items-center gap-2 px-2 pb-2 border-b border-[#2C2C2E]">
-                      <img
-                        src={kresusAssets?.tokenDropdownIcon}
-                        alt=""
-                        className="w-6 h-6 text-[#AEAEB2]"
-                      />
-                      <span className="font-roboto font-semibold leading-[100%] text-[#AEAEB2] text-[16px]">
-                        Filters
-                      </span>
-                    </div>
-
-                    {/* Dropdown Options */}
-                    <div className="mt-2 flex flex-col gap-2">
-                      <div className="flex flex-col gap-3">
-                        {/* Start Date */}
-                        <div className="flex flex-col gap-1">
-                          <DatePicker
-                            value={
-                              form.start_date ? dayjs(form.start_date) : null
-                            }
-                            onChange={(d) => handleDateChange("start_date", d)}
-                            format="YYYY-MM-DD"
-                            className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E]  custom-datepicker"
-                            suffixIcon={
-                              <img
-                                src={kresusAssets?.filterDateCalendar}
-                                alt=""
-                                className="w-5 h-5"
-                              />
-                            }
-                            placeholder="Select Start Date"
-                          />
-                        </div>
-
-                        {/* End Date */}
-                        <div className="flex flex-col gap-1">
-                          <DatePicker
-                            value={form.end_date ? dayjs(form.end_date) : null}
-                            onChange={(d) => handleDateChange("end_date", d)}
-                            format="YYYY-MM-DD"
-                            className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E] custom-datepicker"
-                            suffixIcon={
-                              <img
-                                src={kresusAssets?.filterDateCalendar}
-                                alt=""
-                                className="w-5 h-5"
-                              />
-                            }
-                            placeholder="Select End Date"
-                          />
-                        </div>
+                    >
+                      {/* Dropdown Header */}
+                      <div className="flex items-center gap-2 px-2 pb-2 border-b border-[#2C2C2E]">
+                        <img
+                          src={kresusAssets?.tokenDropdownIcon}
+                          alt=""
+                          className="w-6 h-6 text-[#AEAEB2]"
+                        />
+                        <span className="font-roboto font-semibold leading-[100%] text-[#AEAEB2] text-[16px]">
+                          Filters
+                        </span>
                       </div>
-                      {/* ))} */}
+
+                      {/* Dropdown Options */}
+                      <div className="mt-2 flex flex-col gap-2">
+                        <div className="flex flex-col gap-3">
+                          {/* Start Date */}
+                          <div className="flex flex-col gap-1">
+                            <DatePicker
+                              value={
+                                form.start_date ? dayjs(form.start_date) : null
+                              }
+                              onChange={(d) =>
+                                handleDateChange("start_date", d)
+                              }
+                              format="YYYY-MM-DD"
+                              className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E]  custom-datepicker"
+                              suffixIcon={
+                                <img
+                                  src={kresusAssets?.filterDateCalendar}
+                                  alt=""
+                                  className="w-5 h-5"
+                                />
+                              }
+                              placeholder="Select Start Date"
+                            />
+                          </div>
+
+                          {/* End Date */}
+                          <div className="flex flex-col gap-1">
+                            <DatePicker
+                              value={
+                                form.end_date ? dayjs(form.end_date) : null
+                              }
+                              onChange={(d) => handleDateChange("end_date", d)}
+                              format="YYYY-MM-DD"
+                              className="w-full !bg-[#1C1C1E] !text-[#C7C7CC] !border-none rounded-lg h-[48px] px-3 hover:!bg-[#2C2C2E] custom-datepicker"
+                              suffixIcon={
+                                <img
+                                  src={kresusAssets?.filterDateCalendar}
+                                  alt=""
+                                  className="w-5 h-5"
+                                />
+                              }
+                              placeholder="Select End Date"
+                            />
+                          </div>
+                        </div>
+                        {/* ))} */}
+                      </div>
                     </div>
+                  )}
+                >
+                  {/* Dropdown Trigger Button */}
+                  <div className="w-[40px] h-[40px] p-2 rounded-full bg-[#161616] flex items-center justify-center r-border cursor-pointer hover:bg-[#3A3A3C] transition-all">
+                    <img
+                      src={kresusAssets?.whiteFilter}
+                      alt=""
+                      width={24}
+                      height={24}
+                    />
                   </div>
-                )}
-              >
-                {/* Dropdown Trigger Button */}
-                <div className="w-[40px] h-[40px] p-2 rounded-full bg-[#161616] flex items-center justify-center r-border cursor-pointer hover:bg-[#3A3A3C] transition-all">
-                  <img
-                    src={kresusAssets?.whiteFilter}
-                    alt=""
-                    width={24}
-                    height={24}
+                </Dropdown>
+
+                {/* Search Input */}
+
+                <div className="w-auto sm:max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#161616] r-border">
+                  <Input
+                    placeholder="Search by email"
+                    suffix={
+                      <button
+                        onClick={() => handleEmailSearch(form.email)}
+                        className="cursor-pointer hover:opacity-80  !bg-transparent !border-none"
+                      >
+                        <img src={kresusAssets.searchIcon} alt="Search" />
+                      </button>
+                    }
+                    value={form.email}
+                    onChange={(e) => handleEmailInputChange(e.target.value)}
+                    onPressEnter={() => handleEmailSearch(form.email)}
+                    allowClear={{
+                      clearIcon: (
+                        <div className="text-white text-lg font-bold cursor-pointer hover:opacity-80">
+                          ×
+                        </div>
+                      ),
+                    }}
+                    variant="borderless"
+                    size="large"
+                    style={{
+                      height: "40px",
+                      backgroundColor: "transparent",
+                      color: "white",
+                      fontSize: "16px",
+                      fontFamily: "Roboto, sans-serif",
+                    }}
+                    classNames={{
+                      input: "text-white placeholder:text-[#7D7D7D]",
+                    }}
                   />
                 </div>
-              </Dropdown>
-
-              {/* Search Input */}
-              <div className=" w-auto sm:max-w-md px-[24px] py-[6px] rounded-[24px] bg-[#161616] r-border  ">
-                <Input
-                  placeholder="Search by email"
-                  suffix={<img src={kresusAssets.searchIcon} className="" />}
-                  value={form.email}
-                  onChange={(e) => handleEmailInputChange(e.target.value)}
-                  allowClear
-                  variant="borderless"
-                  size="large"
-                  style={{
-                    height: "40px",
-                    backgroundColor: "transparent",
-                    color: "white",
-                    fontSize: "16px",
-                    fontFamily: "Roboto, sans-serif",
-                  }}
-                  classNames={{
-                    input: "text-white placeholder:text-[#7D7D7D]",
-                  }}
-                />
               </div>
+              {emailError && (
+                <div className="text-red-500 text-sm mt-2 ml-2 font-medium">
+                  {emailError}
+                </div>
+              )}
             </div>
             {/* Section-2 */}
             <ExportHolding
@@ -790,9 +816,9 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                           title: "Email",
                           dataIndex: "email",
                           key: "email",
-                          align:'left',
+                          align: "left",
                           render: (email, record) => (
-                            <div className="">
+                            <div className="flex items-center gap-1">
                               <Button
                                 type="text"
                                 icon={
@@ -816,11 +842,10 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                                   );
                                 }}
                                 className=" hover:!bg-[#2C2C2E]"
-                              >
-                                <span className="whitespace-nowrap font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] underline decoration-solid text-[#4898F3] underline-offset-[0px]">
-                                  {email}
-                                </span>
-                              </Button>
+                              />
+                              <span className="whitespace-nowrap font-roboto font-normal text-[14px] leading-[100%] tracking-[0%] underline decoration-solid text-[#4898F3] underline-offset-[0px]">
+                                {email}
+                              </span>
                             </div>
                           ),
                         },

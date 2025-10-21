@@ -1072,6 +1072,8 @@ border: 1px solid #1A26E7;
   color: #C7C7CC !important;
 }
 
+
+
 .ant-table-tbody > tr:hover > td {
   background-color: #393939 !important;
   transition: background-color 0.2s ease;
@@ -1188,6 +1190,28 @@ border: 1px solid #1A26E7;
 /* Apply left border ONLY to the merged total cell */
 .expanded-tokens-table .total-usd-cell {
   border-left: 1px solid #3B3B3B !important;
+}
+@media (max-width: 768px) {
+  /* Only show page numbers */
+  .active-token-table .ant-pagination {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  /* Hide total text and page size selector */
+  .active-token-table .ant-pagination-total-text,
+  .active-token-table .ant-pagination-options {
+    display: none !important;
+  }
+
+  /* Keep pagination buttons in one line */
+  .active-token-table .ant-pagination-prev,
+  .active-token-table .ant-pagination-item,
+  .active-token-table .ant-pagination-next {
+    flex-shrink: 0;
+  }
 }
 
 
@@ -1513,6 +1537,7 @@ border: 1px solid #1A26E7;
 .token-modal-table .ant-table-tbody > tr:first-child > td {
   border-top: none !important;
 }
+
 
 .ant-modal-close .ant-modal-close-x {
   color: #8E8E93 !important;

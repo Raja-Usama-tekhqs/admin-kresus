@@ -41,13 +41,13 @@ const Index: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col ">
       {/* Header */}
       <MenuAntD />
 
       {/* Main Content */}
 
-      <div className="flex flex-col px-[10px] sm:px-[20px] md:px-[40px] lg:px-[120px]">
+      <div className="flex-1 flex flex-col px-[10px] sm:px-[20px] md:px-[40px] lg:px-[120px]">
         {/* Title Row */}
         <div className="my-14">
           <h1 className="font-roboto font-medium text-[20px] sm:text-[32px] leading-[100%] tracking-[0] align-middle text-[#FFFFFF]">
@@ -76,9 +76,8 @@ const Index: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <div className="mt-auto">
-        <FooterAntD />
-      </div>
+
+      <FooterAntD />
     </div>
   );
 };

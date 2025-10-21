@@ -6,6 +6,7 @@ import AuthRoute from "routes/AuthRoute";
 import { RouteConfig } from "type/types";
 import "./App.less";
 import "./i18n";
+import FooterAntD from "layout/footer";
 function App() {
   return (
     <div className="relative min-h-screen bg-[#000000] overflow-hidden">
@@ -181,6 +182,7 @@ function App() {
                     path={item?.path}
                     element={<AuthRoute>{item?.page}</AuthRoute>}
                   />
+                 
                 ))}
               </Routes>
             </BrowserRouter>

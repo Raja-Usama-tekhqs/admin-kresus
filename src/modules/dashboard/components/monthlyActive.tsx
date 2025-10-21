@@ -168,7 +168,7 @@ const MonthlyActive = () => {
             `${vaultURL}analytics/transaction`,
             commonParams
           ),
-          getRequest<EarnResponse>(`${vaultURL}analytics/earn`, commonParams),
+          getRequest<EarnResponse>(`${vaultURL}analytics/earn`, dateOnlyParams),
           getRequest<ActiveUserResponse>(
             `${vaultURL}analytics/monthly-active`,
             dateOnlyParams
@@ -516,89 +516,95 @@ const MonthlyActive = () => {
 
   const renderActiveUserCard = () => (
     <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8 bg-[#161616] p-2 sm:p-4 md:p-[24px] rounded-[24px] border-dashboard-top">
-<Card style={{ background: "transparent", border: "none" }}>
-  {loading || !activeUserStats ? (
-    <Skeleton active paragraph={{ rows: 4 }} />
-  ) : (
-    <div className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 p-2 sm:p-4 text-white">
-      {[
-        {
-          label: "Monthly Active",
-          icon: kresusAssets.calendar,
-          value: activeUserStats.monthlyActiveUsers,
-        },
-        {
-          label: "Weekly Active",
-          icon: kresusAssets.weeklyActiveCalendar,
-          value: activeUserStats.weeklyActiveUsers,
-        },
-        {
-          label: "Daily Active",
-          icon: kresusAssets.dailyActiveIcon,
-          value: activeUserStats.dailyActiveUsers,
-        },
-        {
-          label: "Filtered Users",
-          icon: kresusAssets.filteredUserIcon,
-          value: activeUserStats.filteredActiveUsers,
-        },
-      ].map((metric, index) =>
-        index === 0 ? (
-          // Monthly Active (wider card)
-          <div
-            key={metric?.label}
-            className="bg-[linear-gradient(314.39deg,#0734A9_0%,#0E1696_53.42%,#4B0792_98.92%)]
-                       rounded-[12px] sm:rounded-[16px]
-                       p-4 sm:p-6 md:px-8 md:py-6 lg:px-[64px] lg:py-[32px]
-                       flex-1  flex items-center "
-          >
-            <div className="flex justify-center items-center gap-3 sm:gap-4 md:gap-4 flex-col sm:flex-row">
-              <div className="w-6 h-6 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px]">
-                <img
-                  src={metric.icon}
-                  className="w-full h-full"
-                  alt={metric.label}
-                />
-              </div>
-              <div className="flex flex-col gap-2 sm:gap-3 md:gap-3 items-center ">
-                <div>
-                  <span className="font-roboto font-semibold text-[16px] sm:text-3xl md:text-4xl lg:text-[56px] leading-[100%] tracking-[0%] ">
-                    {metric?.value?.toLocaleString()}
-                  </span>
-                </div>
-                <div>
-                  <span className="font-roboto font-normal text-[12px] sm:text-base md:text-lg lg:text-[20px] leading-[100%] tracking-[0%] text-[#AEAEB2]">
-                    {metric?.label}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <Card style={{ background: "transparent", border: "none" }}>
+        {loading || !activeUserStats ? (
+          <Skeleton active paragraph={{ rows: 4 }} />
         ) : (
-          // Remaining cards
-          <div
-            key={metric?.label}
-            className="bg-[#000000] rounded-[12px] sm:rounded-[16px]
-                       p-4 sm:p-6 md:px-4 lg:px-[16px] py-4 sm:py-6 md:py-[32px]
-                       flex flex-col items-center gap-2 sm:gap-3
-                       flex-1"
-          >
-            <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transform transition-transform duration-300 hover:scale-110 text-white flex justify-center items-center">
-              <img src={metric.icon} alt={metric.label} className="w-full h-full" />
-            </div>
-            <div className="font-roboto font-bold text-[16px] sm:text-2xl md:text-3xl lg:text-[32px] leading-[100%] tracking-[0%] text-center text-[#FFFFFF]">
-              {metric?.value?.toLocaleString()}
-            </div>
-            <div className="font-roboto font-normal text-[12px] sm:text-sm md:text-base lg:text-[16px] leading-[100%] tracking-[0%] text-center text-[#8E8E93]">
-              {metric?.label}
-            </div>
+          <div className="flex flex-wrap gap-3 sm:gap-4 md:gap-6 p-2 sm:p-4 text-white">
+            {[
+              {
+                label: "Monthly Active",
+                icon: kresusAssets.calendar,
+                value: activeUserStats.monthlyActiveUsers,
+              },
+              {
+                label: "Weekly Active",
+                icon: kresusAssets.weeklyActiveCalendar,
+                value: activeUserStats.weeklyActiveUsers,
+              },
+              {
+                label: "Daily Active",
+                icon: kresusAssets.dailyActiveIcon,
+                value: activeUserStats.dailyActiveUsers,
+              },
+              {
+                label: "Filtered Users",
+                icon: kresusAssets.filteredUserIcon,
+                value: activeUserStats.filteredActiveUsers,
+              },
+            ].map((metric, index) =>
+              index === 0 ? (
+                // Monthly Active (wider card)
+                <div
+                  key={metric?.label}
+                  className="bg-[linear-gradient(314.39deg,#0734A9_0%,#0E1696_53.42%,#4B0792_98.92%)]
+             rounded-[12px] sm:rounded-[16px]
+             p-4 sm:p-6 md:px-8 md:py-6 lg:px-[64px] lg:py-[32px]
+             flex-1 flex items-center
+             w-1/2 lg:w-auto" // ✅ added this
+                >
+                  {" "}
+                  <div className="flex justify-center items-center gap-3 sm:gap-4 md:gap-4 flex-col sm:flex-row">
+                    <div className="w-6 h-6 sm:w-16 sm:h-16 md:w-[72px] md:h-[72px]">
+                      <img
+                        src={metric.icon}
+                        className="w-full h-full"
+                        alt={metric.label}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2 sm:gap-3 md:gap-3 items-center">
+                      <div>
+                        <span className="font-roboto font-semibold text-[16px] sm:text-3xl md:text-4xl lg:text-[56px] leading-[100%] tracking-[0%] ">
+                          {metric?.value?.toLocaleString()}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-roboto font-normal text-[12px] sm:text-base md:text-lg lg:text-[20px] leading-[100%] tracking-[0%] text-[#AEAEB2]">
+                          {metric?.label}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // Remaining cards
+                <div
+                  key={metric?.label}
+                  className="bg-[#000000] rounded-[12px] sm:rounded-[16px]
+             p-4 sm:p-6 md:px-4 lg:px-[16px] py-4 sm:py-6 md:py-[32px]
+             flex flex-col items-center gap-2 sm:gap-3
+             flex-1
+             w-1/2 lg:w-auto" // ✅ added this
+                >
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transform transition-transform duration-300 hover:scale-110 text-white flex justify-center items-center">
+                    <img
+                      src={metric.icon}
+                      alt={metric.label}
+                      className="w-full h-full"
+                    />
+                  </div>
+                  <div className="font-roboto font-bold text-[16px] sm:text-2xl md:text-3xl lg:text-[32px] leading-[100%] tracking-[0%] text-center text-[#FFFFFF]">
+                    {metric?.value?.toLocaleString()}
+                  </div>
+                  <div className="font-roboto font-normal text-[12px] sm:text-sm md:text-base lg:text-[16px] leading-[100%] tracking-[0%] text-center text-[#8E8E93]">
+                    {metric?.label}
+                  </div>
+                </div>
+              )
+            )}
           </div>
-        )
-      )}
-    </div>
-  )}
-</Card>
-
+        )}
+      </Card>
     </div>
   );
 
