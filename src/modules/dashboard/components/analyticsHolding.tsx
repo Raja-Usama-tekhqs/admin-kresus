@@ -736,7 +736,12 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
               >
                 {/* Dropdown Trigger Button */}
                 <div className="w-[40px] h-[40px] p-2 rounded-full bg-[#161616] flex items-center justify-center r-border cursor-pointer hover:bg-[#3A3A3C] transition-all">
-                  <img src={kresusAssets?.whiteFilter} alt="" width={24} height={24} />
+                  <img
+                    src={kresusAssets?.whiteFilter}
+                    alt=""
+                    width={24}
+                    height={24}
+                  />
                 </div>
               </Dropdown>
 
@@ -878,12 +883,18 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                         onShowSizeChange: handlePageChange,
                         showTotal: (total, range) =>
                           `${range[0]}-${range[1]} of ${total} items`,
+                        showLessItems: true, // 👈 ensures "1, 2, 3, 4, 5 ... 20" style
                       }}
-                      className="active-token-table bg-bla"
+                      className="active-token-table"
+                      style={{
+                        backgroundColor: "#000000",
+                        borderRadius: "10px",
+                        overflow: "hidden",
+                      }}
                       scroll={{ x: "max-content" }}
                       rowClassName={(record) =>
                         record.expanded
-                          ? "!bg-gradient-to-r from-[#2D2D2D]  to-[#2D2D2D] "
+                          ? "!bg-gradient-to-r from-[#2D2D2D] to-[#2D2D2D]"
                           : ""
                       }
                       expandable={{
@@ -1024,31 +1035,7 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                           ];
 
                           return (
-                            <div className="bg-[#393939]  p-4 rounded-b-2xl ">
-                              {/* <div className="mb-4">
-                                <h3 className="text-white font-roboto font-semibold text-[16px] mb-2">
-                                  Token Details for {record.email}
-                                </h3>
-                                <div className="flex gap-4 text-sm text-gray-300">
-                                  <div>
-                                    <span className="font-medium">
-                                      Base Address:{" "}
-                                    </span>
-                                    <span className="text-blue-400">
-                                      {formatAddress(record.address)}
-                                    </span>
-                                  </div>
-                                  <div>
-                                    <span className="font-medium">
-                                      Solana Address:{" "}
-                                    </span>
-                                    <span className="text-blue-400">
-                                      {formatAddress(record.solana_address)}
-                                    </span>
-                                  </div>
-                                </div>
-                              </div> */}
-
+                            <div className="bg-[#393939] p-4 rounded-b-2xl">
                               <Table
                                 columns={expandedColumns}
                                 dataSource={sortedTokens.map(
@@ -1079,22 +1066,22 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                                 }}
                                 pagination={false}
                                 size="small"
-                                className="expanded-tokens-table  "
+                                className="expanded-tokens-table"
                                 scroll={{ x: "max-content" }}
                                 locale={{
                                   emptyText: (
-                                    <div className="expanded-empty-container ">
-                                      <table className="w-full border-none ">
+                                    <div className="expanded-empty-container">
+                                      <table className="w-full border-none">
                                         <tbody>
                                           <tr>
                                             {expandedColumns.map(
                                               (column, index) => (
                                                 <td
                                                   key={column.key || index}
-                                                  className={`text-[#BA2130] font-inter font-normal text-[14px]  ${
+                                                  className={`text-[#BA2130] font-inter font-normal text-[14px] ${
                                                     index ===
                                                     expandedColumns.length - 1
-                                                      ? "border-l border-[#f1ecec]" // Use your existing border color
+                                                      ? "border-l border-[#f1ecec]"
                                                       : "border-none !border-0"
                                                   }`}
                                                   style={{
@@ -1147,9 +1134,9 @@ const AnalyticsHolding: React.FC = ({ activeTab }) => {
                               </Table.Summary.Cell>
                               <Table.Summary.Cell
                                 index={1}
-                                className="text-center"
+                                className="text-left"
                               >
-                                <span className="font-roboto font-bold text-[16px] leading-[100%] tracking-[0] align-middle bg-[linear-gradient(135deg,#7D0BF4_0%,#0D4BEF_100%)] bg-clip-text text-transparent">
+                                <span className="font-roboto font-bold text-[16px] leading-[100%] tracking-[0] align-mddle  text-white">
                                   {`$${data.users
                                     .reduce(
                                       (sum, user) =>

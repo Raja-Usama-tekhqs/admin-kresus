@@ -1577,3 +1577,48 @@ border-bottom: 3px solid #2C2C2E;
 .r-border{
   border: 1px solid #2C2C2E;
 }
+
+/* Add these styles to your existing CSS */
+.active-token-table .ant-table-container {
+  background-color: #000000 !important;
+  overflow: hidden !important;
+}
+
+.active-token-table .ant-table-content {
+  background-color: #000000 !important;
+  border-radius: 0px !important;
+}
+
+.active-token-table .ant-table-thead > tr:first-child > th:first-child {
+  border-top-left-radius: 0px !important;
+}
+
+.active-token-table .ant-table-thead > tr:first-child > th:last-child {
+  border-top-right-radius: 0px !important;
+}
+
+
+
+/* If there's no data, ensure the empty state has rounded corners */
+.active-token-table .ant-table-placeholder {
+  background-color: #000000 !important;
+
+}
+
+/* Ensure summary row has rounded bottom corners */
+.active-token-table .ant-table-summary {
+  overflow: hidden !important;
+}
+
+/* Set default background for all table elements */
+.active-token-table .ant-table,
+.active-token-table .ant-table-thead > tr > th,
+.active-token-table .ant-table-tbody > tr > td {
+  background-color: #000000 !important;
+}
+/* Make the ellipsis (dots) white */
+.active-token-table .ant-pagination-item-ellipsis {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
